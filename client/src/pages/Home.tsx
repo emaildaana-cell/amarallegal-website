@@ -122,18 +122,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Image / Quote */}
-      <section className="relative py-24 bg-fixed bg-cover bg-center" style={{ backgroundImage: "url('/images/scales-justice.jpg')" }}>
-        <div className="absolute inset-0 bg-primary/80 mix-blend-multiply" />
-        <div className="container relative z-10 text-center">
-          <blockquote className="font-serif text-3xl md:text-4xl font-bold text-white italic leading-relaxed max-w-4xl mx-auto">
-            "Justice is not just a concept; it is a practice. We dedicate ourselves daily to the pursuit of fairness and the protection of our clients' rights."
-          </blockquote>
-          <div className="mt-8 text-white/80 font-medium tracking-widest uppercase">
-            — James Sterling, Senior Partner
-          </div>
-        </div>
-      </section>
+
 
       {/* Latest Insights */}
       <section className="py-20 bg-muted/30">
