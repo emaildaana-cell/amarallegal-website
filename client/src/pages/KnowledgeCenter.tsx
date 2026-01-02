@@ -1,211 +1,176 @@
-import { useState } from "react";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, Download, Search, BookOpen, ChevronRight } from "lucide-react";
-
-const guides = [
-  {
-    id: 1,
-    title: "Corporate Liability in the Digital Age",
-    category: "Corporate Law",
-    description: "A comprehensive guide to understanding new liability risks for digital-first companies.",
-    date: "Oct 12, 2025",
-    readTime: "15 min read"
-  },
-  {
-    id: 2,
-    title: "Estate Planning for Business Owners",
-    category: "Estate Planning",
-    description: "Strategies to protect your business assets and ensure a smooth succession.",
-    date: "Sep 28, 2025",
-    readTime: "10 min read"
-  },
-  {
-    id: 3,
-    title: "Intellectual Property: Patent vs. Trade Secret",
-    category: "Intellectual Property",
-    description: "Deciding which protection mechanism is right for your innovation.",
-    date: "Sep 15, 2025",
-    readTime: "12 min read"
-  },
-  {
-    id: 4,
-    title: "Navigating Commercial Lease Disputes",
-    category: "Real Estate",
-    description: "Key steps to take when facing a dispute with your commercial landlord or tenant.",
-    date: "Aug 30, 2025",
-    readTime: "8 min read"
-  },
-  {
-    id: 5,
-    title: "The 2026 Tax Reform: What You Need to Know",
-    category: "Tax Law",
-    description: "An early look at proposed changes to the tax code and how to prepare.",
-    date: "Aug 10, 2025",
-    readTime: "20 min read"
-  },
-  {
-    id: 6,
-    title: "Family Law: Prenuptial Agreements Explained",
-    category: "Family Law",
-    description: "Dispelling common myths about prenups and understanding their benefits.",
-    date: "Jul 22, 2025",
-    readTime: "7 min read"
-  }
-];
-
-const resources = [
-  {
-    title: "2025 Corporate Compliance Checklist",
-    type: "PDF Guide",
-    size: "2.4 MB"
-  },
-  {
-    title: "Estate Planning Questionnaire",
-    type: "PDF Form",
-    size: "1.1 MB"
-  },
-  {
-    title: "Intellectual Property Audit Template",
-    type: "Excel Template",
-    size: "0.8 MB"
-  },
-  {
-    title: "Commercial Lease Terminology Glossary",
-    type: "PDF Reference",
-    size: "1.5 MB"
-  }
-];
+import { Link } from "wouter";
+import { BookOpen, FileText, Video, ArrowRight } from "lucide-react";
 
 export default function KnowledgeCenter() {
-  const [searchTerm, setSearchTerm] = useState("");
+  const { t } = useLanguage();
 
-  const filteredGuides = guides.filter(guide => 
-    guide.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    guide.category.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const articles = [
+    {
+      title: "Understanding the Notice to Appear (NTA)",
+      category: "Removal Defense",
+      date: "October 15, 2023",
+      excerpt: "The Notice to Appear is the document that initiates removal proceedings. Learn what it means and what to check for errors.",
+      type: "article"
+    },
+    {
+      title: "How to Prepare for a Bond Hearing",
+      category: "Bond Hearings",
+      date: "September 28, 2023",
+      excerpt: "A guide for sponsors and family members on gathering the necessary evidence to prove flight risk and danger to the community are not issues.",
+      type: "guide"
+    },
+    {
+      title: "Asylum Eligibility Requirements Explained",
+      category: "Asylum",
+      date: "August 10, 2023",
+      excerpt: "To qualify for asylum, you must meet the definition of a refugee. We break down the five protected grounds.",
+      type: "article"
+    },
+    {
+      title: "Cancellation of Removal for Non-Permanent Residents",
+      category: "Relief from Removal",
+      date: "July 22, 2023",
+      excerpt: "Often called the '10-year law', this form of relief is difficult to win but provides a path to a Green Card.",
+      type: "article"
+    },
+    {
+      title: "What to Do If ICE Comes to Your Door",
+      category: "Know Your Rights",
+      date: "June 05, 2023",
+      excerpt: "Essential information on your rights during an encounter with Immigration and Customs Enforcement.",
+      type: "guide"
+    },
+    {
+      title: "Recent Changes to Immigration Court Procedures",
+      category: "Legal Updates",
+      date: "May 18, 2023",
+      excerpt: "An overview of the latest policy memorandums and how they affect active removal cases.",
+      type: "news"
+    }
+  ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <div className="bg-secondary text-secondary-foreground py-16 md:py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/images/hero-library.jpg')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
+      <section className="relative py-20 bg-primary text-primary-foreground overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/images/pattern.svg')] opacity-10"></div>
         <div className="container relative z-10">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">Knowledge Center</h1>
-          <p className="text-lg md:text-xl text-secondary-foreground/80 max-w-2xl font-light">
-            Expert legal insights, in-depth guides, and practical resources to help you navigate complex legal landscapes.
-          </p>
+          <div className="max-w-3xl mx-auto text-center space-y-6">
+            <h1 className="text-4xl md:text-5xl font-serif font-bold tracking-tight">
+              {t("nav.knowledge_center")}
+            </h1>
+            <p className="text-xl text-primary-foreground/80 leading-relaxed">
+              Legal insights, guides, and news to help you understand the immigration system.
+            </p>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div className="container py-12">
-        <Tabs defaultValue="guides" className="space-y-8">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <TabsList className="bg-muted/50 p-1">
-              <TabsTrigger value="guides" className="font-serif">Legal Guides</TabsTrigger>
-              <TabsTrigger value="resources" className="font-serif">Downloadable Resources</TabsTrigger>
-            </TabsList>
-            
-            <div className="relative w-full md:w-72">
-              <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-              <Input 
-                placeholder="Search topics..." 
-                className="pl-9 bg-background"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+      {/* Featured Article */}
+      <section className="py-16 bg-background">
+        <div className="container">
+          <div className="bg-muted/30 rounded-lg overflow-hidden border border-border/50 flex flex-col md:flex-row">
+            <div className="md:w-1/2 relative min-h-[300px]">
+              <img 
+                src="/images/court-gavel.jpg" 
+                alt="Immigration Court" 
+                className="absolute inset-0 w-full h-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.src = "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=1000";
+                }}
               />
             </div>
-          </div>
-
-          <TabsContent value="guides" className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredGuides.map((guide) => (
-                <Card key={guide.id} className="law-card group cursor-pointer hover:border-primary/50 transition-colors">
-                  <CardHeader>
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-xs font-bold text-primary uppercase tracking-wider bg-primary/10 px-2 py-1 rounded-sm">
-                        {guide.category}
-                      </span>
-                      <span className="text-xs text-muted-foreground">{guide.readTime}</span>
-                    </div>
-                    <CardTitle className="font-serif text-xl group-hover:text-primary transition-colors">
-                      {guide.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      {guide.description}
-                    </p>
-                  </CardContent>
-                  <CardFooter className="border-t border-border/50 pt-4 mt-auto">
-                    <div className="flex justify-between items-center w-full">
-                      <span className="text-xs text-muted-foreground">{guide.date}</span>
-                      <span className="text-sm font-bold text-primary flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                        Read Article <ChevronRight className="h-4 w-4" />
-                      </span>
-                    </div>
-                  </CardFooter>
-                </Card>
-              ))}
-            </div>
-            {filteredGuides.length === 0 && (
-              <div className="text-center py-12">
-                <p className="text-muted-foreground">No guides found matching your search.</p>
+            <div className="md:w-1/2 p-8 md:p-12 flex flex-col justify-center space-y-6">
+              <div className="flex items-center gap-2 text-sm font-bold text-secondary uppercase tracking-wide">
+                <span className="bg-secondary/10 px-2 py-1 rounded">Featured Guide</span>
+                <span>•</span>
+                <span>Nov 12, 2023</span>
               </div>
-            )}
-          </TabsContent>
-
-          <TabsContent value="resources">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {resources.map((resource, index) => (
-                <Card key={index} className="law-card flex flex-row items-center p-6 gap-6 hover:bg-muted/10 transition-colors">
-                  <div className="bg-primary/10 p-4 rounded-sm shrink-0">
-                    <FileText className="h-8 w-8 text-primary" />
-                  </div>
-                  <div className="flex-grow">
-                    <h3 className="font-serif text-lg font-bold mb-1">{resource.title}</h3>
-                    <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                      <span>{resource.type}</span>
-                      <span className="h-1 w-1 rounded-full bg-muted-foreground/50"></span>
-                      <span>{resource.size}</span>
-                    </div>
-                  </div>
-                  <Button variant="outline" size="icon" className="shrink-0 hover:bg-primary hover:text-primary-foreground transition-colors">
-                    <Download className="h-5 w-5" />
-                  </Button>
-                </Card>
-              ))}
+              <h2 className="text-3xl font-serif font-bold text-primary">
+                Navigating the Immigration Court System: A Step-by-Step Guide
+              </h2>
+              <p className="text-muted-foreground text-lg">
+                From the Master Calendar Hearing to the Individual Hearing, understanding the process is the first step in your defense. This comprehensive guide walks you through what to expect at each stage.
+              </p>
+              <Button className="self-start">Read Full Guide</Button>
             </div>
-          </TabsContent>
-        </Tabs>
-
-        {/* Newsletter CTA */}
-        <div className="mt-20 bg-primary text-primary-foreground rounded-sm p-8 md:p-12 relative overflow-hidden">
-          <div className="absolute top-0 right-0 -mt-10 -mr-10 opacity-10">
-            <BookOpen className="h-64 w-64" />
-          </div>
-          <div className="relative z-10 max-w-2xl">
-            <h2 className="font-serif text-3xl font-bold mb-4">Stay Informed</h2>
-            <p className="text-primary-foreground/80 mb-8 text-lg">
-              Subscribe to our monthly newsletter for the latest legal insights, firm news, and regulatory updates delivered directly to your inbox.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Input 
-                placeholder="Enter your email address" 
-                className="bg-primary-foreground text-primary placeholder:text-primary/50 border-none h-12"
-              />
-              <Button size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-serif h-12 px-8">
-                Subscribe
-              </Button>
-            </div>
-            <p className="text-xs text-primary-foreground/60 mt-4">
-              By subscribing, you agree to our Privacy Policy. You can unsubscribe at any time.
-            </p>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Articles Grid */}
+      <section className="py-16 bg-background">
+        <div className="container">
+          <div className="flex justify-between items-center mb-12">
+            <h2 className="text-3xl font-serif font-bold text-primary">Latest Articles</h2>
+            <div className="hidden md:flex gap-2">
+              <Button variant="outline" size="sm" className="active:bg-primary active:text-primary-foreground">All</Button>
+              <Button variant="ghost" size="sm">Removal Defense</Button>
+              <Button variant="ghost" size="sm">Asylum</Button>
+              <Button variant="ghost" size="sm">Family</Button>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {articles.map((article, i) => (
+              <div key={i} className="group flex flex-col h-full border border-border/50 rounded-lg overflow-hidden hover:shadow-md transition-all">
+                <div className="h-48 bg-muted relative overflow-hidden">
+                  <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors"></div>
+                  <div className="absolute top-4 left-4 bg-background/90 backdrop-blur-sm px-3 py-1 rounded text-xs font-bold uppercase tracking-wide text-primary">
+                    {article.category}
+                  </div>
+                </div>
+                <div className="flex-1 p-6 flex flex-col">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
+                    {article.type === 'video' ? <Video className="h-3 w-3" /> : <FileText className="h-3 w-3" />}
+                    <span>{article.date}</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                    {article.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm mb-6 flex-1">
+                    {article.excerpt}
+                  </p>
+                  <Button variant="link" className="self-start p-0 h-auto font-bold text-primary group-hover:text-secondary transition-colors">
+                    Read More <ArrowRight className="ml-1 h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Signup */}
+      <section className="py-20 bg-muted/30">
+        <div className="container">
+          <div className="bg-primary text-primary-foreground rounded-2xl p-8 md:p-16 text-center max-w-4xl mx-auto relative overflow-hidden">
+            <div className="absolute inset-0 bg-[url('/images/pattern.svg')] opacity-10"></div>
+            <div className="relative z-10 space-y-6">
+              <BookOpen className="h-12 w-12 mx-auto text-secondary" />
+              <h2 className="text-3xl md:text-4xl font-serif font-bold">
+                Stay Informed
+              </h2>
+              <p className="text-xl text-primary-foreground/80 max-w-2xl mx-auto">
+                Subscribe to our newsletter to receive the latest immigration news, legal updates, and firm announcements directly to your inbox.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto pt-4">
+                <input 
+                  type="email" 
+                  placeholder="Email address" 
+                  className="flex-1 bg-white/10 border border-white/20 rounded px-4 py-3 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-secondary"
+                />
+                <Button variant="secondary" className="font-bold">Subscribe</Button>
+              </div>
+              <p className="text-xs text-primary-foreground/50 mt-4">
+                We respect your privacy. Unsubscribe at any time.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
