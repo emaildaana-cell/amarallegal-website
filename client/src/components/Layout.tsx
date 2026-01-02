@@ -52,9 +52,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <Link href="/">
             <a className="flex items-center gap-3 group">
               <img 
-                src="/images/logo.png" 
+                src="/images/logo.svg" 
                 alt="Amaral Law" 
-                className="h-12 w-auto object-contain filter invert brightness-0 md:brightness-200 transition-all duration-300" 
+                className="h-12 w-auto object-contain transition-all duration-300" 
               />
             </a>
           </Link>
@@ -89,9 +89,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <div className="flex flex-col gap-8 mt-8">
                 <div className="flex items-center gap-3 mb-4">
                   <img 
-                    src="/images/logo.png" 
+                    src="/images/logo.svg" 
                     alt="Amaral Law" 
-                    className="h-10 w-auto object-contain" 
+                    className="h-10 w-auto object-contain filter invert brightness-0" 
                   />
                 </div>
                 <nav className="flex flex-col gap-4">
@@ -130,9 +130,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div className="space-y-4">
               <div className="flex items-center gap-2">
                 <img 
-                  src="/images/logo.png" 
+                  src="/images/logo.svg" 
                   alt="Amaral Law" 
-                  className="h-8 w-auto object-contain filter invert brightness-0 md:brightness-200" 
+                  className="h-8 w-auto object-contain" 
                 />
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">
