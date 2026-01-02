@@ -19,11 +19,11 @@ export default function Home() {
         
         <div className="container relative z-10 text-center md:text-left">
           <div className="max-w-3xl space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-1000">
-            <div className="inline-block bg-white/10 backdrop-blur-sm border border-white/20 px-4 py-1 rounded-full text-white/90 text-sm font-medium tracking-wider uppercase mb-2">
+            <div className="inline-block bg-secondary/20 backdrop-blur-sm border border-secondary/40 px-4 py-1 rounded-full text-secondary text-sm font-medium tracking-wider uppercase mb-2">
               Established 1985
             </div>
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-white leading-tight">
-              Unwavering Commitment to <span className="text-secondary-foreground italic">Justice</span>
+              Unwavering Commitment to <span className="text-secondary italic">Justice</span>
             </h1>
             <p className="text-xl text-white/90 max-w-2xl font-light leading-relaxed">
               Amaral Law provides authoritative legal representation for complex corporate, intellectual property, and estate matters. We fight for your future.
@@ -68,19 +68,19 @@ export default function Home() {
             
             <div className="grid grid-cols-2 gap-6">
               <div className="bg-muted/30 p-8 text-center rounded-sm border border-border">
-                <div className="text-4xl font-serif font-bold text-primary mb-2">40+</div>
+                <div className="text-4xl font-serif font-bold text-secondary mb-2">40+</div>
                 <div className="text-sm text-muted-foreground uppercase tracking-wider">Years Experience</div>
               </div>
               <div className="bg-muted/30 p-8 text-center rounded-sm border border-border">
-                <div className="text-4xl font-serif font-bold text-primary mb-2">500+</div>
+                <div className="text-4xl font-serif font-bold text-secondary mb-2">500+</div>
                 <div className="text-sm text-muted-foreground uppercase tracking-wider">Cases Won</div>
               </div>
               <div className="bg-muted/30 p-8 text-center rounded-sm border border-border">
-                <div className="text-4xl font-serif font-bold text-primary mb-2">$50M+</div>
+                <div className="text-4xl font-serif font-bold text-secondary mb-2">$50M+</div>
                 <div className="text-sm text-muted-foreground uppercase tracking-wider">Recovered</div>
               </div>
               <div className="bg-muted/30 p-8 text-center rounded-sm border border-border">
-                <div className="text-4xl font-serif font-bold text-primary mb-2">24/7</div>
+                <div className="text-4xl font-serif font-bold text-secondary mb-2">24/7</div>
                 <div className="text-sm text-muted-foreground uppercase tracking-wider">Client Support</div>
               </div>
             </div>
@@ -89,11 +89,11 @@ export default function Home() {
       </section>
 
       {/* Practice Areas */}
-      <section className="py-20 bg-secondary text-secondary-foreground">
+      <section className="py-20 bg-primary text-primary-foreground">
         <div className="container">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl font-serif font-bold mb-4 text-primary-foreground">Our Practice Areas</h2>
-            <p className="text-secondary-foreground/70 text-lg">
+            <h2 className="text-4xl font-serif font-bold mb-4 text-secondary">Our Practice Areas</h2>
+            <p className="text-primary-foreground/80 text-lg">
               We offer comprehensive legal services across a wide range of disciplines, ensuring that whatever your legal need, we have the expertise to handle it.
             </p>
           </div>
@@ -107,15 +107,15 @@ export default function Home() {
               { icon: CheckCircle2, title: "Real Estate", desc: "Navigating commercial and residential transactions with precision." },
               { icon: Scale, title: "Tax Law", desc: "Strategic advice to minimize liability and resolve disputes with authorities." },
             ].map((area, i) => (
-              <Card key={i} className="bg-primary/5 border-primary/10 hover:bg-primary/10 transition-colors duration-300 border-none">
+              <Card key={i} className="bg-white/5 border-white/10 hover:bg-white/10 transition-colors duration-300 border-none">
                 <CardHeader>
-                  <div className="bg-primary/10 w-12 h-12 rounded-sm flex items-center justify-center mb-4">
-                    <area.icon className="h-6 w-6 text-primary-foreground" />
+                  <div className="bg-secondary/20 w-12 h-12 rounded-sm flex items-center justify-center mb-4">
+                    <area.icon className="h-6 w-6 text-secondary" />
                   </div>
-                  <CardTitle className="font-serif text-xl text-primary-foreground">{area.title}</CardTitle>
+                  <CardTitle className="font-serif text-xl text-secondary">{area.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-secondary-foreground/70 leading-relaxed">
+                  <p className="text-primary-foreground/70 leading-relaxed">
                     {area.desc}
                   </p>
                 </CardContent>
@@ -198,7 +198,7 @@ export default function Home() {
             Contact us today to schedule a confidential consultation with one of our experienced attorneys.
           </p>
           <Link href="/consultation">
-            <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-serif text-lg px-10 h-14 rounded-sm shadow-lg">
+            <Button size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-serif text-lg px-10 h-14 rounded-sm shadow-lg font-bold">
               Start Your Consultation Request
             </Button>
           </Link>

@@ -29,7 +29,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col bg-background font-sans text-foreground selection:bg-primary/20">
       {/* Top Bar - Contact Info */}
-      <div className="bg-primary text-primary-foreground py-2 text-sm hidden md:block">
+      <div className="bg-primary text-primary-foreground py-2 text-sm hidden md:block border-b border-secondary/30">
         <div className="container flex justify-between items-center">
           <div className="flex gap-6">
             <span className="flex items-center gap-2"><Phone className="h-3 w-3" /> (555) 123-4567</span>
@@ -125,7 +125,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       <AccessibilityMenu />
       {/* Footer */}
-      <footer className="bg-secondary text-secondary-foreground border-t border-primary/20">
+      <footer className="bg-primary text-primary-foreground border-t-4 border-secondary">
         <div className="container py-12 md:py-16">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             <div className="space-y-4">
@@ -139,18 +139,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </div>
             
             <div>
-              <h3 className="font-serif text-lg font-semibold mb-4 text-primary-foreground">Practice Areas</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-primary-foreground transition-colors">Corporate Litigation</a></li>
-                <li><a href="#" className="hover:text-primary-foreground transition-colors">Intellectual Property</a></li>
-                <li><a href="#" className="hover:text-primary-foreground transition-colors">Real Estate Law</a></li>
-                <li><a href="#" className="hover:text-primary-foreground transition-colors">Estate Planning</a></li>
+              <h3 className="font-serif text-lg font-semibold mb-4 text-secondary">Practice Areas</h3>
+              <ul className="space-y-2 text-sm text-primary-foreground/70">
+                <li><a href="#" className="hover:text-secondary transition-colors">Corporate Litigation</a></li>
+                <li><a href="#" className="hover:text-secondary transition-colors">Intellectual Property</a></li>
+                <li><a href="#" className="hover:text-secondary transition-colors">Real Estate Law</a></li>
+                <li><a href="#" className="hover:text-secondary transition-colors">Estate Planning</a></li>
               </ul>
             </div>
 
             <div>
-              <h3 className="font-serif text-lg font-semibold mb-4 text-primary-foreground">Contact</h3>
-              <ul className="space-y-3 text-sm text-muted-foreground">
+              <h3 className="font-serif text-lg font-semibold mb-4 text-secondary">Contact</h3>
+              <ul className="space-y-3 text-sm text-primary-foreground/70">
                 <li className="flex items-start gap-2">
                   <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
                   <span>100 Legal Ave, Suite 500<br />New York, NY 10001</span>
@@ -167,22 +167,22 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </div>
 
             <div>
-              <h3 className="font-serif text-lg font-semibold mb-4 text-primary-foreground">Newsletter</h3>
-              <p className="text-sm text-muted-foreground mb-4">Subscribe for legal insights and firm updates.</p>
+              <h3 className="font-serif text-lg font-semibold mb-4 text-secondary">Newsletter</h3>
+              <p className="text-sm text-primary-foreground/70 mb-4">Subscribe for legal insights and firm updates.</p>
               <div className="flex gap-2">
                 <input 
                   type="email" 
                   placeholder="Email address" 
                   className="bg-background/5 border border-border/10 rounded-sm px-3 py-2 text-sm w-full focus:outline-none focus:ring-1 focus:ring-primary/50 text-primary-foreground placeholder:text-muted-foreground/50"
                 />
-                <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-sm">
+                <Button size="sm" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground rounded-sm font-bold">
                   Join
                 </Button>
               </div>
             </div>
           </div>
           
-          <div className="mt-12 pt-8 border-t border-primary/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground">
+          <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-primary-foreground/50">
             <p>&copy; {new Date().getFullYear()} Amaral Law Firm. All rights reserved.</p>
             <div className="flex gap-6">
               <a href="#" className="hover:text-primary-foreground transition-colors">Privacy Policy</a>
