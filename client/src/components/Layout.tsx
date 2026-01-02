@@ -1,11 +1,11 @@
 import { Link, useLocation } from "wouter";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Scale, Menu, X, Phone, Mail, MapPin, Globe } from "lucide-react";
+import { Phone, Mail, MapPin, Menu, X, Globe, MessageCircle } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import AccessibilityMenu from "./AccessibilityMenu";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { cn } from "@/lib/utils";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
@@ -35,6 +35,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="container flex justify-between items-center">
           <div className="flex gap-6">
             <span className="flex items-center gap-2"><Phone className="h-3 w-3" /> 1-844-ICE-FREE</span>
+            <a href="https://wa.me/16198671707" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-secondary transition-colors">
+              <MessageCircle className="h-3 w-3" /> WhatsApp: (619) 867-1707
+            </a>
             <span className="flex items-center gap-2"><Mail className="h-3 w-3" /> ap@amarallegal.com</span>
           </div>
           <div className="flex items-center gap-2">
@@ -187,6 +190,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <li className="flex items-center gap-2">
                   <Phone className="h-4 w-4 shrink-0" />
                   <span>1-844-ICE-FREE</span>
+                </li>
+                <li>
+                  <a href="https://wa.me/16198671707" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-secondary transition-colors">
+                    <MessageCircle className="h-4 w-4 shrink-0" />
+                    <span>WhatsApp: (619) 867-1707</span>
+                  </a>
                 </li>
                 <li className="flex items-center gap-2">
                   <Mail className="h-4 w-4 shrink-0" />
