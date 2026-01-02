@@ -36,7 +36,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <span className="flex items-center gap-2"><Mail className="h-3 w-3" /> contact@amarallaw.com</span>
           </div>
           <div className="flex items-center gap-2">
-            <MapPin className="h-3 w-3" /> 100 Legal Ave, Suite 500, New York, NY
+            <MapPin className="h-3 w-3" /> 6750 N. Andrews Avenue Ste 208, Fort Lauderdale, FL 33309
           </div>
         </div>
       </div>
@@ -153,7 +153,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <ul className="space-y-3 text-sm text-primary-foreground/70">
                 <li className="flex items-start gap-2">
                   <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
-                  <span>100 Legal Ave, Suite 500<br />New York, NY 10001</span>
+                  <span>6750 N. Andrews Avenue Ste 208<br />Fort Lauderdale, FL 33309</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Phone className="h-4 w-4 shrink-0" />
