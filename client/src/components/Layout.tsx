@@ -51,13 +51,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="container flex h-16 items-center justify-between">
           <Link href="/">
             <a className="flex items-center gap-3 group">
-              <div className="bg-primary text-primary-foreground p-2 rounded-sm group-hover:bg-primary/90 transition-colors">
-                <Scale className="h-6 w-6" />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-serif text-2xl font-bold leading-none tracking-tight text-primary">AMARAL LAW</span>
-                <span className="text-[0.65rem] uppercase tracking-widest text-muted-foreground font-medium">Est. 1985</span>
-              </div>
+              <img 
+                src="/images/logo.png" 
+                alt="Amaral Law" 
+                className="h-12 w-auto object-contain filter invert brightness-0 md:brightness-200 transition-all duration-300" 
+              />
             </a>
           </Link>
 
@@ -90,10 +88,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <SheetContent side="right" className="w-[300px] sm:w-[400px] border-l-primary/20">
               <div className="flex flex-col gap-8 mt-8">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="bg-primary text-primary-foreground p-2 rounded-sm">
-                    <Scale className="h-6 w-6" />
-                  </div>
-                  <span className="font-serif text-xl font-bold text-primary">AMARAL LAW</span>
+                  <img 
+                    src="/images/logo.png" 
+                    alt="Amaral Law" 
+                    className="h-10 w-auto object-contain" 
+                  />
                 </div>
                 <nav className="flex flex-col gap-4">
                   {navItems.map((item) => (
@@ -130,8 +129,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             <div className="space-y-4">
               <div className="flex items-center gap-2">
-                <Scale className="h-5 w-5 text-primary-foreground/80" />
-                <span className="font-serif text-xl font-bold">AMARAL LAW</span>
+                <img 
+                  src="/images/logo.png" 
+                  alt="Amaral Law" 
+                  className="h-8 w-auto object-contain filter invert brightness-0 md:brightness-200" 
+                />
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Providing authoritative legal representation with a commitment to justice and integrity since 1985.
