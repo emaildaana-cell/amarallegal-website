@@ -37,11 +37,11 @@ export default function Home() {
                   {t("nav.request_consultation")}
                 </Button>
               </Link>
-              <Link href="/attorneys">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 font-serif text-lg px-8 h-14 rounded-sm">
-                  {t("hero.meet_attorneys")}
-                </Button>
-              </Link>
+          <Link href="/bond-questionnaire">
+            <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-primary font-serif text-lg px-10 h-14 rounded-sm backdrop-blur-sm bg-white/10">
+              {t("hero.meet_attorneys")}
+            </Button>
+          </Link>
             </div>
           </div>
         </div>

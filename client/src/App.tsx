@@ -10,7 +10,8 @@ import Home from "./pages/Home";
 import Attorneys from "./pages/Attorneys";
 import AttorneyProfile from "./pages/AttorneyProfile";
 import KnowledgeCenter from "./pages/KnowledgeCenter";
-import Consultation from "./pages/Consultation";
+import Consultation from "@/pages/Consultation";
+import BondQuestionnaire from "@/pages/BondQuestionnaire";
 
 function Router() {
   return (
@@ -24,6 +25,7 @@ function Router() {
           <Route path="/knowledge-center" component={KnowledgeCenter} />
           <Route path="/contact" component={() => <div>Contact Page (Coming Soon)</div>} />
           <Route path="/consultation" component={Consultation} />
+          <Route path="/bond-questionnaire" component={BondQuestionnaire} />
           <Route component={NotFound} />
         </Switch>
       </Layout>
