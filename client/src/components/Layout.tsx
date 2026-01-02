@@ -33,7 +33,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="container flex justify-between items-center">
           <div className="flex gap-6">
             <span className="flex items-center gap-2"><Phone className="h-3 w-3" /> 1-844-262-5442</span>
-            <span className="flex items-center gap-2"><Mail className="h-3 w-3" /> contact@amarallaw.com</span>
+            <span className="flex items-center gap-2"><Mail className="h-3 w-3" /> ap@amarallegal.com</span>
           </div>
           <div className="flex items-center gap-2">
             <MapPin className="h-3 w-3" /> 6750 N. Andrews Avenue Ste 208, Fort Lauderdale, FL 33309
@@ -143,10 +143,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div>
               <h3 className="font-serif text-lg font-semibold mb-4 text-secondary">Practice Areas</h3>
               <ul className="space-y-2 text-sm text-primary-foreground/70">
-                <li><a href="#" className="hover:text-secondary transition-colors">Corporate Litigation</a></li>
-                <li><a href="#" className="hover:text-secondary transition-colors">Intellectual Property</a></li>
-                <li><a href="#" className="hover:text-secondary transition-colors">Real Estate Law</a></li>
-                <li><a href="#" className="hover:text-secondary transition-colors">Estate Planning</a></li>
+                <li><a href="#" className="hover:text-secondary transition-colors">Removal Defense</a></li>
+                <li><a href="#" className="hover:text-secondary transition-colors">Asylum & Appeals</a></li>
+                <li><a href="#" className="hover:text-secondary transition-colors">Family Petitions</a></li>
+                <li><a href="#" className="hover:text-secondary transition-colors">Bond Hearings</a></li>
               </ul>
             </div>
 
@@ -163,7 +163,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </li>
                 <li className="flex items-center gap-2">
                   <Mail className="h-4 w-4 shrink-0" />
-                  <span>contact@amarallaw.com</span>
+                  <span>ap@amarallegal.com</span>
                 </li>
               </ul>
             </div>
