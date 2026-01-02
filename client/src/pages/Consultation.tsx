@@ -166,10 +166,10 @@ export default function Consultation() {
                     name="description"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Case Description</FormLabel>
+                        <FormLabel>Brief Description of Your Immigration Situation</FormLabel>
                         <FormControl>
                           <Textarea 
-                            placeholder="Please briefly describe your legal situation..." 
+                            placeholder="Please describe your situation (e.g., Do you have a court date? Are you detained?)" 
                             className="min-h-[120px]"
                             {...field} 
                           />
