@@ -85,49 +85,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Practice Areas Preview */}
-      <section className="py-24 bg-background">        <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <div className="space-y-6">
-              <h2 className="text-4xl font-serif font-bold text-primary">{t("home.excellence_title")}</h2>
-              <div className="w-20 h-1 bg-secondary"></div>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                {t("home.excellence_p1")}
-              </p>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                {t("home.excellence_p2")}
-              </p>
-              <div className="pt-4">
-                <Link href="/about">
-                  <Button variant="link" className="text-primary font-bold p-0 text-lg h-auto">
-                    {t("home.learn_more")} <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
-              </div>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-6">
-              <div className="bg-muted/30 p-8 text-center rounded-sm border border-border">
-                <div className="text-4xl font-serif font-bold text-secondary mb-2">40+</div>
-                <div className="text-sm text-muted-foreground uppercase tracking-wider">Years Experience</div>
-              </div>
-              <div className="bg-muted/30 p-8 text-center rounded-sm border border-border">
-                <div className="text-4xl font-serif font-bold text-secondary mb-2">500+</div>
-                <div className="text-sm text-muted-foreground uppercase tracking-wider">Cases Won</div>
-              </div>
-              <div className="bg-muted/30 p-8 text-center rounded-sm border border-border">
-                <div className="text-4xl font-serif font-bold text-secondary mb-2">$50M+</div>
-                <div className="text-sm text-muted-foreground uppercase tracking-wider">Recovered</div>
-              </div>
-              <div className="bg-muted/30 p-8 text-center rounded-sm border border-border">
-                <div className="text-4xl font-serif font-bold text-secondary mb-2">24/7</div>
-                <div className="text-sm text-muted-foreground uppercase tracking-wider">Client Support</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Practice Areas */}
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="container">
