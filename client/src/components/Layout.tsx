@@ -54,26 +54,26 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         )}
       >
         <div className="container flex h-16 items-center justify-between">
-          <Link href="/">
-            <a className="flex items-center gap-3 group">
-              <img 
-                src="/images/logo.svg" 
-                alt="Amaral Law" 
-                className="h-12 w-auto object-contain transition-all duration-300" 
-              />
-            </a>
+          <Link href="/" className="flex items-center gap-3 group">
+            <img 
+              src="/images/logo.svg" 
+              alt="Amaral Law" 
+              className="h-12 w-auto object-contain transition-all duration-300" 
+            />
           </Link>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
-              <Link key={item.href} href={item.href}>
-                <a className={cn(
+              <Link 
+                key={item.href} 
+                href={item.href}
+                className={cn(
                   "text-sm font-medium transition-colors hover:text-primary uppercase tracking-wide",
                   location === item.href ? "text-primary font-bold border-b-2 border-primary" : "text-muted-foreground"
-                )}>
-                  {item.label}
-                </a>
+                )}
+              >
+                {item.label}
               </Link>
             ))}
             <Button 
@@ -114,13 +114,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </div>
                 <nav className="flex flex-col gap-4">
                   {navItems.map((item) => (
-                    <Link key={item.href} href={item.href}>
-                      <a className={cn(
+                    <Link 
+                      key={item.href} 
+                      href={item.href}
+                      className={cn(
                         "text-lg font-medium transition-colors hover:text-primary border-b border-border/50 pb-2",
                         location === item.href ? "text-primary" : "text-muted-foreground"
-                      )}>
-                        {item.label}
-                      </a>
+                      )}
+                    >
+                      {item.label}
                     </Link>
                   ))}
                   <Button 
@@ -227,8 +229,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <a href="#" className="hover:text-primary-foreground transition-colors">{t("footer.terms")}</a>
               <a href="#" className="hover:text-primary-foreground transition-colors">{t("footer.disclaimer")}</a>
               <a href="#" className="hover:text-primary-foreground transition-colors">{t("footer.accessibility")}</a>
-              <Link href="/admin">
-                <a className="hover:text-primary-foreground transition-colors">{t("footer.admin")}</a>
+              <Link href="/admin" className="hover:text-primary-foreground transition-colors">
+                {t("footer.admin")}
               </Link>
             </div>
           </div>
