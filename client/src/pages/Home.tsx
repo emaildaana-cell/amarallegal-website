@@ -23,7 +23,7 @@ export default function Home() {
         <div className="container relative z-10 text-center md:text-left">
           <div className="max-w-3xl space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-1000">
             <a href="tel:18442625442" className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground hover:bg-secondary/90 px-6 py-2 rounded-full text-sm font-bold tracking-wider uppercase mb-2 transition-colors">
-              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"/> {t("hero.call_now")}: 1-844-262-5442
+              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"/> {t("hero.call_now")}: 1-844-ICE-FREE
             </a>
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-white leading-tight">
               {t("hero.title_prefix")} <span className="text-secondary italic">{t("hero.title_suffix")}</span>

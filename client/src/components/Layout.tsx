@@ -34,7 +34,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div className="bg-primary text-primary-foreground py-2 text-sm hidden md:block border-b border-secondary/30">
         <div className="container flex justify-between items-center">
           <div className="flex gap-6">
-            <span className="flex items-center gap-2"><Phone className="h-3 w-3" /> 1-844-262-5442</span>
+            <span className="flex items-center gap-2"><Phone className="h-3 w-3" /> 1-844-ICE-FREE</span>
             <span className="flex items-center gap-2"><Mail className="h-3 w-3" /> ap@amarallegal.com</span>
           </div>
           <div className="flex items-center gap-2">
@@ -186,7 +186,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </li>
                 <li className="flex items-center gap-2">
                   <Phone className="h-4 w-4 shrink-0" />
-                  <span>1-844-262-5442</span>
+                  <span>1-844-ICE-FREE</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Mail className="h-4 w-4 shrink-0" />
