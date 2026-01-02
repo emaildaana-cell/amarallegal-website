@@ -23,7 +23,7 @@ export default function Home() {
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"/> Call Now: 1-844-262-5442
             </a>
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-white leading-tight">
-              Unwavering Commitment to <span className="text-secondary italic">Justice</span>
+              Immigration Removal <span className="text-secondary italic">Experts</span>
             </h1>
             <p className="text-xl text-white/90 max-w-2xl font-light leading-relaxed">
               Amaral Law provides authoritative legal representation for complex corporate, intellectual property, and estate matters. We fight for your future.
@@ -52,10 +52,10 @@ export default function Home() {
               <h2 className="text-4xl font-serif font-bold text-primary">Decades of Excellence in Legal Practice</h2>
               <div className="w-20 h-1 bg-secondary"></div>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                At Amaral Law, we believe that every client deserves a dedicated advocate. Our firm combines the resources of a large practice with the personalized attention of a boutique firm.
+                At Amaral Law, we specialize exclusively in defending immigrants facing deportation. We understand that your life in the United States is on the line, and we fight tirelessly to keep families together.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                With over 40 years of combined experience, our attorneys have secured millions in settlements and successfully defended the rights of countless individuals and businesses.
+                With a proven track record in immigration court, our attorneys have successfully defended the rights of countless individuals against removal proceedings.
               </p>
               <div className="pt-4">
                 <Link href="/about">
@@ -94,18 +94,18 @@ export default function Home() {
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-4xl font-serif font-bold mb-4 text-secondary">Our Practice Areas</h2>
             <p className="text-primary-foreground/80 text-lg">
-              We offer comprehensive legal services across a wide range of disciplines, ensuring that whatever your legal need, we have the expertise to handle it.
+              We focus 100% on immigration removal defense. Our specialized expertise ensures you have the strongest possible advocate in immigration court.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { icon: Scale, title: "Corporate Litigation", desc: "Protecting your business interests in complex commercial disputes." },
-              { icon: Shield, title: "Intellectual Property", desc: "Safeguarding your innovations, trademarks, and creative works." },
-              { icon: Users, title: "Family Law", desc: "Compassionate guidance through divorce, custody, and estate matters." },
-              { icon: BookOpen, title: "Estate Planning", desc: "Securing your legacy and ensuring your assets are protected." },
-              { icon: CheckCircle2, title: "Real Estate", desc: "Navigating commercial and residential transactions with precision." },
-              { icon: Scale, title: "Tax Law", desc: "Strategic advice to minimize liability and resolve disputes with authorities." },
+              { icon: Scale, title: "Removal Defense", desc: "Aggressive representation in immigration court to stop deportation proceedings." },
+              { icon: Shield, title: "Asylum & Appeals", desc: "Expert handling of asylum claims and BIA appeals for complex cases." },
+              { icon: Users, title: "Family Petitions", desc: "Reuniting families through adjustment of status and consular processing." },
+              { icon: BookOpen, title: "Bond Hearings", desc: "Fighting for your release from immigration detention centers." },
+              { icon: CheckCircle2, title: "Crimmigration", desc: "Defending non-citizens facing criminal charges that impact immigration status." },
+              { icon: Scale, title: "Federal Litigation", desc: "Challenging delayed or denied applications in federal court." },
             ].map((area, i) => (
               <Card key={i} className="bg-white/5 border-white/10 hover:bg-white/10 transition-colors duration-300 border-none">
                 <CardHeader>
@@ -153,9 +153,9 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { title: "Corporate Liability in the Digital Age", date: "Oct 12, 2025", cat: "Corporate Law" },
-              { title: "Estate Planning for Business Owners", date: "Sep 28, 2025", cat: "Estate Planning" },
-              { title: "Intellectual Property: Patent vs. Trade Secret", date: "Sep 15, 2025", cat: "IP Law" },
+              { title: "Understanding Your Rights in Immigration Court", date: "Oct 12, 2025", cat: "Removal Defense" },
+              { title: "How to Post Bond for a Detained Relative", date: "Sep 28, 2025", cat: "Detention" },
+              { title: "Changes to Asylum Eligibility in 2024", date: "Sep 15, 2025", cat: "Asylum" },
             ].map((article, i) => (
               <Link key={i} href="/knowledge-center">
                 <div className="group cursor-pointer space-y-4">
