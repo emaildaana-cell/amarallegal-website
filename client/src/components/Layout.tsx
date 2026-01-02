@@ -76,11 +76,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <Button 
               variant="ghost" 
               size="sm" 
-              onClick={() => setLanguage(language === 'en' ? 'es' : 'en')}
+              onClick={() => {
+                if (language === 'en') setLanguage('es');
+                else if (language === 'es') setLanguage('pt');
+                else setLanguage('en');
+              }}
               className="flex items-center gap-2 font-medium"
             >
               <Globe className="h-4 w-4" />
-              {language === 'en' ? 'ES' : 'EN'}
+              {language === 'en' ? 'ES' : language === 'es' ? 'PT' : 'EN'}
             </Button>
             <Link href="/consultation">
               <Button variant="default" className="bg-primary hover:bg-primary/90 text-primary-foreground font-serif tracking-wide rounded-sm">
@@ -119,10 +123,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   <Button 
                     variant="outline" 
                     className="w-full justify-start gap-2"
-                    onClick={() => setLanguage(language === 'en' ? 'es' : 'en')}
+                    onClick={() => {
+                      if (language === 'en') setLanguage('es');
+                      else if (language === 'es') setLanguage('pt');
+                      else setLanguage('en');
+                    }}
                   >
                     <Globe className="h-4 w-4" />
-                    {language === 'en' ? 'Español' : 'English'}
+                    {language === 'en' ? 'Español' : language === 'es' ? 'Português' : 'English'}
                   </Button>
                   <Link href="/consultation">
                     <Button className="w-full mt-4 bg-primary hover:bg-primary/90 text-primary-foreground rounded-sm">

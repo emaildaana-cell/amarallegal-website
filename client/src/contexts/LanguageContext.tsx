@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-type Language = 'en' | 'es';
+type Language = 'en' | 'es' | 'pt';
 
 interface LanguageContextType {
   language: Language;
@@ -25,7 +25,7 @@ export const translations: Record<Language, Record<string, string>> = {
     "hero.title_prefix": "Immigration Removal",
     "hero.title_suffix": "Experts",
     "hero.description": "Amaral Law provides authoritative legal representation for complex deportation defense and immigration appeals. We fight to keep your family together.",
-    "hero.meet_attorneys": "Meet Our Attorneys",
+    "hero.meet_attorneys": "Bond Questionnaire",
     
     // Footer
     "footer.tagline": "Providing authoritative legal representation with a commitment to justice and integrity since 1985.",
@@ -94,7 +94,7 @@ export const translations: Record<Language, Record<string, string>> = {
     "hero.title_prefix": "Expertos en Defensa de",
     "hero.title_suffix": "Deportación",
     "hero.description": "Amaral Law ofrece representación legal autorizada para defensa compleja de deportación y apelaciones de inmigración. Luchamos para mantener a su familia unida.",
-    "hero.meet_attorneys": "Conozca a Nuestros Abogados",
+    "hero.meet_attorneys": "Cuestionario de Fianza",
     
     // Footer
     "footer.tagline": "Proporcionando representación legal autorizada con un compromiso con la justicia y la integridad desde 1985.",
@@ -148,6 +148,75 @@ export const translations: Record<Language, Record<string, string>> = {
     "contact.address": "Dirección",
     "contact.hours": "Horario de Oficina",
     "contact.hours_val": "Lun-Vie: 9:00 AM - 6:00 PM",
+  },
+  pt: {
+    // Navigation
+    "nav.home": "Início",
+    "nav.attorneys": "Advogados",
+    "nav.practice_areas": "Áreas de Atuação",
+    "nav.knowledge_center": "Centro de Conhecimento",
+    "nav.contact": "Contato",
+    "nav.request_consultation": "Solicitar Consulta",
+    
+    // Hero
+    "hero.call_now": "Ligue Agora",
+    "hero.title_prefix": "Especialistas em",
+    "hero.title_suffix": "Defesa de Deportação",
+    "hero.description": "A Amaral Law oferece representação legal autorizada para defesa complexa de deportação e apelações de imigração. Lutamos para manter sua família unida.",
+    "hero.meet_attorneys": "Questionário de Fiança",
+    
+    // Footer
+    "footer.tagline": "Fornecendo representação legal autorizada com compromisso com a justiça e integridade desde 1985.",
+    "footer.practice_areas": "Áreas de Atuação",
+    "footer.contact": "Contato",
+    "footer.newsletter": "Boletim Informativo",
+    "footer.subscribe_text": "Inscreva-se para receber informações jurídicas e atualizações do escritório.",
+    "footer.email_placeholder": "Endereço de e-mail",
+    "footer.join": "Juntar-se",
+    "footer.rights": "Amaral Law Firm. Todos os direitos reservados.",
+    "footer.privacy": "Política de Privacidade",
+    "footer.terms": "Termos de Serviço",
+    "footer.disclaimer": "Aviso Legal",
+    "footer.accessibility": "Acessibilidade",
+    "footer.admin": "Portal Administrativo",
+
+    // Home Content
+    "home.excellence_title": "Décadas de Excelência na Prática Jurídica",
+    "home.excellence_p1": "Na Amaral Law, nos especializamos exclusivamente na defesa de imigrantes que enfrentam a deportação. Entendemos que sua vida nos Estados Unidos está em jogo e lutamos incansavelmente para manter as famílias unidas.",
+    "home.excellence_p2": "Com um histórico comprovado no tribunal de imigração, nossos advogados defenderam com sucesso os direitos de inúmeras pessoas contra processos de remoção.",
+    "home.learn_more": "Saiba Mais Sobre Nosso Escritório",
+    "home.practice_areas_title": "Nossas Áreas de Atuação",
+    "home.practice_areas_desc": "Focamos 100% na defesa contra deportação. Nossa experiência especializada garante que você tenha o defensor mais forte possível no tribunal de imigração.",
+    "home.latest_insights": "Últimas Perspectivas Jurídicas",
+    "home.view_all_articles": "Ver Todos os Artigos",
+
+    // Practice Areas
+    "practice.removal_defense": "Defesa de Deportação",
+    "practice.removal_defense_desc": "Representação agressiva no tribunal de imigração para interromper processos de deportação.",
+    "practice.asylum": "Asilo e Apelações",
+    "practice.asylum_desc": "Tratamento especializado de pedidos de asilo e apelações no BIA para casos complexos.",
+    "practice.family": "Petições Familiares",
+    "practice.family_desc": "Reunindo famílias através de ajuste de status e processamento consular.",
+    "practice.bond": "Audiências de Fiança",
+    "practice.bond_desc": "Lutando por sua libertação dos centros de detenção de imigração.",
+    "practice.crimmigration": "Crimigração",
+    "practice.crimmigration_desc": "Defendendo não-cidadãos que enfrentam acusações criminais que impactam o status migratório.",
+    "practice.federal": "Litígio Federal",
+    "practice.federal_desc": "Desafiando pedidos atrasados ou negados no tribunal federal.",
+
+    // Contact Page
+    "contact.title": "Contate-nos",
+    "contact.subtitle": "Entre em contato com nossa equipe jurídica para uma consulta.",
+    "contact.form_title": "Envie-nos uma mensagem",
+    "contact.name": "Nome Completo",
+    "contact.email": "Endereço de E-mail",
+    "contact.phone": "Número de Telefone",
+    "contact.message": "Mensagem",
+    "contact.submit": "Enviar Mensagem",
+    "contact.info_title": "Informações de Contato",
+    "contact.address": "Endereço",
+    "contact.hours": "Horário de Funcionamento",
+    "contact.hours_val": "Seg-Sex: 9:00 AM - 6:00 PM",
   }
 };
 
