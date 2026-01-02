@@ -1,14 +1,16 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Scale, Menu, X, Phone, Mail, MapPin } from "lucide-react";
+import { Scale, Menu, X, Phone, Mail, MapPin, Globe } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import AccessibilityMenu from "./AccessibilityMenu";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,11 +21,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   }, []);
 
   const navItems = [
-    { label: "Home", href: "/" },
-    { label: "Attorneys", href: "/attorneys" },
-    { label: "Practice Areas", href: "/practice-areas" },
-    { label: "Knowledge Center", href: "/knowledge-center" },
-    { label: "Contact", href: "/contact" },
+    { label: t("nav.home"), href: "/" },
+    { label: t("nav.attorneys"), href: "/attorneys" },
+    { label: t("nav.practice_areas"), href: "/practice-areas" },
+    { label: t("nav.knowledge_center"), href: "/knowledge-center" },
+    { label: t("nav.contact"), href: "/contact" },
   ];
 
   return (
@@ -71,9 +73,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </a>
               </Link>
             ))}
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={() => setLanguage(language === 'en' ? 'es' : 'en')}
+              className="flex items-center gap-2 font-medium"
+            >
+              <Globe className="h-4 w-4" />
+              {language === 'en' ? 'ES' : 'EN'}
+            </Button>
             <Link href="/consultation">
               <Button variant="default" className="bg-primary hover:bg-primary/90 text-primary-foreground font-serif tracking-wide rounded-sm">
-                Request Consultation
+                {t("nav.request_consultation")}
               </Button>
             </Link>
           </nav>
@@ -105,9 +116,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                       </a>
                     </Link>
                   ))}
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start gap-2"
+                    onClick={() => setLanguage(language === 'en' ? 'es' : 'en')}
+                  >
+                    <Globe className="h-4 w-4" />
+                    {language === 'en' ? 'Español' : 'English'}
+                  </Button>
                   <Link href="/consultation">
                     <Button className="w-full mt-4 bg-primary hover:bg-primary/90 text-primary-foreground rounded-sm">
-                      Request Consultation
+                      {t("nav.request_consultation")}
                     </Button>
                   </Link>
                 </nav>
@@ -136,22 +155,22 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 />
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Providing authoritative legal representation with a commitment to justice and integrity since 1985.
+                {t("footer.tagline")}
               </p>
             </div>
             
             <div>
-              <h3 className="font-serif text-lg font-semibold mb-4 text-secondary">Practice Areas</h3>
+              <h3 className="font-serif text-lg font-semibold mb-4 text-secondary">{t("footer.practice_areas")}</h3>
               <ul className="space-y-2 text-sm text-primary-foreground/70">
-                <li><a href="#" className="hover:text-secondary transition-colors">Removal Defense</a></li>
-                <li><a href="#" className="hover:text-secondary transition-colors">Asylum & Appeals</a></li>
-                <li><a href="#" className="hover:text-secondary transition-colors">Family Petitions</a></li>
-                <li><a href="#" className="hover:text-secondary transition-colors">Bond Hearings</a></li>
+                <li><a href="#" className="hover:text-secondary transition-colors">{t("practice.removal_defense")}</a></li>
+                <li><a href="#" className="hover:text-secondary transition-colors">{t("practice.asylum")}</a></li>
+                <li><a href="#" className="hover:text-secondary transition-colors">{t("practice.family")}</a></li>
+                <li><a href="#" className="hover:text-secondary transition-colors">{t("practice.bond")}</a></li>
               </ul>
             </div>
 
             <div>
-              <h3 className="font-serif text-lg font-semibold mb-4 text-secondary">Contact</h3>
+              <h3 className="font-serif text-lg font-semibold mb-4 text-secondary">{t("footer.contact")}</h3>
               <ul className="space-y-3 text-sm text-primary-foreground/70">
                 <li className="flex items-start gap-2">
                   <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
@@ -169,30 +188,30 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </div>
 
             <div>
-              <h3 className="font-serif text-lg font-semibold mb-4 text-secondary">Newsletter</h3>
-              <p className="text-sm text-primary-foreground/70 mb-4">Subscribe for legal insights and firm updates.</p>
+              <h3 className="font-serif text-lg font-semibold mb-4 text-secondary">{t("footer.newsletter")}</h3>
+              <p className="text-sm text-primary-foreground/70 mb-4">{t("footer.subscribe_text")}</p>
               <div className="flex gap-2">
                 <input 
                   type="email" 
-                  placeholder="Email address" 
+                  placeholder={t("footer.email_placeholder")}
                   className="bg-background/5 border border-border/10 rounded-sm px-3 py-2 text-sm w-full focus:outline-none focus:ring-1 focus:ring-primary/50 text-primary-foreground placeholder:text-muted-foreground/50"
                 />
                 <Button size="sm" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground rounded-sm font-bold">
-                  Join
+                  {t("footer.join")}
                 </Button>
               </div>
             </div>
           </div>
           
           <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-primary-foreground/50">
-            <p>&copy; {new Date().getFullYear()} Amaral Law Firm. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} {t("footer.rights")}</p>
             <div className="flex gap-6">
-              <a href="#" className="hover:text-primary-foreground transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-primary-foreground transition-colors">Terms of Service</a>
-              <a href="#" className="hover:text-primary-foreground transition-colors">Disclaimer</a>
-              <a href="#" className="hover:text-primary-foreground transition-colors">Accessibility</a>
+              <a href="#" className="hover:text-primary-foreground transition-colors">{t("footer.privacy")}</a>
+              <a href="#" className="hover:text-primary-foreground transition-colors">{t("footer.terms")}</a>
+              <a href="#" className="hover:text-primary-foreground transition-colors">{t("footer.disclaimer")}</a>
+              <a href="#" className="hover:text-primary-foreground transition-colors">{t("footer.accessibility")}</a>
               <Link href="/admin">
-                <a className="hover:text-primary-foreground transition-colors">Admin Portal</a>
+                <a className="hover:text-primary-foreground transition-colors">{t("footer.admin")}</a>
               </Link>
             </div>
           </div>

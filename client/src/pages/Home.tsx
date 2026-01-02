@@ -1,13 +1,16 @@
+import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Link } from "wouter";
-import { Scale, Shield, Users, BookOpen, ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Scale, Shield, Users, BookOpen, CheckCircle2, Gavel } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Home() {
+  const { t } = useLanguage();
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative h-[85vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
             src="/images/courthouse-architecture.jpg" 
@@ -20,23 +23,23 @@ export default function Home() {
         <div className="container relative z-10 text-center md:text-left">
           <div className="max-w-3xl space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-1000">
             <a href="tel:18442625442" className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground hover:bg-secondary/90 px-6 py-2 rounded-full text-sm font-bold tracking-wider uppercase mb-2 transition-colors">
-              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"/> Call Now: 1-844-262-5442
+              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"/> {t("hero.call_now")}: 1-844-262-5442
             </a>
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-white leading-tight">
-              Immigration Removal <span className="text-secondary italic">Experts</span>
+              {t("hero.title_prefix")} <span className="text-secondary italic">{t("hero.title_suffix")}</span>
             </h1>
             <p className="text-xl text-white/90 max-w-2xl font-light leading-relaxed">
-              Amaral Law provides authoritative legal representation for complex deportation defense and immigration appeals. We fight to keep your family together.
+              {t("hero.description")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Link href="/consultation">
                 <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-serif text-lg px-8 h-14 rounded-sm">
-                  Request Consultation
+                  {t("nav.request_consultation")}
                 </Button>
               </Link>
               <Link href="/attorneys">
                 <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 font-serif text-lg px-8 h-14 rounded-sm">
-                  Meet Our Attorneys
+                  {t("hero.meet_attorneys")}
                 </Button>
               </Link>
             </div>
@@ -49,18 +52,18 @@ export default function Home() {
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div className="space-y-6">
-              <h2 className="text-4xl font-serif font-bold text-primary">Decades of Excellence in Legal Practice</h2>
+              <h2 className="text-4xl font-serif font-bold text-primary">{t("home.excellence_title")}</h2>
               <div className="w-20 h-1 bg-secondary"></div>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                At Amaral Law, we specialize exclusively in defending immigrants facing deportation. We understand that your life in the United States is on the line, and we fight tirelessly to keep families together.
+                {t("home.excellence_p1")}
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                With a proven track record in immigration court, our attorneys have successfully defended the rights of countless individuals against removal proceedings.
+                {t("home.excellence_p2")}
               </p>
               <div className="pt-4">
                 <Link href="/about">
                   <Button variant="link" className="text-primary font-bold p-0 text-lg h-auto">
-                    Learn More About Our Firm <ArrowRight className="ml-2 h-5 w-5" />
+                    {t("home.learn_more")} <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
               </div>
@@ -92,27 +95,27 @@ export default function Home() {
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="container">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl font-serif font-bold mb-4 text-secondary">Our Practice Areas</h2>
+            <h2 className="text-4xl font-serif font-bold mb-4 text-secondary">{t("home.practice_areas_title")}</h2>
             <p className="text-primary-foreground/80 text-lg">
-              We focus 100% on immigration removal defense. Our specialized expertise ensures you have the strongest possible advocate in immigration court.
+              {t("home.practice_areas_desc")}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { icon: Scale, title: "Removal Defense", desc: "Aggressive representation in immigration court to stop deportation proceedings." },
-              { icon: Shield, title: "Asylum & Appeals", desc: "Expert handling of asylum claims and BIA appeals for complex cases." },
-              { icon: Users, title: "Family Petitions", desc: "Reuniting families through adjustment of status and consular processing." },
-              { icon: BookOpen, title: "Bond Hearings", desc: "Fighting for your release from immigration detention centers." },
-              { icon: CheckCircle2, title: "Crimmigration", desc: "Defending non-citizens facing criminal charges that impact immigration status." },
-              { icon: Scale, title: "Federal Litigation", desc: "Challenging delayed or denied applications in federal court." },
+              { icon: Scale, title: t("practice.removal_defense"), desc: t("practice.removal_defense_desc") },
+              { icon: Shield, title: t("practice.asylum"), desc: t("practice.asylum_desc") },
+              { icon: Users, title: t("practice.family"), desc: t("practice.family_desc") },
+              { icon: BookOpen, title: t("practice.bond"), desc: t("practice.bond_desc") },
+              { icon: CheckCircle2, title: t("practice.crimmigration"), desc: t("practice.crimmigration_desc") },
+              { icon: Scale, title: t("practice.federal"), desc: t("practice.federal_desc") },
             ].map((area, i) => (
               <Card key={i} className="bg-white/5 border-white/10 hover:bg-white/10 transition-colors duration-300 border-none">
                 <CardHeader>
                   <div className="bg-secondary/20 w-12 h-12 rounded-sm flex items-center justify-center mb-4">
                     <area.icon className="h-6 w-6 text-secondary" />
                   </div>
-                  <CardTitle className="font-serif text-xl text-secondary">{area.title}</CardTitle>
+                  <CardTitle className="text-xl font-serif text-secondary">{area.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-primary-foreground/70 leading-relaxed">
@@ -139,15 +142,15 @@ export default function Home() {
       </section>
 
       {/* Latest Insights */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-muted/30">
         <div className="container">
           <div className="flex justify-between items-end mb-12">
             <div>
-              <h2 className="text-4xl font-serif font-bold text-primary mb-2">Legal Insights</h2>
-              <p className="text-muted-foreground">Latest updates from our Knowledge Center</p>
+              <h2 className="text-4xl font-serif font-bold text-primary mb-4">{t("home.latest_insights")}</h2>
+              <div className="w-20 h-1 bg-secondary"></div>
             </div>
             <Link href="/knowledge-center">
-              <Button variant="outline" className="hidden md:flex">View All Articles</Button>
+              <Button variant="outline" className="hidden md:flex">{t("home.view_all_articles")}</Button>
             </Link>
           </div>
 
@@ -184,7 +187,7 @@ export default function Home() {
           
           <div className="mt-8 md:hidden">
             <Link href="/knowledge-center">
-              <Button variant="outline" className="w-full">View All Articles</Button>
+              <Button variant="outline" className="w-full">{t("home.view_all_articles")}</Button>
             </Link>
           </div>
         </div>
@@ -193,13 +196,13 @@ export default function Home() {
       {/* CTA Section */}
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="container text-center">
-          <h2 className="text-4xl font-serif font-bold mb-6">Ready to Discuss Your Case?</h2>
+          <h2 className="text-4xl font-serif font-bold mb-6">{t("contact.title")}</h2>
           <p className="text-xl text-primary-foreground/80 max-w-2xl mx-auto mb-10">
-            Contact us today to schedule a confidential consultation with one of our experienced attorneys.
+            {t("contact.subtitle")}
           </p>
           <Link href="/consultation">
             <Button size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-serif text-lg px-10 h-14 rounded-sm shadow-lg font-bold">
-              Start Your Consultation Request
+              {t("nav.request_consultation")}
             </Button>
           </Link>
         </div>

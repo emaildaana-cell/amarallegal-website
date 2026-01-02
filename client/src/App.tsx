@@ -4,6 +4,7 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { LanguageProvider } from "./contexts/LanguageContext";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Attorneys from "./pages/Attorneys";
@@ -13,18 +14,20 @@ import Consultation from "./pages/Consultation";
 
 function Router() {
   return (
-    <Layout>
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/attorneys" component={Attorneys} />
-        <Route path="/attorneys/:id" component={AttorneyProfile} />
-        <Route path="/practice-areas" component={() => <div>Practice Areas Page (Coming Soon)</div>} />
-        <Route path="/knowledge-center" component={KnowledgeCenter} />
-        <Route path="/contact" component={() => <div>Contact Page (Coming Soon)</div>} />
-        <Route path="/consultation" component={Consultation} />
-        <Route component={NotFound} />
-      </Switch>
-    </Layout>
+    <LanguageProvider>
+      <Layout>
+        <Switch>
+          <Route path="/" component={Home} />
+          <Route path="/attorneys" component={Attorneys} />
+          <Route path="/attorneys/:id" component={AttorneyProfile} />
+          <Route path="/practice-areas" component={() => <div>Practice Areas Page (Coming Soon)</div>} />
+          <Route path="/knowledge-center" component={KnowledgeCenter} />
+          <Route path="/contact" component={() => <div>Contact Page (Coming Soon)</div>} />
+          <Route path="/consultation" component={Consultation} />
+          <Route component={NotFound} />
+        </Switch>
+      </Layout>
+    </LanguageProvider>
   );
 }
 
