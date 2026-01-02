@@ -101,6 +101,12 @@ export const translations: Record<Language, Record<string, string>> = {
     "bond.sponsor_status": "Sponsor Immigration Status",
     "bond.sponsor_income": "Annual Income",
     "bond.submit": "Submit Questionnaire",
+
+    // Vanity Number Section
+    "vanity.title": "Memorize This Number: 1-844-ICE-FREE",
+    "vanity.subtitle": "Immediate Legal Assistance When You Need It Most",
+    "vanity.description": "In the event of an unexpected detention by ICE, every second counts. Memorizing 1-844-ICE-FREE (1-844-262-5442) ensures you or your loved ones can instantly connect with our dedicated removal defense team. We are available to provide urgent guidance and representation to fight for your release.",
+    "vanity.cta": "Save Contact Now",
   },
   es: {
     // Navigation
@@ -192,6 +198,12 @@ export const translations: Record<Language, Record<string, string>> = {
     "bond.sponsor_status": "Estatus Migratorio del Patrocinador",
     "bond.sponsor_income": "Ingreso Anual",
     "bond.submit": "Enviar Cuestionario",
+
+    // Vanity Number Section
+    "vanity.title": "Memorice Este Número: 1-844-ICE-FREE",
+    "vanity.subtitle": "Asistencia Legal Inmediata Cuando Más la Necesita",
+    "vanity.description": "En caso de una detención inesperada por ICE, cada segundo cuenta. Memorizar 1-844-ICE-FREE (1-844-262-5442) asegura que usted o sus seres queridos puedan conectarse instantáneamente con nuestro equipo de defensa contra la deportación. Estamos disponibles para brindar orientación urgente y representación para luchar por su liberación.",
+    "vanity.cta": "Guardar Contacto Ahora",
   },
   pt: {
     // Navigation
@@ -283,6 +295,12 @@ export const translations: Record<Language, Record<string, string>> = {
     "bond.sponsor_status": "Status Migratório do Patrocinador",
     "bond.sponsor_income": "Renda Anual",
     "bond.submit": "Enviar Questionário",
+
+    // Vanity Number Section
+    "vanity.title": "Memorize Este Número: 1-844-ICE-FREE",
+    "vanity.subtitle": "Assistência Jurídica Imediata Quando Você Mais Precisa",
+    "vanity.description": "No caso de uma detenção inesperada pelo ICE, cada segundo conta. Memorizar 1-844-ICE-FREE (1-844-262-5442) garante que você ou seus entes queridos possam se conectar instantaneamente com nossa equipe de defesa contra deportação. Estamos disponíveis para fornecer orientação urgente e representação para lutar por sua libertação.",
+    "vanity.cta": "Salvar Contato Agora",
   }
 };
 

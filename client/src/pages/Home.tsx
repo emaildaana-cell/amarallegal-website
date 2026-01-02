@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Scale, Shield, Users, BookOpen, CheckCircle2, Gavel } from "lucide-react";
+import { ArrowRight, Scale, Shield, Users, BookOpen, CheckCircle2, Gavel, Phone } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Home() {
@@ -9,8 +9,8 @@ export default function Home() {
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+          {/* Hero Section */}
+      <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
             src="/images/courthouse-architecture.jpg" 
@@ -46,10 +46,47 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Introduction / Stats */}
-      <section className="py-20 bg-background">
+      {/* Vanity Number Section */}
+      <section className="py-20 bg-primary text-primary-foreground">
         <div className="container">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+            <div className="flex-1 space-y-6">
+              <div className="inline-block bg-secondary/20 px-4 py-1 rounded-full text-secondary font-bold tracking-wider text-sm uppercase">
+                {t("vanity.subtitle")}
+              </div>
+              <h2 className="text-4xl md:text-6xl font-serif font-bold leading-tight">
+                {t("vanity.title")}
+              </h2>
+              <p className="text-lg text-primary-foreground/80 max-w-xl leading-relaxed">
+                {t("vanity.description")}
+              </p>
+              <a href="tel:18442625442">
+                <Button size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-bold text-lg px-8 h-14 rounded-sm mt-4">
+                  <Phone className="mr-2 h-5 w-5" /> {t("vanity.cta")}
+                </Button>
+              </a>
+            </div>
+            <div className="flex-1 flex justify-center">
+              <div className="relative w-full max-w-md aspect-square flex items-center justify-center bg-white/5 rounded-full border border-white/10 backdrop-blur-sm p-12">
+                <div className="text-center space-y-2">
+                  <div className="text-7xl md:text-8xl font-bold text-secondary tracking-tighter">
+                    1-844
+                  </div>
+                  <div className="text-5xl md:text-7xl font-bold text-white tracking-widest">
+                    ICE-FREE
+                  </div>
+                  <div className="text-xl text-white/60 font-mono mt-4">
+                    (1-844-262-5442)
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Practice Areas Preview */}
+      <section className="py-24 bg-background">        <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div className="space-y-6">
               <h2 className="text-4xl font-serif font-bold text-primary">{t("home.excellence_title")}</h2>
