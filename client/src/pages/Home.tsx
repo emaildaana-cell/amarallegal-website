@@ -26,7 +26,7 @@ export default function Home() {
               Immigration Removal <span className="text-secondary italic">Experts</span>
             </h1>
             <p className="text-xl text-white/90 max-w-2xl font-light leading-relaxed">
-              Amaral Law provides authoritative legal representation for complex corporate, intellectual property, and estate matters. We fight for your future.
+              Amaral Law provides authoritative legal representation for complex deportation defense and immigration appeals. We fight to keep your family together.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Link href="/consultation">
