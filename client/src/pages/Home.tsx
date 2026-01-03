@@ -133,9 +133,9 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { title: "Understanding Your Rights in Immigration Court", date: "Oct 12, 2025", cat: "Removal Defense" },
-              { title: "How to Post Bond for a Detained Relative", date: "Sep 28, 2025", cat: "Detention" },
-              { title: "Changes to Asylum Eligibility in 2024", date: "Sep 15, 2025", cat: "Asylum" },
+              { title: t("home.insight.1.title"), date: "Oct 12, 2025", cat: t("home.insight.1.cat") },
+              { title: t("home.insight.2.title"), date: "Sep 28, 2025", cat: t("home.insight.2.cat") },
+              { title: t("home.insight.3.title"), date: "Sep 15, 2025", cat: t("home.insight.3.cat") },
             ].map((article, i) => (
               <Link key={i} href="/knowledge-center">
                 <div className="group cursor-pointer space-y-4">
@@ -154,7 +154,7 @@ export default function Home() {
                       {article.title}
                     </h3>
                     <p className="text-muted-foreground line-clamp-2">
-                      Read our expert analysis on this critical topic affecting businesses and individuals alike.
+                      {t("home.insight.desc")}
                     </p>
                   </div>
                 </div>

@@ -13,6 +13,7 @@ import { Progress } from "@/components/ui/progress";
 import { CheckCircle2, ArrowRight, ArrowLeft, ShieldCheck } from "lucide-react";
 import { practiceAreas } from "@/lib/data";
 import { toast } from "sonner";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // Schema for Step 1: Case Details
 const step1Schema = z.object({
@@ -37,6 +38,7 @@ const step3Schema = z.object({
 });
 
 export default function Consultation() {
+  const { t } = useLanguage();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -76,7 +78,7 @@ export default function Consultation() {
     // Simulate API call
     setTimeout(() => {
       setIsSubmitted(true);
-      toast.success("Consultation request received successfully.");
+      toast.success(t("consultation.success.title"));
       window.scrollTo(0, 0);
     }, 1000);
   };
@@ -89,12 +91,12 @@ export default function Consultation() {
             <div className="mx-auto w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center">
               <CheckCircle2 className="h-10 w-10 text-primary" />
             </div>
-            <h2 className="font-serif text-3xl font-bold text-primary">Request Received</h2>
+            <h2 className="font-serif text-3xl font-bold text-primary">{t("consultation.success.title")}</h2>
             <p className="text-muted-foreground text-lg">
-              Thank you for contacting Amaral Law. Our intake team will review your details and contact you within 24 hours to schedule your consultation.
+              {t("consultation.success.desc")}
             </p>
             <Button className="mt-6" onClick={() => window.location.href = "/"}>
-              Return to Home
+              {t("consultation.button.home")}
             </Button>
           </CardContent>
         </Card>
@@ -106,17 +108,17 @@ export default function Consultation() {
     <div className="min-h-screen bg-muted/10 py-12 md:py-20">
       <div className="container max-w-3xl">
         <div className="text-center mb-10">
-          <h1 className="font-serif text-4xl font-bold text-primary mb-4">Request a Consultation</h1>
+          <h1 className="font-serif text-4xl font-bold text-primary mb-4">{t("consultation.title")}</h1>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            Please provide details about your legal matter so we can match you with the most appropriate attorney.
+            {t("consultation.subtitle")}
           </p>
         </div>
 
         <div className="mb-8">
           <div className="flex justify-between text-sm font-medium text-muted-foreground mb-2">
-            <span>Case Details</span>
-            <span>Contact Info</span>
-            <span>Review</span>
+            <span>{t("consultation.step1")}</span>
+            <span>{t("consultation.step2")}</span>
+            <span>{t("consultation.step3")}</span>
           </div>
           <Progress value={(step / 3) * 100} className="h-2" />
         </div>
@@ -124,12 +126,12 @@ export default function Consultation() {
         <Card className="law-card">
           <CardHeader>
             <CardTitle className="font-serif text-2xl">
-              {step === 1 && "Step 1: Tell us about your case"}
-              {step === 2 && "Step 2: Your Contact Information"}
-              {step === 3 && "Step 3: Scheduling & Confirmation"}
+              {step === 1 && t("consultation.step1_title")}
+              {step === 2 && t("consultation.step2_title")}
+              {step === 3 && t("consultation.step3_title")}
             </CardTitle>
             <CardDescription>
-              All information provided is strictly confidential and protected by attorney-client privilege.
+              {t("consultation.confidentiality")}
             </CardDescription>
           </CardHeader>
           
@@ -142,18 +144,18 @@ export default function Consultation() {
                     name="practiceArea"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Legal Area</FormLabel>
+                        <FormLabel>{t("consultation.label.area")}</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue placeholder="Select the area of law" />
+                              <SelectValue placeholder={t("consultation.placeholder.area")} />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
                             {practiceAreas.map((area) => (
                               <SelectItem key={area} value={area}>{area}</SelectItem>
                             ))}
-                            <SelectItem value="other">Other / Unsure</SelectItem>
+                            <SelectItem value="other">{t("consultation.option.other")}</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -166,10 +168,10 @@ export default function Consultation() {
                     name="description"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Brief Description of Your Immigration Situation</FormLabel>
+                        <FormLabel>{t("consultation.label.description")}</FormLabel>
                         <FormControl>
                           <Textarea 
-                            placeholder="Please describe your situation (e.g., Do you have a court date? Are you detained?)" 
+                            placeholder={t("consultation.placeholder.description")} 
                             className="min-h-[120px]"
                             {...field} 
                           />
@@ -184,7 +186,7 @@ export default function Consultation() {
                     name="urgency"
                     render={({ field }) => (
                       <FormItem className="space-y-3">
-                        <FormLabel>Urgency Level</FormLabel>
+                        <FormLabel>{t("consultation.label.urgency")}</FormLabel>
                         <FormControl>
                           <RadioGroup
                             onValueChange={field.onChange}
@@ -196,7 +198,7 @@ export default function Consultation() {
                                 <RadioGroupItem value="low" />
                               </FormControl>
                               <FormLabel className="font-normal">
-                                Standard (Planning ahead)
+                                {t("consultation.urgency.low")}
                               </FormLabel>
                             </FormItem>
                             <FormItem className="flex items-center space-x-3 space-y-0">
@@ -204,7 +206,7 @@ export default function Consultation() {
                                 <RadioGroupItem value="medium" />
                               </FormControl>
                               <FormLabel className="font-normal">
-                                Important (Action needed soon)
+                                {t("consultation.urgency.medium")}
                               </FormLabel>
                             </FormItem>
                             <FormItem className="flex items-center space-x-3 space-y-0">
@@ -212,7 +214,7 @@ export default function Consultation() {
                                 <RadioGroupItem value="high" />
                               </FormControl>
                               <FormLabel className="font-normal text-destructive font-bold">
-                                Urgent (Immediate action required)
+                                {t("consultation.urgency.high")}
                               </FormLabel>
                             </FormItem>
                           </RadioGroup>
@@ -224,7 +226,7 @@ export default function Consultation() {
 
                   <div className="flex justify-end pt-4">
                     <Button type="submit" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                      Next Step <ArrowRight className="ml-2 h-4 w-4" />
+                      {t("consultation.button.next")} <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </div>
                 </form>
@@ -240,7 +242,7 @@ export default function Consultation() {
                       name="firstName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>First Name</FormLabel>
+                          <FormLabel>{t("consultation.label.firstname")}</FormLabel>
                           <FormControl>
                             <Input placeholder="John" {...field} />
                           </FormControl>
@@ -253,7 +255,7 @@ export default function Consultation() {
                       name="lastName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Last Name</FormLabel>
+                          <FormLabel>{t("consultation.label.lastname")}</FormLabel>
                           <FormControl>
                             <Input placeholder="Doe" {...field} />
                           </FormControl>
@@ -262,52 +264,62 @@ export default function Consultation() {
                       )}
                     />
                   </div>
-
                   <FormField
                     control={form2.control}
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email Address</FormLabel>
+                        <FormLabel>{t("consultation.label.email")}</FormLabel>
                         <FormControl>
-                          <Input type="email" placeholder="john.doe@example.com" {...field} />
+                          <Input placeholder="john.doe@example.com" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-
                   <FormField
                     control={form2.control}
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Phone Number</FormLabel>
+                        <FormLabel>{t("consultation.label.phone")}</FormLabel>
                         <FormControl>
-                          <Input type="tel" placeholder="(555) 123-4567" {...field} />
+                          <Input placeholder="(555) 123-4567" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-
                   <FormField
                     control={form2.control}
                     name="preferredContact"
                     render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Preferred Contact Method</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select preference" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="email">Email</SelectItem>
-                            <SelectItem value="phone">Phone Call</SelectItem>
-                          </SelectContent>
-                        </Select>
+                      <FormItem className="space-y-3">
+                        <FormLabel>{t("consultation.label.preferred_contact")}</FormLabel>
+                        <FormControl>
+                          <RadioGroup
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                            className="flex flex-row space-x-4"
+                          >
+                            <FormItem className="flex items-center space-x-2 space-y-0">
+                              <FormControl>
+                                <RadioGroupItem value="email" />
+                              </FormControl>
+                              <FormLabel className="font-normal">
+                                {t("consultation.option.email")}
+                              </FormLabel>
+                            </FormItem>
+                            <FormItem className="flex items-center space-x-2 space-y-0">
+                              <FormControl>
+                                <RadioGroupItem value="phone" />
+                              </FormControl>
+                              <FormLabel className="font-normal">
+                                {t("consultation.option.phone")}
+                              </FormLabel>
+                            </FormItem>
+                          </RadioGroup>
+                        </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -318,7 +330,7 @@ export default function Consultation() {
                       <ArrowLeft className="mr-2 h-4 w-4" /> Back
                     </Button>
                     <Button type="submit" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                      Next Step <ArrowRight className="ml-2 h-4 w-4" />
+                      {t("consultation.button.next")} <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </div>
                 </form>
@@ -328,22 +340,44 @@ export default function Consultation() {
             {step === 3 && (
               <Form {...form3}>
                 <form onSubmit={form3.handleSubmit(onStep3Submit)} className="space-y-6">
+                  <div className="bg-muted/30 p-6 rounded-lg mb-6">
+                    <h3 className="font-semibold mb-4 text-lg">Summary</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 text-sm">
+                      <div>
+                        <span className="text-muted-foreground block">Name:</span>
+                        <span className="font-medium">{form2.getValues("firstName")} {form2.getValues("lastName")}</span>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground block">Contact:</span>
+                        <span className="font-medium">{form2.getValues("email")}</span>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground block">Legal Area:</span>
+                        <span className="font-medium">{form1.getValues("practiceArea")}</span>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground block">Urgency:</span>
+                        <span className="font-medium capitalize">{form1.getValues("urgency")}</span>
+                      </div>
+                    </div>
+                  </div>
+
                   <FormField
                     control={form3.control}
                     name="preferredTime"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Best Time to Contact</FormLabel>
+                        <FormLabel>{t("consultation.label.time")}</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue placeholder="Select time of day" />
+                              <SelectValue placeholder="Select a time of day" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="morning">Morning (9AM - 12PM)</SelectItem>
-                            <SelectItem value="afternoon">Afternoon (12PM - 5PM)</SelectItem>
-                            <SelectItem value="evening">Evening (5PM - 7PM)</SelectItem>
+                            <SelectItem value="morning">{t("consultation.option.morning")}</SelectItem>
+                            <SelectItem value="afternoon">{t("consultation.option.afternoon")}</SelectItem>
+                            <SelectItem value="evening">{t("consultation.option.evening")}</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -351,31 +385,22 @@ export default function Consultation() {
                     )}
                   />
 
-                  <div className="bg-muted/30 p-4 rounded-sm border border-border">
-                    <h4 className="font-bold mb-2 flex items-center gap-2">
-                      <ShieldCheck className="h-4 w-4 text-primary" /> Disclaimer
-                    </h4>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      Submitting this form does not create an attorney-client relationship. Please do not include any confidential or sensitive information in this form. An attorney-client relationship is only formed when a written agreement is signed by both parties.
-                    </p>
-                  </div>
-
                   <FormField
                     control={form3.control}
                     name="consent"
                     render={({ field }) => (
                       <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                         <FormControl>
-                          <input 
-                            type="checkbox" 
-                            checked={field.value} 
+                          <input
+                            type="checkbox"
+                            checked={field.value}
                             onChange={field.onChange}
                             className="h-4 w-4 mt-1 rounded border-gray-300 text-primary focus:ring-primary"
                           />
                         </FormControl>
                         <div className="space-y-1 leading-none">
                           <FormLabel>
-                            I understand and agree to the disclaimer above.
+                            {t("consultation.consent")}
                           </FormLabel>
                           <FormMessage />
                         </div>
@@ -387,8 +412,8 @@ export default function Consultation() {
                     <Button type="button" variant="outline" onClick={() => setStep(2)}>
                       <ArrowLeft className="mr-2 h-4 w-4" /> Back
                     </Button>
-                    <Button type="submit" className="bg-primary hover:bg-primary/90 text-primary-foreground w-32">
-                      Submit Request
+                    <Button type="submit" size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-bold">
+                      {t("consultation.button.submit")} <ShieldCheck className="ml-2 h-4 w-4" />
                     </Button>
                   </div>
                 </form>

@@ -84,10 +84,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 else if (language === 'es') setLanguage('pt');
                 else setLanguage('en');
               }}
-              className="flex items-center gap-2 font-medium text-lg"
+              className="flex items-center gap-2 font-medium"
               title={language === 'en' ? 'Switch to Spanish' : language === 'es' ? 'Switch to Portuguese' : 'Switch to English'}
             >
-              {language === 'en' ? '🇺🇸' : language === 'es' ? '🇪🇸' : '🇧🇷'}
+              <img 
+                src={language === 'en' ? '/images/flag-us.png' : language === 'es' ? '/images/flag-es.png' : '/images/flag-br.png'} 
+                alt={language === 'en' ? 'English' : language === 'es' ? 'Español' : 'Português'}
+                className="h-5 w-5 object-contain rounded-sm"
+              />
+              <span className="text-sm">{language === 'en' ? 'EN' : language === 'es' ? 'ES' : 'PT'}</span>
             </Button>
             <Link href="/consultation">
               <Button variant="default" className="bg-primary hover:bg-primary/90 text-primary-foreground font-serif tracking-wide rounded-sm">
@@ -134,7 +139,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                       else setLanguage('en');
                     }}
                   >
-                    <span className="text-lg">{language === 'en' ? '🇺🇸' : language === 'es' ? '🇪🇸' : '🇧🇷'}</span>
+                    <img 
+                      src={language === 'en' ? '/images/flag-us.png' : language === 'es' ? '/images/flag-es.png' : '/images/flag-br.png'} 
+                      alt={language === 'en' ? 'English' : language === 'es' ? 'Español' : 'Português'}
+                      className="h-5 w-5 object-contain rounded-sm"
+                    />
                     {language === 'en' ? 'English' : language === 'es' ? 'Español' : 'Português'}
                   </Button>
                   <Link href="/consultation">

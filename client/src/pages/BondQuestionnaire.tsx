@@ -58,7 +58,7 @@ export default function BondQuestionnaire() {
       <Card className="shadow-lg border-t-4 border-t-secondary">
         <CardHeader>
           <CardTitle className="text-2xl font-serif">{t("bond.detainee_info")}</CardTitle>
-          <CardDescription>Please provide accurate details about the person currently detained.</CardDescription>
+          <CardDescription>{t("bond.description")}</CardDescription>
         </CardHeader>
         <CardContent>
           <form ref={form} onSubmit={handleSubmit} className="space-y-8">
@@ -66,11 +66,11 @@ export default function BondQuestionnaire() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label htmlFor="fullName">{t("bond.full_name")}</Label>
-                <Input id="fullName" name="fullName" required placeholder="e.g. Juan Perez" />
+                <Input id="fullName" name="fullName" required placeholder={t("bond.placeholder.name")} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="aNumber">{t("bond.a_number")}</Label>
-                <Input id="aNumber" name="aNumber" required placeholder="A-123-456-789" />
+                <Input id="aNumber" name="aNumber" required placeholder={t("bond.placeholder.a_number")} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="dob">{t("bond.dob")}</Label>
@@ -78,7 +78,7 @@ export default function BondQuestionnaire() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="countryBirth">{t("bond.country_birth")}</Label>
-                <Input id="countryBirth" name="countryBirth" required placeholder="e.g. Brazil" />
+                <Input id="countryBirth" name="countryBirth" required placeholder={t("bond.placeholder.country")} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="dateEntry">{t("bond.date_entry")}</Label>
@@ -86,7 +86,7 @@ export default function BondQuestionnaire() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="mannerEntry">{t("bond.manner_entry")}</Label>
-                <Input id="mannerEntry" name="mannerEntry" placeholder="e.g. Visa, Border Crossing" />
+                <Input id="mannerEntry" name="mannerEntry" placeholder={t("bond.placeholder.manner")} />
               </div>
             </div>
 
@@ -98,7 +98,7 @@ export default function BondQuestionnaire() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="detentionCenter">{t("bond.detention_center")}</Label>
-                  <Input id="detentionCenter" name="detentionCenter" required placeholder="e.g. Krome Detention Center" />
+                  <Input id="detentionCenter" name="detentionCenter" required placeholder={t("bond.placeholder.center")} />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="dateDetained">{t("bond.date_detained")}</Label>
@@ -107,11 +107,11 @@ export default function BondQuestionnaire() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="criminalHistory">{t("bond.criminal_history")}</Label>
-                <Textarea id="criminalHistory" name="criminalHistory" placeholder="Please list any arrests or convictions..." className="min-h-[100px]" />
+                <Textarea id="criminalHistory" name="criminalHistory" placeholder={t("bond.placeholder.criminal")} className="min-h-[100px]" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="familyTies">{t("bond.family_ties")}</Label>
-                <Textarea id="familyTies" name="familyTies" placeholder="List family members currently in the U.S. (Relationship and Status)" className="min-h-[100px]" />
+                <Textarea id="familyTies" name="familyTies" placeholder={t("bond.placeholder.family")} className="min-h-[100px]" />
               </div>
             </div>
 
@@ -127,22 +127,22 @@ export default function BondQuestionnaire() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="sponsorRelation">{t("bond.sponsor_relation")}</Label>
-                  <Input id="sponsorRelation" name="sponsorRelation" placeholder="e.g. Brother, Spouse" required />
+                  <Input id="sponsorRelation" name="sponsorRelation" placeholder={t("bond.placeholder.relation")} required />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="sponsorStatus">{t("bond.sponsor_status")}</Label>
-                  <Input id="sponsorStatus" name="sponsorStatus" placeholder="e.g. U.S. Citizen, Green Card Holder" required />
+                  <Input id="sponsorStatus" name="sponsorStatus" placeholder={t("bond.placeholder.status")} required />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="sponsorIncome">{t("bond.sponsor_income")}</Label>
-                  <Input id="sponsorIncome" name="sponsorIncome" type="number" placeholder="Annual Income USD" />
+                  <Input id="sponsorIncome" name="sponsorIncome" type="number" placeholder={t("bond.placeholder.income")} />
                 </div>
               </div>
             </div>
 
             <div className="pt-4">
               <Button type="submit" size="lg" disabled={isSubmitting} className="w-full md:w-auto bg-secondary text-secondary-foreground hover:bg-secondary/90 font-bold text-lg px-8">
-                {isSubmitting ? 'Sending...' : t("bond.submit")}
+                {isSubmitting ? t("bond.sending") : t("bond.submit")}
               </Button>
             </div>
           </form>

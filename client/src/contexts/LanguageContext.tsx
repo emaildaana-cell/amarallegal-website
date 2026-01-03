@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 type Language = 'en' | 'es' | 'pt';
 
@@ -10,7 +10,7 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export const translations: Record<Language, Record<string, string>> = {
+const translations = {
   en: {
     // Navigation
     "nav.home": "Home",
@@ -22,8 +22,8 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Hero
     "hero.call_now": "Call Now",
-    "hero.title_prefix": "Immigration Removal",
-    "hero.title_suffix": "Experts",
+    "hero.title_prefix": "Experts in",
+    "hero.title_suffix": "Removal Defense",
     "hero.description": "When you or a loved one faces immigration detention, time is critical. Our experienced attorneys provide compassionate, aggressive representation to protect your rights and secure your freedom.",
     "hero.meet_attorneys": "Bond Questionnaire",
     
@@ -48,7 +48,7 @@ export const translations: Record<Language, Record<string, string>> = {
     "home.excellence_p2": "With a proven track record in immigration court, our attorneys have successfully defended the rights of countless individuals against removal proceedings.",
     "home.learn_more": "Learn More About Our Firm",
     "home.practice_areas_title": "Our Practice Areas",
-    "home.practice_areas_desc": "We focus 100% on immigration removal defense. Our specialized expertise ensures you have the strongest possible advocate in immigration court.",
+    "home.practice_areas_desc": "We focus 100% on removal defense. Our specialized expertise ensures you have the strongest possible advocate in immigration court.",
     "home.latest_insights": "Latest Legal Insights",
     "home.view_all_articles": "View All Articles",
 
@@ -58,7 +58,7 @@ export const translations: Record<Language, Record<string, string>> = {
     "practice.asylum": "Asylum & Appeals",
     "practice.asylum_desc": "Expert handling of asylum claims and BIA appeals for complex cases.",
     "practice.family": "Family Petitions",
-    "practice.family_desc": "Reuniting families through adjustment of status and consular processing.",
+    "practice.family_desc": "Reuniting families through status adjustment and consular processing.",
     "practice.bond": "Bond Hearings",
     "practice.bond_desc": "Fighting for your release from immigration detention centers.",
     "practice.crimmigration": "Crimmigration",
@@ -77,27 +77,27 @@ export const translations: Record<Language, Record<string, string>> = {
     "contact.submit": "Send Message",
     "contact.info_title": "Contact Information",
     "contact.address": "Address",
-    "contact.hours": "Office Hours",
+    "contact.hours": "Business Hours",
     "contact.hours_val": "Mon-Fri: 9:00 AM - 6:00 PM",
 
     // Bond Questionnaire
     "bond.title": "Bond Questionnaire",
-    "bond.subtitle": "Please complete this form to help us evaluate your eligibility for an immigration bond.",
+    "bond.subtitle": "Please complete this form to help us assess your eligibility for an immigration bond.",
     "bond.detainee_info": "Detainee Information",
-    "bond.full_name": "Full Name of Detainee",
+    "bond.full_name": "Detainee's Full Name",
     "bond.a_number": "Alien Registration Number (A-Number)",
     "bond.dob": "Date of Birth",
     "bond.country_birth": "Country of Birth",
-    "bond.date_entry": "Date of Entry into U.S.",
-    "bond.manner_entry": "Manner of Entry (e.g., Visa, Border)",
+    "bond.date_entry": "Date of Entry to U.S.",
+    "bond.manner_entry": "Manner of Entry (e.g. Visa, Border)",
     "bond.detention_info": "Detention Information",
     "bond.detention_center": "Current Detention Center",
     "bond.date_detained": "Date Detained",
     "bond.criminal_history": "Criminal History (if any)",
-    "bond.family_ties": "Family Ties in the U.S.",
+    "bond.family_ties": "Family Ties in U.S.",
     "bond.sponsor_info": "Sponsor Information",
     "bond.sponsor_name": "Sponsor Name",
-    "bond.sponsor_relation": "Relationship to Detainee",
+    "bond.sponsor_relation": "Relation to Detainee",
     "bond.sponsor_status": "Sponsor Immigration Status",
     "bond.sponsor_income": "Annual Income",
     "bond.submit": "Submit Questionnaire",
@@ -105,7 +105,7 @@ export const translations: Record<Language, Record<string, string>> = {
     // Vanity Number Section
     "vanity.title": "Memorize This Number: 1-844-ICE-FREE",
     "vanity.subtitle": "Immediate Legal Assistance When You Need It Most",
-    "vanity.description": "In the event of an unexpected detention by ICE, every second counts. Memorizing 1-844-ICE-FREE (1-844-262-5442) ensures you or your loved ones can instantly connect with our dedicated removal defense team. We are available to provide urgent guidance and representation to fight for your release.",
+    "vanity.description": "In the event of an unexpected detention by ICE, every second counts. Memorizing 1-844-ICE-FREE (1-844-262-5442) ensures you or your loved ones can instantly connect with our removal defense team. We are available to provide urgent guidance and representation to fight for your release.",
     "vanity.cta": "Save Contact Now",
 
     // Attorneys Page
@@ -163,6 +163,66 @@ export const translations: Record<Language, Record<string, string>> = {
     "resource.2.title": "Estate Planning Questionnaire",
     "resource.3.title": "Intellectual Property Audit Template",
     "resource.4.title": "Commercial Lease Terminology Glossary",
+
+    // Home Insights
+    "home.insight.1.title": "Understanding Your Rights in Immigration Court",
+    "home.insight.1.cat": "Removal Defense",
+    "home.insight.2.title": "How to Post Bond for a Detained Relative",
+    "home.insight.2.cat": "Detention",
+    "home.insight.3.title": "Changes to Asylum Eligibility in 2024",
+    "home.insight.3.cat": "Asylum",
+    "home.insight.desc": "Read our expert analysis on this critical topic affecting businesses and individuals alike.",
+
+    // Bond Questionnaire Extras
+    "bond.description": "Please provide accurate details about the person currently detained.",
+    "bond.placeholder.name": "e.g. Juan Perez",
+    "bond.placeholder.a_number": "A-123-456-789",
+    "bond.placeholder.country": "e.g. Brazil",
+    "bond.placeholder.manner": "e.g. Visa, Border Crossing",
+    "bond.placeholder.center": "e.g. Krome Detention Center",
+    "bond.placeholder.criminal": "Please list any arrests or convictions...",
+    "bond.placeholder.family": "List family members currently in the U.S. (Relationship and Status)",
+    "bond.placeholder.relation": "e.g. Brother, Spouse",
+    "bond.placeholder.status": "e.g. U.S. Citizen, Green Card Holder",
+    "bond.placeholder.income": "Annual Income USD",
+    "bond.sending": "Sending...",
+
+    // Consultation
+    "consultation.title": "Request a Consultation",
+    "consultation.subtitle": "Please provide details about your legal matter so we can match you with the most appropriate attorney.",
+    "consultation.step1": "Case Details",
+    "consultation.step2": "Contact Info",
+    "consultation.step3": "Review",
+    "consultation.step1_title": "Step 1: Tell us about your case",
+    "consultation.step2_title": "Step 2: Your Contact Information",
+    "consultation.step3_title": "Step 3: Scheduling & Confirmation",
+    "consultation.confidentiality": "All information provided is strictly confidential and protected by attorney-client privilege.",
+    "consultation.label.area": "Legal Area",
+    "consultation.placeholder.area": "Select the area of law",
+    "consultation.option.other": "Other / Unsure",
+    "consultation.label.description": "Brief Description of Your Immigration Situation",
+    "consultation.placeholder.description": "Please describe your situation (e.g., Do you have a court date? Are you detained?)",
+    "consultation.label.urgency": "Urgency Level",
+    "consultation.urgency.low": "Standard (Planning ahead)",
+    "consultation.urgency.medium": "Important (Action needed soon)",
+    "consultation.urgency.high": "Urgent (Immediate action required)",
+    "consultation.button.next": "Next Step",
+    "consultation.label.firstname": "First Name",
+    "consultation.label.lastname": "Last Name",
+    "consultation.label.email": "Email Address",
+    "consultation.label.phone": "Phone Number",
+    "consultation.label.preferred_contact": "Preferred Contact Method",
+    "consultation.option.email": "Email",
+    "consultation.option.phone": "Phone Call",
+    "consultation.label.time": "Preferred Consultation Time",
+    "consultation.option.morning": "Morning (9AM - 12PM)",
+    "consultation.option.afternoon": "Afternoon (1PM - 5PM)",
+    "consultation.option.evening": "Evening (After 5PM)",
+    "consultation.consent": "I understand that submitting this form does not create an attorney-client relationship until a fee agreement is signed.",
+    "consultation.button.submit": "Submit Request",
+    "consultation.success.title": "Request Received",
+    "consultation.success.desc": "Thank you for contacting Amaral Law. Our intake team will review your details and contact you within 24 hours to schedule your consultation.",
+    "consultation.button.home": "Return to Home"
   },
   es: {
     // Navigation
@@ -175,16 +235,16 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Hero
     "hero.call_now": "Llama Ahora",
-    "hero.title_prefix": "Expertos en Defensa de",
-    "hero.title_suffix": "Deportación",
-    "hero.description": "Cuando usted o un ser querido enfrenta la detención migratoria, el tiempo es crítico. Nuestros abogados experimentados brindan una representación compasiva y agresiva para proteger sus derechos y asegurar su libertad.",
+    "hero.title_prefix": "Expertos en",
+    "hero.title_suffix": "Defensa de Deportación",
+    "hero.description": "Cuando usted o un ser querido enfrenta la detención migratoria, el tiempo es crítico. Nuestros abogados experimentados brindan representación compasiva y agresiva para proteger sus derechos y asegurar su libertad.",
     "hero.meet_attorneys": "Cuestionario de Fianza",
     
     // Footer
-    "footer.tagline": "Proporcionando representación legal autorizada con un compromiso con la justicia y la integridad desde 1985.",
+    "footer.tagline": "Proporcionando representación legal autorizada con compromiso con la justicia e integridad desde 1985.",
     "footer.practice_areas": "Áreas de Práctica",
     "footer.contact": "Contacto",
-    "footer.newsletter": "Boletín",
+    "footer.newsletter": "Boletín Informativo",
     "footer.subscribe_text": "Suscríbase para recibir información legal y actualizaciones de la firma.",
     "footer.email_placeholder": "Dirección de correo electrónico",
     "footer.join": "Unirse",
@@ -193,12 +253,12 @@ export const translations: Record<Language, Record<string, string>> = {
     "footer.terms": "Términos de Servicio",
     "footer.disclaimer": "Aviso Legal",
     "footer.accessibility": "Accesibilidad",
-    "footer.admin": "Portal de Administración",
+    "footer.admin": "Portal Administrativo",
 
     // Home Content
-    "home.excellence_title": "Décadas de Excelencia en Práctica Legal",
+    "home.excellence_title": "Décadas de Excelencia en la Práctica Legal",
     "home.excellence_p1": "En Amaral Law, nos especializamos exclusivamente en defender a inmigrantes que enfrentan la deportación. Entendemos que su vida en los Estados Unidos está en juego y luchamos incansablemente para mantener a las familias unidas.",
-    "home.excellence_p2": "Con un historial comprobado en la corte de inmigración, nuestros abogados han defendido con éxito los derechos de innumerables personas contra los procedimientos de deportación.",
+    "home.excellence_p2": "Con un historial comprobado en la corte de inmigración, nuestros abogados han defendido con éxito los derechos de innumerables personas contra los procedimientos de remoción.",
     "home.learn_more": "Conozca Más Sobre Nuestra Firma",
     "home.practice_areas_title": "Nuestras Áreas de Práctica",
     "home.practice_areas_desc": "Nos enfocamos 100% en la defensa contra la deportación. Nuestra experiencia especializada asegura que tenga el defensor más fuerte posible en la corte de inmigración.",
@@ -215,7 +275,7 @@ export const translations: Record<Language, Record<string, string>> = {
     "practice.bond": "Audiencias de Fianza",
     "practice.bond_desc": "Luchando por su liberación de los centros de detención de inmigración.",
     "practice.crimmigration": "Crimigración",
-    "practice.crimmigration_desc": "Defendendo a no ciudadanos que enfrentan cargos criminales que afectan su estatus migratorio.",
+    "practice.crimmigration_desc": "Defendiendo a no ciudadanos que enfrentan cargos criminales que impactan su estatus migratorio.",
     "practice.federal": "Litigio Federal",
     "practice.federal_desc": "Desafiando solicitudes retrasadas o denegadas en la corte federal.",
 
@@ -224,13 +284,13 @@ export const translations: Record<Language, Record<string, string>> = {
     "contact.subtitle": "Póngase en contacto con nuestro equipo legal para una consulta.",
     "contact.form_title": "Envíenos un mensaje",
     "contact.name": "Nombre Completo",
-    "contact.email": "Dirección de Correo",
+    "contact.email": "Dirección de Correo Electrónico",
     "contact.phone": "Número de Teléfono",
     "contact.message": "Mensaje",
     "contact.submit": "Enviar Mensaje",
     "contact.info_title": "Información de Contacto",
     "contact.address": "Dirección",
-    "contact.hours": "Horario de Oficina",
+    "contact.hours": "Horario de Atención",
     "contact.hours_val": "Lun-Vie: 9:00 AM - 6:00 PM",
 
     // Bond Questionnaire
@@ -242,11 +302,11 @@ export const translations: Record<Language, Record<string, string>> = {
     "bond.dob": "Fecha de Nacimiento",
     "bond.country_birth": "País de Nacimiento",
     "bond.date_entry": "Fecha de Entrada a EE.UU.",
-    "bond.manner_entry": "Manera de Entrada (ej. Visa, Frontera)",
+    "bond.manner_entry": "Forma de Entrada (ej: Visa, Frontera)",
     "bond.detention_info": "Información de Detención",
     "bond.detention_center": "Centro de Detención Actual",
     "bond.date_detained": "Fecha de Detención",
-    "bond.criminal_history": "Historial Criminal (si hay)",
+    "bond.criminal_history": "Historial Criminal (si lo hay)",
     "bond.family_ties": "Lazos Familiares en EE.UU.",
     "bond.sponsor_info": "Información del Patrocinador",
     "bond.sponsor_name": "Nombre del Patrocinador",
@@ -257,26 +317,26 @@ export const translations: Record<Language, Record<string, string>> = {
 
     // Vanity Number Section
     "vanity.title": "Memorice Este Número: 1-844-ICE-FREE",
-    "vanity.subtitle": "Asistencia Legal Inmediata Cuando Más la Necesita",
-    "vanity.description": "En caso de una detención inesperada por ICE, cada segundo cuenta. Memorizar 1-844-ICE-FREE (1-844-262-5442) asegura que usted o sus seres queridos puedan conectarse instantáneamente con nuestro equipo de defensa contra la deportación. Estamos disponibles para brindar orientación urgente y representación para luchar por su liberación.",
+    "vanity.subtitle": "Asistencia Legal Inmediata Cuando Más La Necesita",
+    "vanity.description": "En caso de una detención inesperada por ICE, cada segundo cuenta. Memorizar 1-844-ICE-FREE (1-844-262-5442) asegura que usted o sus seres queridos puedan conectarse instantáneamente con nuestro equipo de defensa contra deportación. Estamos disponibles para brindar orientación urgente y representación para luchar por su liberación.",
     "vanity.cta": "Guardar Contacto Ahora",
 
     // Attorneys Page
     "attorneys.title": "Nuestro Equipo Legal",
     "attorneys.subtitle": "Abogados experimentados dedicados a su caso",
     "attorneys.ana.role": "Abogada Principal de Inmigración",
-    "attorneys.ana.bio": "Inmigrante de Brasil con más de 40 años en los EE.UU., Ana Paola se especializa en defensa de detención y procedimientos de deportación, aportando experiencia personal y profunda empatía a cada caso.",
-    "attorneys.reggie.role": "Abogado de Litigios de Inmigración Complejos",
-    "attorneys.reggie.bio": "Especializado en litigios de inmigración complejos con amplia experiencia en procedimientos de apelación, litigios en tribunales federales y casos de inmigración desafiantes que requieren estrategias legales avanzadas.",
+    "attorneys.ana.bio": "Inmigrante de Brasil con más de 40 años en los EE.UU., Ana Paola se especializa en defensa de detención y procedimientos de remoción, aportando experiencia personal y profunda empatía a cada caso.",
+    "attorneys.reggie.role": "Abogado de Litigios Complejos de Inmigración",
+    "attorneys.reggie.bio": "Especializado en litigios complejos de inmigración con amplia experiencia en procedimientos de apelación, litigios en tribunales federales y casos de inmigración desafiantes que requieren estrategias legales avanzadas.",
     "attorneys.balaiz.role": "Of Counsel - Litigio Civil",
     "attorneys.balaiz.bio": "Experimentado en asuntos de litigio civil, incluyendo disputas contractuales, reclamos de propiedad y casos civiles complejos. Proporciona representación legal experta para clientes que necesitan asesoramiento especializado en derecho civil.",
     "attorneys.values.title": "Nuestros Valores",
     "attorneys.values.justice": "Justicia para Todos",
-    "attorneys.values.justice_desc": "Creemos que cada persona merece una representación legal de calidad, independientemente de sus circunstancias.",
-    "attorneys.values.compassion": "Defensa Compasiva",
-    "attorneys.values.compassion_desc": "Tratamos a cada cliente con dignidad, respeto y una comprensión genuina de su situación.",
+    "attorneys.values.justice_desc": "Creemos que cada persona merece representación legal de calidad, independientemente de sus circunstancias.",
+    "attorneys.values.compassion": "Abogacía Compasiva",
+    "attorneys.values.compassion_desc": "Tratamos a cada cliente con dignidad, respeto y comprensión genuina de su situación.",
     "attorneys.values.excellence": "Excelencia Legal",
-    "attorneys.values.excellence_desc": "Mantenemos los más altos estándares de práctica legal y perseguimos incansablemente los mejores resultados.",
+    "attorneys.values.excellence_desc": "Mantenemos los más altos estándares de práctica legal y buscamos incansablemente los mejores resultados.",
     "attorneys.values.community": "Compromiso Comunitario",
     "attorneys.values.community_desc": "Servimos activamente a las comunidades de inmigrantes y abogamos por una reforma migratoria justa.",
     "attorneys.cta.title": "No Enfrente la Detención Migratoria Solo",
@@ -285,7 +345,7 @@ export const translations: Record<Language, Record<string, string>> = {
 
     // Knowledge Center
     "knowledge.title": "Centro de Conocimiento",
-    "knowledge.subtitle": "Perspectivas legales expertas, guías detalladas y recursos prácticos para ayudarle a navegar paisajes legales complejos.",
+    "knowledge.subtitle": "Perspectivas legales expertas, guías detalladas y recursos prácticos para ayudarlo a navegar en escenarios legales complejos.",
     "knowledge.tab.guides": "Guías Legales",
     "knowledge.tab.resources": "Recursos Descargables",
     "knowledge.search": "Buscar temas...",
@@ -300,22 +360,82 @@ export const translations: Record<Language, Record<string, string>> = {
     // Guides
     "guide.1.title": "Responsabilidad Corporativa en la Era Digital",
     "guide.1.desc": "Una guía completa para entender los nuevos riesgos de responsabilidad para empresas digitales.",
-    "guide.2.title": "Planificación Patrimonial para Dueños de Negocios",
-    "guide.2.desc": "Estrategias para proteger los activos de su negocio y asegurar una sucesión fluida.",
+    "guide.2.title": "Planificación Sucesoria para Propietarios de Empresas",
+    "guide.2.desc": "Estrategias para proteger los activos de su empresa y asegurar una sucesión fluida.",
     "guide.3.title": "Propiedad Intelectual: Patente vs. Secreto Comercial",
     "guide.3.desc": "Decidiendo qué mecanismo de protección es el adecuado para su innovación.",
     "guide.4.title": "Navegando Disputas de Arrendamiento Comercial",
-    "guide.4.desc": "Pasos clave a seguir cuando enfrenta una disputa con su arrendador o inquilino comercial.",
+    "guide.4.desc": "Pasos clave a tomar al enfrentar una disputa con su arrendador o inquilino comercial.",
     "guide.5.title": "La Reforma Fiscal de 2026: Lo Que Necesita Saber",
-    "guide.5.desc": "Un vistazo temprano a los cambios propuestos al código fiscal y cómo prepararse.",
+    "guide.5.desc": "Una visión anticipada de los cambios propuestos al código fiscal y cómo prepararse.",
     "guide.6.title": "Derecho de Familia: Acuerdos Prenupciales Explicados",
     "guide.6.desc": "Disipando mitos comunes sobre los acuerdos prenupciales y entendiendo sus beneficios.",
     
     // Resources
     "resource.1.title": "Lista de Verificación de Cumplimiento Corporativo 2025",
-    "resource.2.title": "Cuestionario de Planificación Patrimonial",
+    "resource.2.title": "Cuestionario de Planificación Sucesoria",
     "resource.3.title": "Plantilla de Auditoría de Propiedad Intelectual",
     "resource.4.title": "Glosario de Terminología de Arrendamiento Comercial",
+
+    // Home Insights
+    "home.insight.1.title": "Entendiendo Sus Derechos en la Corte de Inmigración",
+    "home.insight.1.cat": "Defensa de Deportación",
+    "home.insight.2.title": "Cómo Pagar la Fianza para un Pariente Detenido",
+    "home.insight.2.cat": "Detención",
+    "home.insight.3.title": "Cambios en la Elegibilidad de Asilo en 2024",
+    "home.insight.3.cat": "Asilo",
+    "home.insight.desc": "Lea nuestro análisis experto sobre este tema crítico que afecta a empresas e individuos por igual.",
+
+    // Bond Questionnaire Extras
+    "bond.description": "Por favor proporcione detalles precisos sobre la persona actualmente detenida.",
+    "bond.placeholder.name": "ej. Juan Pérez",
+    "bond.placeholder.a_number": "A-123-456-789",
+    "bond.placeholder.country": "ej. Brasil",
+    "bond.placeholder.manner": "ej. Visa, Cruce Fronterizo",
+    "bond.placeholder.center": "ej. Centro de Detención Krome",
+    "bond.placeholder.criminal": "Por favor enumere cualquier arresto o condena...",
+    "bond.placeholder.family": "Enumere los miembros de la familia actualmente en EE.UU. (Relación y Estatus)",
+    "bond.placeholder.relation": "ej. Hermano, Cónyuge",
+    "bond.placeholder.status": "ej. Ciudadano de EE.UU., Residente Permanente",
+    "bond.placeholder.income": "Ingreso Anual USD",
+    "bond.sending": "Enviando...",
+
+    // Consultation
+    "consultation.title": "Solicitar una Consulta",
+    "consultation.subtitle": "Por favor proporcione detalles sobre su asunto legal para que podamos asignarle el abogado más apropiado.",
+    "consultation.step1": "Detalles del Caso",
+    "consultation.step2": "Información de Contacto",
+    "consultation.step3": "Revisión",
+    "consultation.step1_title": "Paso 1: Cuéntenos sobre su caso",
+    "consultation.step2_title": "Paso 2: Su Información de Contacto",
+    "consultation.step3_title": "Paso 3: Programación y Confirmación",
+    "consultation.confidentiality": "Toda la información proporcionada es estrictamente confidencial y está protegida por el privilegio abogado-cliente.",
+    "consultation.label.area": "Área Legal",
+    "consultation.placeholder.area": "Seleccione el área de derecho",
+    "consultation.option.other": "Otro / No estoy seguro",
+    "consultation.label.description": "Breve Descripción de Su Situación Migratoria",
+    "consultation.placeholder.description": "Por favor describa su situación (ej., ¿Tiene una fecha de corte? ¿Está detenido?)",
+    "consultation.label.urgency": "Nivel de Urgencia",
+    "consultation.urgency.low": "Estándar (Planificando con anticipación)",
+    "consultation.urgency.medium": "Importante (Acción necesaria pronto)",
+    "consultation.urgency.high": "Urgente (Acción inmediata requerida)",
+    "consultation.button.next": "Siguiente Paso",
+    "consultation.label.firstname": "Nombre",
+    "consultation.label.lastname": "Apellido",
+    "consultation.label.email": "Dirección de Correo Electrónico",
+    "consultation.label.phone": "Número de Teléfono",
+    "consultation.label.preferred_contact": "Método de Contacto Preferido",
+    "consultation.option.email": "Correo Electrónico",
+    "consultation.option.phone": "Llamada Telefónica",
+    "consultation.label.time": "Hora de Consulta Preferida",
+    "consultation.option.morning": "Mañana (9AM - 12PM)",
+    "consultation.option.afternoon": "Tarde (1PM - 5PM)",
+    "consultation.option.evening": "Noche (Después de 5PM)",
+    "consultation.consent": "Entiendo que enviar este formulario no crea una relación abogado-cliente hasta que se firme un acuerdo de honorarios.",
+    "consultation.button.submit": "Enviar Solicitud",
+    "consultation.success.title": "Solicitud Recibida",
+    "consultation.success.desc": "Gracias por contactar a Amaral Law. Nuestro equipo de admisión revisará sus detalles y lo contactará dentro de las 24 horas para programar su consulta.",
+    "consultation.button.home": "Volver al Inicio"
   },
   pt: {
     // Navigation
@@ -469,6 +589,66 @@ export const translations: Record<Language, Record<string, string>> = {
     "resource.2.title": "Questionário de Planejamento Sucessório",
     "resource.3.title": "Modelo de Auditoria de Propriedade Intelectual",
     "resource.4.title": "Glossário de Terminologia de Locação Comercial",
+
+    // Home Insights
+    "home.insight.1.title": "Entendendo Seus Direitos no Tribunal de Imigração",
+    "home.insight.1.cat": "Defesa de Deportação",
+    "home.insight.2.title": "Como Pagar Fiança para um Parente Detido",
+    "home.insight.2.cat": "Detenção",
+    "home.insight.3.title": "Mudanças na Elegibilidade de Asilo em 2024",
+    "home.insight.3.cat": "Asilo",
+    "home.insight.desc": "Leia nossa análise especializada sobre este tópico crítico que afeta empresas e indivíduos.",
+
+    // Bond Questionnaire Extras
+    "bond.description": "Por favor, forneça detalhes precisos sobre a pessoa atualmente detida.",
+    "bond.placeholder.name": "ex: João Silva",
+    "bond.placeholder.a_number": "A-123-456-789",
+    "bond.placeholder.country": "ex: Brasil",
+    "bond.placeholder.manner": "ex: Visto, Travessia de Fronteira",
+    "bond.placeholder.center": "ex: Centro de Detenção Krome",
+    "bond.placeholder.criminal": "Por favor, liste quaisquer prisões ou condenações...",
+    "bond.placeholder.family": "Liste os membros da família atualmente nos EUA (Relacionamento e Status)",
+    "bond.placeholder.relation": "ex: Irmão, Cônjuge",
+    "bond.placeholder.status": "ex: Cidadão dos EUA, Portador de Green Card",
+    "bond.placeholder.income": "Renda Anual USD",
+    "bond.sending": "Enviando...",
+
+    // Consultation
+    "consultation.title": "Solicitar Consulta",
+    "consultation.subtitle": "Por favor, forneça detalhes sobre seu caso jurídico para que possamos encaminhá-lo ao advogado mais adequado.",
+    "consultation.step1": "Detalhes do Caso",
+    "consultation.step2": "Informações de Contato",
+    "consultation.step3": "Revisão",
+    "consultation.step1_title": "Passo 1: Conte-nos sobre seu caso",
+    "consultation.step2_title": "Passo 2: Suas Informações de Contato",
+    "consultation.step3_title": "Passo 3: Agendamento e Confirmação",
+    "consultation.confidentiality": "Todas as informações fornecidas são estritamente confidenciais e protegidas pelo sigilo advogado-cliente.",
+    "consultation.label.area": "Área Jurídica",
+    "consultation.placeholder.area": "Selecione a área do direito",
+    "consultation.option.other": "Outro / Não tenho certeza",
+    "consultation.label.description": "Breve Descrição da Sua Situação Imigratória",
+    "consultation.placeholder.description": "Por favor, descreva sua situação (ex: Você tem uma data de tribunal? Está detido?)",
+    "consultation.label.urgency": "Nível de Urgência",
+    "consultation.urgency.low": "Padrão (Planejamento antecipado)",
+    "consultation.urgency.medium": "Importante (Ação necessária em breve)",
+    "consultation.urgency.high": "Urgente (Ação imediata necessária)",
+    "consultation.button.next": "Próximo Passo",
+    "consultation.label.firstname": "Nome",
+    "consultation.label.lastname": "Sobrenome",
+    "consultation.label.email": "Endereço de E-mail",
+    "consultation.label.phone": "Número de Telefone",
+    "consultation.label.preferred_contact": "Método de Contato Preferido",
+    "consultation.option.email": "E-mail",
+    "consultation.option.phone": "Chamada Telefônica",
+    "consultation.label.time": "Horário de Consulta Preferido",
+    "consultation.option.morning": "Manhã (9h - 12h)",
+    "consultation.option.afternoon": "Tarde (13h - 17h)",
+    "consultation.option.evening": "Noite (Após 17h)",
+    "consultation.consent": "Entendo que o envio deste formulário não cria uma relação advogado-cliente até que um contrato de honorários seja assinado.",
+    "consultation.button.submit": "Enviar Solicitação",
+    "consultation.success.title": "Solicitação Recebida",
+    "consultation.success.desc": "Obrigado por entrar em contato com a Amaral Law. Nossa equipe de triagem analisará seus detalhes e entrará em contato dentro de 24 horas para agendar sua consulta.",
+    "consultation.button.home": "Voltar ao Início"
   }
 };
 
@@ -476,6 +656,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguage] = useState<Language>('en');
 
   const t = (key: string) => {
+    // @ts-ignore
     return translations[language][key] || key;
   };
 
