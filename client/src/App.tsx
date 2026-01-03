@@ -13,6 +13,7 @@ import Contact from "@/pages/Contact"; // Assuming Contact.tsx exists or will be
 import Consultation from "@/pages/Consultation";
 import BondQuestionnaire from "@/pages/BondQuestionnaire";
 import Detention from "@/pages/Detention";
+import AdminDashboard from "@/pages/AdminDashboard";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ function Router() {
           <Route path="/consultation" component={Consultation} />
           <Route path="/bond-questionnaire" component={BondQuestionnaire} />
           <Route path="/detention" component={Detention} />
+          <Route path="/admin/dashboard" component={AdminDashboard} />
           <Route component={NotFound} />
         </Switch>
       </Layout>

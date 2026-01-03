@@ -120,6 +120,63 @@ export const appRouter = router({
         await updateBondSubmissionStatus(input.id, input.status, input.notes);
         return { success: true };
       }),
+    
+    // Protected - get filtered submissions for dashboard
+    getFiltered: protectedProcedure
+      .input(z.object({
+        status: z.enum(["new", "reviewed", "in_progress", "completed", "archived"]).optional(),
+        search: z.string().optional(),
+        sortBy: z.enum(["date", "name", "status"]).optional(),
+        sortOrder: z.enum(["asc", "desc"]).optional(),
+      }))
+      .query(async ({ input }) => {
+        const allSubmissions = await getAllBondSubmissions();
+        
+        let filtered = allSubmissions;
+        
+        // Filter by status
+        if (input.status) {
+          filtered = filtered.filter(s => s.status === input.status);
+        }
+        
+        // Filter by search term (name, A-number, email)
+        if (input.search) {
+          const searchLower = input.search.toLowerCase();
+          filtered = filtered.filter(s => 
+            s.detaineeName?.toLowerCase().includes(searchLower) ||
+            s.aNumber?.toLowerCase().includes(searchLower) ||
+            s.contactEmail?.toLowerCase().includes(searchLower) ||
+            s.detentionCenter?.toLowerCase().includes(searchLower)
+          );
+        }
+        
+        // Sort
+        const sortBy = input.sortBy || "date";
+        const sortOrder = input.sortOrder || "desc";
+        
+        filtered.sort((a, b) => {
+          let aVal: any, bVal: any;
+          
+          if (sortBy === "date") {
+            aVal = new Date(a.createdAt).getTime();
+            bVal = new Date(b.createdAt).getTime();
+          } else if (sortBy === "name") {
+            aVal = a.detaineeName || "";
+            bVal = b.detaineeName || "";
+          } else if (sortBy === "status") {
+            aVal = a.status || "";
+            bVal = b.status || "";
+          }
+          
+          if (sortOrder === "asc") {
+            return aVal > bVal ? 1 : -1;
+          } else {
+            return aVal < bVal ? 1 : -1;
+          }
+        });
+        
+        return filtered;
+      }),
   }),
 });
 
