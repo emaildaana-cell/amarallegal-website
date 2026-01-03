@@ -29,3 +29,7 @@
 ## Quick Access Tools Enhancement
 - [x] Add tooltip translations for Quick Access Tools (EN/ES/PT)
 - [x] Implement tooltips on Action Bar buttons using shadcn/ui Tooltip component
+
+## Navigation Fixes
+- [x] Fix language selector flags to display properly
+- [x] Ensure logo is positioned on the left side of navigation

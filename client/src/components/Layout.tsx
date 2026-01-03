@@ -84,15 +84,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 else if (language === 'es') setLanguage('pt');
                 else setLanguage('en');
               }}
-              className="flex items-center gap-2 font-medium"
+              className="flex items-center gap-2 font-medium hover:bg-secondary/10"
               title={language === 'en' ? 'Switch to Spanish' : language === 'es' ? 'Switch to Portuguese' : 'Switch to English'}
             >
               <img 
                 src={language === 'en' ? '/images/flag-us.png' : language === 'es' ? '/images/flag-es.png' : '/images/flag-br.png'} 
                 alt={language === 'en' ? 'English' : language === 'es' ? 'Español' : 'Português'}
-                className="h-5 w-5 object-contain rounded-sm"
+                className="h-6 w-8 object-cover rounded border border-border/50 shadow-sm"
               />
-              <span className="text-sm">{language === 'en' ? 'EN' : language === 'es' ? 'ES' : 'PT'}</span>
+              <span className="text-sm font-semibold">{language === 'en' ? 'EN' : language === 'es' ? 'ES' : 'PT'}</span>
             </Button>
             <Link href="/consultation">
               <Button variant="default" className="bg-primary hover:bg-primary/90 text-primary-foreground font-serif tracking-wide rounded-sm">
@@ -132,7 +132,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   ))}
                   <Button 
                     variant="outline" 
-                    className="w-full justify-start gap-2"
+                    className="w-full justify-start gap-3"
                     onClick={() => {
                       if (language === 'en') setLanguage('es');
                       else if (language === 'es') setLanguage('pt');
@@ -142,9 +142,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     <img 
                       src={language === 'en' ? '/images/flag-us.png' : language === 'es' ? '/images/flag-es.png' : '/images/flag-br.png'} 
                       alt={language === 'en' ? 'English' : language === 'es' ? 'Español' : 'Português'}
-                      className="h-5 w-5 object-contain rounded-sm"
+                      className="h-6 w-8 object-cover rounded border border-border/50 shadow-sm"
                     />
-                    {language === 'en' ? 'English' : language === 'es' ? 'Español' : 'Português'}
+                    <span className="font-medium">{language === 'en' ? 'English' : language === 'es' ? 'Español' : 'Português'}</span>
                   </Button>
                   <Link href="/consultation">
                     <Button className="w-full mt-4 bg-primary hover:bg-primary/90 text-primary-foreground rounded-sm">
