@@ -42,7 +42,20 @@ const step3Schema = z.object({
 export default function Consultation() {
   const { t } = useLanguage();
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({});
+  interface FormData {
+    practiceArea?: string;
+    description?: string;
+    urgency?: string;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    phone?: string;
+    preferredContact?: string;
+    preferredTime?: string;
+    consent?: boolean;
+  }
+
+  const [formData, setFormData] = useState<FormData>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   // Forms for each step
