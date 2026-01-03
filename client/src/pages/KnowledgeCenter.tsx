@@ -5,82 +5,87 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, Download, Search, BookOpen, ChevronRight } from "lucide-react";
 
-const guides = [
-  {
-    id: 1,
-    title: "Corporate Liability in the Digital Age",
-    category: "Corporate Law",
-    description: "A comprehensive guide to understanding new liability risks for digital-first companies.",
-    date: "Oct 12, 2025",
-    readTime: "15 min read"
-  },
-  {
-    id: 2,
-    title: "Estate Planning for Business Owners",
-    category: "Estate Planning",
-    description: "Strategies to protect your business assets and ensure a smooth succession.",
-    date: "Sep 28, 2025",
-    readTime: "10 min read"
-  },
-  {
-    id: 3,
-    title: "Intellectual Property: Patent vs. Trade Secret",
-    category: "Intellectual Property",
-    description: "Deciding which protection mechanism is right for your innovation.",
-    date: "Sep 15, 2025",
-    readTime: "12 min read"
-  },
-  {
-    id: 4,
-    title: "Navigating Commercial Lease Disputes",
-    category: "Real Estate",
-    description: "Key steps to take when facing a dispute with your commercial landlord or tenant.",
-    date: "Aug 30, 2025",
-    readTime: "8 min read"
-  },
-  {
-    id: 5,
-    title: "The 2026 Tax Reform: What You Need to Know",
-    category: "Tax Law",
-    description: "An early look at proposed changes to the tax code and how to prepare.",
-    date: "Aug 10, 2025",
-    readTime: "20 min read"
-  },
-  {
-    id: 6,
-    title: "Family Law: Prenuptial Agreements Explained",
-    category: "Family Law",
-    description: "Dispelling common myths about prenups and understanding their benefits.",
-    date: "Jul 22, 2025",
-    readTime: "7 min read"
-  }
-];
 
-const resources = [
-  {
-    title: "2025 Corporate Compliance Checklist",
-    type: "PDF Guide",
-    size: "2.4 MB"
-  },
-  {
-    title: "Estate Planning Questionnaire",
-    type: "PDF Form",
-    size: "1.1 MB"
-  },
-  {
-    title: "Intellectual Property Audit Template",
-    type: "Excel Template",
-    size: "0.8 MB"
-  },
-  {
-    title: "Commercial Lease Terminology Glossary",
-    type: "PDF Reference",
-    size: "1.5 MB"
-  }
-];
+
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function KnowledgeCenter() {
+  const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState("");
+
+  const guides = [
+    {
+      id: 1,
+      title: t("guide.1.title"),
+      category: "Corporate Law",
+      description: t("guide.1.desc"),
+      date: "Oct 12, 2025",
+      readTime: "15 min read"
+    },
+    {
+      id: 2,
+      title: t("guide.2.title"),
+      category: "Estate Planning",
+      description: t("guide.2.desc"),
+      date: "Sep 28, 2025",
+      readTime: "10 min read"
+    },
+    {
+      id: 3,
+      title: t("guide.3.title"),
+      category: "Intellectual Property",
+      description: t("guide.3.desc"),
+      date: "Sep 15, 2025",
+      readTime: "12 min read"
+    },
+    {
+      id: 4,
+      title: t("guide.4.title"),
+      category: "Real Estate",
+      description: t("guide.4.desc"),
+      date: "Aug 30, 2025",
+      readTime: "8 min read"
+    },
+    {
+      id: 5,
+      title: t("guide.5.title"),
+      category: "Tax Law",
+      description: t("guide.5.desc"),
+      date: "Aug 10, 2025",
+      readTime: "20 min read"
+    },
+    {
+      id: 6,
+      title: t("guide.6.title"),
+      category: "Family Law",
+      description: t("guide.6.desc"),
+      date: "Jul 22, 2025",
+      readTime: "7 min read"
+    }
+  ];
+
+  const resources = [
+    {
+      title: t("resource.1.title"),
+      type: "PDF Guide",
+      size: "2.4 MB"
+    },
+    {
+      title: t("resource.2.title"),
+      type: "PDF Form",
+      size: "1.1 MB"
+    },
+    {
+      title: t("resource.3.title"),
+      type: "Excel Template",
+      size: "0.8 MB"
+    },
+    {
+      title: t("resource.4.title"),
+      type: "PDF Reference",
+      size: "1.5 MB"
+    }
+  ];
 
   const filteredGuides = guides.filter(guide => 
     guide.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -93,9 +98,9 @@ export default function KnowledgeCenter() {
       <div className="bg-secondary text-secondary-foreground py-16 md:py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('/images/hero-library.jpg')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
         <div className="container relative z-10">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">Knowledge Center</h1>
+          <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">{t("knowledge.title")}</h1>
           <p className="text-lg md:text-xl text-secondary-foreground/80 max-w-2xl font-light">
-            Expert legal insights, in-depth guides, and practical resources to help you navigate complex legal landscapes.
+            {t("knowledge.subtitle")}
           </p>
         </div>
       </div>
@@ -104,14 +109,14 @@ export default function KnowledgeCenter() {
         <Tabs defaultValue="guides" className="space-y-8">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <TabsList className="bg-muted/50 p-1">
-              <TabsTrigger value="guides" className="font-serif">Legal Guides</TabsTrigger>
-              <TabsTrigger value="resources" className="font-serif">Downloadable Resources</TabsTrigger>
+              <TabsTrigger value="guides" className="font-serif">{t("knowledge.tab.guides")}</TabsTrigger>
+              <TabsTrigger value="resources" className="font-serif">{t("knowledge.tab.resources")}</TabsTrigger>
             </TabsList>
             
             <div className="relative w-full md:w-72">
               <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input 
-                placeholder="Search topics..." 
+                placeholder={t("knowledge.search")}
                 className="pl-9 bg-background"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -143,7 +148,7 @@ export default function KnowledgeCenter() {
                     <div className="flex justify-between items-center w-full">
                       <span className="text-xs text-muted-foreground">{guide.date}</span>
                       <span className="text-sm font-bold text-primary flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                        Read Article <ChevronRight className="h-4 w-4" />
+                        {t("knowledge.read_article")} <ChevronRight className="h-4 w-4" />
                       </span>
                     </div>
                   </CardFooter>
@@ -152,7 +157,7 @@ export default function KnowledgeCenter() {
             </div>
             {filteredGuides.length === 0 && (
               <div className="text-center py-12">
-                <p className="text-muted-foreground">No guides found matching your search.</p>
+                <p className="text-muted-foreground">{t("knowledge.no_results")}</p>
               </div>
             )}
           </TabsContent>
@@ -187,21 +192,21 @@ export default function KnowledgeCenter() {
             <BookOpen className="h-64 w-64" />
           </div>
           <div className="relative z-10 max-w-2xl">
-            <h2 className="font-serif text-3xl font-bold mb-4">Stay Informed</h2>
+            <h2 className="font-serif text-3xl font-bold mb-4">{t("knowledge.newsletter.title")}</h2>
             <p className="text-primary-foreground/80 mb-8 text-lg">
-              Subscribe to our monthly newsletter for the latest legal insights, firm news, and regulatory updates delivered directly to your inbox.
+              {t("knowledge.newsletter.desc")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Input 
-                placeholder="Enter your email address" 
+                placeholder={t("knowledge.newsletter.placeholder")}
                 className="bg-primary-foreground text-primary placeholder:text-primary/50 border-none h-12"
               />
               <Button size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-serif h-12 px-8">
-                Subscribe
+                {t("knowledge.newsletter.button")}
               </Button>
             </div>
             <p className="text-xs text-primary-foreground/60 mt-4">
-              By subscribing, you agree to our Privacy Policy. You can unsubscribe at any time.
+              {t("knowledge.newsletter.disclaimer")}
             </p>
           </div>
         </div>
