@@ -3,13 +3,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, Scale, Shield, Users, BookOpen, CheckCircle2, Gavel, Phone, Search, FileText } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import SEO from "@/components/SEO";
 
 export default function Home() {
   const { t } = useLanguage();
 
   return (
-    <div className="flex flex-col">
-          {/* Hero Section */}
+    <div className="flex flex-col min-h-screen">
+      <SEO 
+        titleKey="seo.home.title"
+        descriptionKey="seo.home.desc"
+        keywordsKey="seo.home.keywords"
+      />        {/* Hero Section */}
       <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 

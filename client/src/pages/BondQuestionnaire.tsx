@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
+import SEO from "@/components/SEO";
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -48,6 +49,10 @@ export default function BondQuestionnaire() {
 
   return (
     <div className="container py-12 max-w-4xl">
+      <SEO 
+        titleKey="seo.bond.title"
+        descriptionKey="seo.bond.desc"
+      />
       <div className="text-center mb-10">
         <h1 className="text-4xl font-serif font-bold text-primary mb-4">{t("bond.title")}</h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">

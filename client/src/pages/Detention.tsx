@@ -3,12 +3,17 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AlertTriangle, Phone, Search, FileText, CheckCircle2, XCircle } from "lucide-react";
 import { Link } from "wouter";
+import SEO from "@/components/SEO";
 
 export default function Detention() {
   const { t } = useLanguage();
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        titleKey="seo.detention.title"
+        descriptionKey="seo.detention.desc"
+      />
       {/* Hero Section */}
       <section className="bg-destructive text-destructive-foreground py-16 md:py-24">
         <div className="container mx-auto px-4 text-center">

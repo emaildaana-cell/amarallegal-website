@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Link } from "wouter";
+import SEO from "@/components/SEO";
 
 export default function Attorneys() {
   const { t } = useLanguage();
@@ -29,6 +30,10 @@ export default function Attorneys() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        titleKey="seo.attorneys.title"
+        descriptionKey="seo.attorneys.desc"
+      />
       {/* Hero Section */}
       <section className="relative py-20 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4">

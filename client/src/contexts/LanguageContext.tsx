@@ -264,7 +264,33 @@ const translations = {
     "consultation.booking.subtitle": "Select a time that works for you to speak with our attorneys.",
     "consultation.fee.title": "Consultation Fee: $250.00",
     "consultation.fee.desc": "Please note that there is a consultation fee of $250.00 for all initial appointments.",
-    "consultation.fee.invoice": "A LawPay invoice will be sent to you via email prior to your appointment."
+        "consultation.fee.invoice": "A LawPay invoice will be emailed to you prior to your appointment.",
+
+    // SEO
+    "seo.home.title": "Immigration Attorneys & Removal Defense",
+    "seo.home.desc": "Amaral Law specializes in removal defense, immigration bonds, and asylum. Aggressive representation to protect your rights and keep families together.",
+    "seo.home.keywords": "immigration lawyer, removal defense, immigration bond, asylum, deportation attorney",
+    
+    "seo.attorneys.title": "Our Immigration Attorneys",
+    "seo.attorneys.desc": "Meet our experienced legal team dedicated to fighting for immigrant rights in court.",
+    
+    "seo.practice.title": "Immigration Practice Areas",
+    "seo.practice.desc": "Expert legal services in removal defense, asylum, family petitions, and federal litigation.",
+    
+    "seo.knowledge.title": "Immigration Knowledge Center",
+    "seo.knowledge.desc": "Legal guides, resources, and articles to help you understand the complex immigration system.",
+    
+    "seo.contact.title": "Contact Amaral Law",
+    "seo.contact.desc": "Schedule a consultation with our immigration attorneys. We are here to help with your case.",
+    
+    "seo.detention.title": "Immigration Detention Help",
+    "seo.detention.desc": "Immediate assistance for ICE detainees. Learn how to locate a loved one and secure a bond.",
+    
+    "seo.consultation.title": "Schedule Consultation",
+    "seo.consultation.desc": "Book a legal consultation with Amaral Law. $250 consultation fee. LawPay invoice provided.",
+    
+    "seo.bond.title": "Immigration Bond Questionnaire",
+    "seo.bond.desc": "Complete our bond questionnaire to assess eligibility for release from immigration detention."
   },
   es: {
     // Navigation
@@ -519,7 +545,33 @@ const translations = {
     "consultation.booking.subtitle": "Seleccione un horario conveniente para hablar con nuestros abogados.",
     "consultation.fee.title": "Tarifa de Consulta: $250.00",
     "consultation.fee.desc": "Tenga en cuenta que hay una tarifa de consulta de $250.00 para todas las citas iniciales.",
-    "consultation.fee.invoice": "Se le enviará una factura de LawPay por correo electrónico antes de su cita."
+    "consultation.fee.invoice": "Se le enviará una factura de LawPay por correo electrónico antes de su cita.",
+
+    // SEO
+    "seo.home.title": "Abogados de Inmigración y Defensa de Deportación",
+    "seo.home.desc": "Amaral Law se especializa en defensa de deportación, fianzas de inmigración y asilo. Representación agresiva para proteger sus derechos y mantener a las familias unidas.",
+    "seo.home.keywords": "abogado de inmigración, defensa de deportación, fianza de inmigración, asilo, abogado de deportación",
+    
+    "seo.attorneys.title": "Nuestros Abogados de Inmigración",
+    "seo.attorneys.desc": "Conozca a nuestro experimentado equipo legal dedicado a luchar por los derechos de los inmigrantes en la corte.",
+    
+    "seo.practice.title": "Áreas de Práctica de Inmigración",
+    "seo.practice.desc": "Servicios legales expertos en defensa de remoción, asilo, peticiones familiares y litigios federales.",
+    
+    "seo.knowledge.title": "Centro de Conocimiento de Inmigración",
+    "seo.knowledge.desc": "Guías legales, recursos y artículos para ayudarle a entender el complejo sistema de inmigración.",
+    
+    "seo.contact.title": "Contacte a Amaral Law",
+    "seo.contact.desc": "Programe una consulta con nuestros abogados de inmigración. Estamos aquí para ayudarle con su caso.",
+    
+    "seo.detention.title": "Ayuda para Detención de Inmigración",
+    "seo.detention.desc": "Asistencia inmediata para detenidos por ICE. Aprenda cómo localizar a un ser querido y asegurar una fianza.",
+    
+    "seo.consultation.title": "Programar Consulta",
+    "seo.consultation.desc": "Reserve una consulta legal con Amaral Law. Tarifa de consulta de $250. Factura de LawPay proporcionada.",
+    
+    "seo.bond.title": "Cuestionario de Fianza de Inmigración",
+    "seo.bond.desc": "Complete nuestro cuestionario de fianza para evaluar la elegibilidad para la liberación de la detención de inmigración."
   },
   pt: {
     // Navigation
@@ -774,7 +826,33 @@ const translations = {
     "consultation.booking.subtitle": "Selecione um horário conveniente para falar com nossos advogados.",
     "consultation.fee.title": "Taxa de Consulta: $250.00",
     "consultation.fee.desc": "Observe que há uma taxa de consulta de $250.00 para todos os agendamentos iniciais.",
-    "consultation.fee.invoice": "Uma fatura do LawPay será enviada para você por e-mail antes da sua consulta."
+    "consultation.fee.invoice": "Uma fatura do LawPay será enviada para você por e-mail antes da sua consulta.",
+
+    // SEO
+    "seo.home.title": "Advogados de Imigração e Defesa de Remoção",
+    "seo.home.desc": "Amaral Law é especializada em defesa de remoção, fianças de imigração e asilo. Representação agressiva para proteger seus direitos e manter as famílias unidas.",
+    "seo.home.keywords": "advogado de imigração, defesa de remoção, fiança de imigração, asilo, advogado de deportação",
+    
+    "seo.attorneys.title": "Nossos Advogados de Imigração",
+    "seo.attorneys.desc": "Conheça nossa experiente equipe jurídica dedicada a lutar pelos direitos dos imigrantes no tribunal.",
+    
+    "seo.practice.title": "Áreas de Atuação em Imigração",
+    "seo.practice.desc": "Serviços jurídicos especializados em defesa de remoção, asilo, petições familiares e litígios federais.",
+    
+    "seo.knowledge.title": "Centro de Conhecimento de Imigração",
+    "seo.knowledge.desc": "Guias jurídicos, recursos e artigos para ajudá-lo a entender o complexo sistema de imigração.",
+    
+    "seo.contact.title": "Contate a Amaral Law",
+    "seo.contact.desc": "Agende uma consulta com nossos advogados de imigração. Estamos aqui para ajudar com seu caso.",
+    
+    "seo.detention.title": "Ajuda para Detenção de Imigração",
+    "seo.detention.desc": "Assistência imediata para detidos pelo ICE. Saiba como localizar um ente querido e garantir uma fiança.",
+    
+    "seo.consultation.title": "Agendar Consulta",
+    "seo.consultation.desc": "Reserve uma consulta jurídica com a Amaral Law. Taxa de consulta de $250. Fatura do LawPay fornecida.",
+    
+    "seo.bond.title": "Questionário de Fiança de Imigração",
+    "seo.bond.desc": "Preencha nosso questionário de fiança para avaliar a elegibilidade para libertação da detenção de imigração."
   }
 };
 

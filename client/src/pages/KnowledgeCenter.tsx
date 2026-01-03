@@ -8,6 +8,7 @@ import { FileText, Download, Search, BookOpen, ChevronRight } from "lucide-react
 
 
 import { useLanguage } from "@/contexts/LanguageContext";
+import SEO from "@/components/SEO";
 
 export default function KnowledgeCenter() {
   const { t } = useLanguage();
@@ -94,6 +95,10 @@ export default function KnowledgeCenter() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        titleKey="seo.knowledge.title"
+        descriptionKey="seo.knowledge.desc"
+      />
       {/* Hero Section */}
       <div className="bg-secondary text-secondary-foreground py-16 md:py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('/images/hero-library.jpg')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>

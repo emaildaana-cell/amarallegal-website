@@ -4,12 +4,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import SEO from "@/components/SEO";
 
 export default function Contact() {
   const { t } = useLanguage();
 
   return (
     <div className="min-h-screen bg-background py-12 md:py-20">
+      <SEO 
+        titleKey="seo.contact.title"
+        descriptionKey="seo.contact.desc"
+      />
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h1 className="font-serif text-4xl font-bold text-primary mb-4">{t("contact.title") || "Contact Us"}</h1>

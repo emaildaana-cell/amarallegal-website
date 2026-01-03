@@ -16,6 +16,7 @@ import { practiceAreas } from "@/lib/data";
 import { toast } from "sonner";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { InlineWidget } from "react-calendly";
+import SEO from "@/components/SEO";
 
 // Schema for Step 1: Case Details
 const step1Schema = z.object({
@@ -121,6 +122,10 @@ export default function Consultation() {
 
   return (
     <div className="min-h-screen bg-muted/10 py-12 md:py-20">
+      <SEO 
+        titleKey="seo.consultation.title"
+        descriptionKey="seo.consultation.desc"
+      />
       <div className="container max-w-4xl">
         <div className="text-center mb-10">
           <h1 className="font-serif text-4xl font-bold text-primary mb-4">{t("consultation.title")}</h1>
