@@ -1,162 +1,139 @@
-import { useState } from "react";
-import { attorneys, practiceAreas, locations } from "@/lib/data";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Link } from "wouter";
-import { Search, MapPin, Briefcase, Mail, Phone } from "lucide-react";
 
 export default function Attorneys() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedArea, setSelectedArea] = useState("all");
-  const [selectedLocation, setSelectedLocation] = useState("all");
+  const { t } = useLanguage();
 
-  const filteredAttorneys = attorneys.filter((attorney) => {
-    const matchesSearch = attorney.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          attorney.role.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesArea = selectedArea === "all" || attorney.practiceAreas.includes(selectedArea);
-    const matchesLocation = selectedLocation === "all" || attorney.location === selectedLocation;
-    
-    return matchesSearch && matchesArea && matchesLocation;
-  });
+  const attorneys = [
+    {
+      name: "Ana Paola Amaral-Muschlitz",
+      role: "Lead Immigration Attorney",
+      bio: "An immigrant from Brazil with over 40 years in the U.S., Ana Paola specializes in detention defense and removal proceedings, bringing personal experience and deep empathy to every case.",
+      image: "/images/ana-paola.jpg" // Placeholder, ideally we'd have the real image
+    },
+    {
+      name: "Reggie Smith",
+      role: "Complex Immigration Litigation Attorney",
+      bio: "Specialized in complex immigration litigation with extensive experience in appellate proceedings, federal court litigation, and challenging immigration cases requiring advanced legal strategies.",
+      image: "/images/reggie-smith.jpg" // Placeholder
+    },
+    {
+      name: "Balaiz Vigh",
+      role: "Of Counsel - Civil Litigation",
+      bio: "Experienced in civil litigation matters including contract disputes, property claims, and complex civil cases. Provides expert legal representation for clients needing specialized civil law counsel.",
+      image: "/images/balaiz-vigh.jpg" // Placeholder
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <div className="bg-primary text-primary-foreground py-16 md:py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/images/hero-library.jpg')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
-        <div className="container relative z-10">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">Our Attorneys</h1>
-          <p className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl font-light">
-            Distinguished legal minds dedicated to your success. Browse our directory to find the right advocate for your case.
+      <section className="relative py-20 bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-center font-serif">
+            {t('attorneys.title') || "Our Legal Team"}
+          </h1>
+          <p className="text-xl text-center max-w-3xl mx-auto opacity-90">
+            {t('attorneys.subtitle') || "Experienced attorneys dedicated to your case"}
           </p>
         </div>
-      </div>
+      </section>
 
-      <div className="container py-12">
-        {/* Filters */}
-        <div className="bg-card border border-border p-6 rounded-sm shadow-sm mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-              <Input 
-                placeholder="Search by name..." 
-                className="pl-9 bg-background"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-            
-            <Select value={selectedArea} onValueChange={setSelectedArea}>
-              <SelectTrigger className="bg-background">
-                <SelectValue placeholder="Practice Area" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Practice Areas</SelectItem>
-                {practiceAreas.map((area) => (
-                  <SelectItem key={area} value={area}>{area}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Select value={selectedLocation} onValueChange={setSelectedLocation}>
-              <SelectTrigger className="bg-background">
-                <SelectValue placeholder="Location" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Locations</SelectItem>
-                {locations.map((loc) => (
-                  <SelectItem key={loc} value={loc}>{loc}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Button 
-              variant="outline" 
-              onClick={() => {
-                setSearchTerm("");
-                setSelectedArea("all");
-                setSelectedLocation("all");
-              }}
-              className="w-full"
-            >
-              Reset Filters
-            </Button>
-          </div>
-        </div>
-
-        {/* Directory Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredAttorneys.length > 0 ? (
-            filteredAttorneys.map((attorney) => (
-              <Card key={attorney.id} className="law-card overflow-hidden group flex flex-col h-full">
-                <div className="aspect-[4/5] overflow-hidden relative">
-                  <img 
+      {/* Attorneys Grid */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {attorneys.map((attorney, index) => (
+              <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                <div className="aspect-[3/4] bg-muted relative overflow-hidden">
+                  {/* In a real implementation, we would use the actual images. 
+                      For now, we'll use a placeholder div or the image tag if available. */}
+                  <div className="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400">
+                    <span className="text-4xl">⚖️</span>
+                  </div>
+                  {/* <img 
                     src={attorney.image} 
                     alt={attorney.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                    <Link href={`/attorneys/${attorney.id}`}>
-                      <Button className="w-full bg-white text-primary hover:bg-white/90">View Profile</Button>
+                    className="w-full h-full object-cover"
+                  /> */}
+                </div>
+                <CardHeader>
+                  <CardTitle className="text-xl font-serif text-primary">{attorney.name}</CardTitle>
+                  <p className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
+                    {attorney.role}
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {attorney.bio}
+                  </p>
+                  <div className="mt-6">
+                    <Link href="/contact">
+                      <Button className="w-full" variant="outline">
+                        Schedule Consultation
+                      </Button>
                     </Link>
                   </div>
-                </div>
-                <CardHeader className="pb-2">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-serif text-xl font-bold text-primary">{attorney.name}</h3>
-                      <p className="text-sm font-medium text-muted-foreground uppercase tracking-wide">{attorney.role}</p>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-3 flex-grow">
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <MapPin className="h-4 w-4 text-primary" />
-                    {attorney.location}
-                  </div>
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    {attorney.practiceAreas.slice(0, 2).map((area) => (
-                      <span key={area} className="text-xs bg-secondary/10 text-secondary px-2 py-1 rounded-sm border border-secondary/20">
-                        {area}
-                      </span>
-                    ))}
-                    {attorney.practiceAreas.length > 2 && (
-                      <span className="text-xs text-muted-foreground py-1">+{attorney.practiceAreas.length - 2} more</span>
-                    )}
-                  </div>
                 </CardContent>
-                <CardFooter className="pt-0 border-t border-border/50 mt-auto p-4 bg-muted/30">
-                  <div className="flex justify-between w-full text-sm">
-                    <a href={`mailto:${attorney.email}`} className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-                      <Mail className="h-3 w-3" /> Email
-                    </a>
-                    <a href={`tel:${attorney.phone}`} className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-                      <Phone className="h-3 w-3" /> Call
-                    </a>
-                  </div>
-                </CardFooter>
               </Card>
-            ))
-          ) : (
-            <div className="col-span-full text-center py-12">
-              <h3 className="text-xl font-serif text-muted-foreground">No attorneys found matching your criteria.</h3>
-              <Button 
-                variant="link" 
-                onClick={() => {
-                  setSearchTerm("");
-                  setSelectedArea("all");
-                  setSelectedLocation("all");
-                }}
-                className="mt-2"
-              >
-                Clear all filters
-              </Button>
-            </div>
-          )}
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Values Section */}
+      <section className="py-16 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12 font-serif text-primary">Our Values</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="text-center p-6">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 text-primary text-2xl">
+                ⚖️
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Justice for All</h3>
+              <p className="text-muted-foreground">We believe every person deserves quality legal representation, regardless of their circumstances.</p>
+            </div>
+            <div className="text-center p-6">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 text-primary text-2xl">
+                ❤️
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Compassionate Advocacy</h3>
+              <p className="text-muted-foreground">We treat each client with dignity, respect, and genuine understanding of their situation.</p>
+            </div>
+            <div className="text-center p-6">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 text-primary text-2xl">
+                🏆
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Legal Excellence</h3>
+              <p className="text-muted-foreground">We maintain the highest standards of legal practice and tirelessly pursue the best outcomes.</p>
+            </div>
+            <div className="text-center p-6">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 text-primary text-2xl">
+                🤝
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Community Commitment</h3>
+              <p className="text-muted-foreground">We actively serve immigrant communities and advocate for fair immigration reform.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-primary text-primary-foreground text-center">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif">Don't Face Immigration Detention Alone</h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+            Every day in detention matters. Contact us today for a free consultation and learn how we can help secure your release and fight for your rights.
+          </p>
+          <Link href="/contact">
+            <Button size="lg" variant="secondary" className="font-semibold text-lg px-8">
+              Request Free Consultation
+            </Button>
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }
