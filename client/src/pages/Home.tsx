@@ -67,11 +67,11 @@ export default function Home() {
               </a>
             </div>
             <div className="flex-1 flex justify-center">
-              <div className="relative w-full max-w-md aspect-square flex items-center justify-center">
+              <div className="relative w-full max-w-md aspect-square flex items-center justify-center bg-white/5 rounded-full border border-white/10 backdrop-blur-sm p-8 overflow-hidden">
                 <img 
                   src="/images/ana-paola-ice-free.png" 
                   alt="Ana Paola Amaral-Muschlitz - 1-844-ICE-FREE" 
-                  className="w-full h-full object-contain drop-shadow-2xl"
+                  className="w-full h-full object-cover rounded-full"
                 />
               </div>
             </div>
