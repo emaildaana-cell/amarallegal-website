@@ -53,33 +53,46 @@ export default function Home() {
       </section>
 
       {/* Action Bar */}
-      <div className="bg-secondary text-secondary-foreground py-4 shadow-md relative z-20">
+      <div className="relative z-20 -mt-8 mb-12">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-12 text-sm md:text-base font-bold">
-            <span className="uppercase tracking-wider opacity-90 hidden md:inline">{t("action_bar.title") || "Immediate Actions"}:</span>
-            <a 
-              href="https://locator.ice.gov/odls/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 hover:text-white transition-colors group"
-            >
-              <div className="bg-secondary-foreground/10 p-1.5 rounded-full group-hover:bg-secondary-foreground/20 transition-colors">
-                <Search className="h-4 w-4" />
+          <div className="bg-white/95 backdrop-blur-md shadow-xl rounded-xl border border-white/20 p-6 max-w-4xl mx-auto transform hover:-translate-y-1 transition-all duration-300">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex items-center gap-3">
+                <div className="bg-secondary/10 p-3 rounded-full">
+                  <Gavel className="h-6 w-6 text-secondary" />
+                </div>
+                <div>
+                  <h3 className="font-serif font-bold text-primary text-lg">{t("action_bar.title") || "Immediate Actions"}</h3>
+                  <p className="text-sm text-muted-foreground">Quick access to essential tools</p>
+                </div>
               </div>
-              {t("action_bar.ice_locator") || "Locate Detainee (ICE)"}
-            </a>
-            <span className="hidden md:inline opacity-30">|</span>
-            <a 
-              href="https://portal.eoir.justice.gov/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 hover:text-white transition-colors group"
-            >
-              <div className="bg-secondary-foreground/10 p-1.5 rounded-full group-hover:bg-secondary-foreground/20 transition-colors">
-                <FileText className="h-4 w-4" />
+              
+              <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+                <a 
+                  href="https://locator.ice.gov/odls/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex-1 sm:flex-none group"
+                >
+                  <Button variant="outline" className="w-full border-secondary/20 hover:border-secondary hover:bg-secondary/5 text-primary font-medium h-12 px-6 gap-3 transition-all duration-300">
+                    <Search className="h-4 w-4 text-secondary group-hover:scale-110 transition-transform" />
+                    {t("action_bar.ice_locator") || "Locate Detainee (ICE)"}
+                  </Button>
+                </a>
+                
+                <a 
+                  href="https://portal.eoir.justice.gov/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex-1 sm:flex-none group"
+                >
+                  <Button className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold h-12 px-6 gap-3 shadow-lg shadow-secondary/20 transition-all duration-300">
+                    <FileText className="h-4 w-4 group-hover:scale-110 transition-transform" />
+                    {t("action_bar.eoir_status") || "Check Case Status (EOIR)"}
+                  </Button>
+                </a>
               </div>
-              {t("action_bar.eoir_status") || "Check Case Status (EOIR)"}
-            </a>
+            </div>
           </div>
         </div>
       </div>
