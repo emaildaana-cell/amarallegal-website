@@ -41,17 +41,17 @@ export default function Home() {
             <p className="text-xl text-white/90 max-w-2xl font-light leading-relaxed">
               {t("hero.description")}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Link href="/consultation">
                 <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-serif text-lg px-8 h-14 rounded-sm">
                   {t("nav.request_consultation")}
                 </Button>
               </Link>
-          <Link href="/bond-questionnaire">
-            <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-primary font-serif text-lg px-10 h-14 rounded-sm backdrop-blur-sm bg-white/10">
-              {t("hero.meet_attorneys")}
-            </Button>
-          </Link>
+              <Link href="/bond-questionnaire">
+                <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-primary font-serif text-lg px-10 h-14 rounded-sm backdrop-blur-sm bg-white/10">
+                  {t("hero.meet_attorneys")}
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
