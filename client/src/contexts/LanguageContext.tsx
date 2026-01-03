@@ -255,7 +255,9 @@ const translations = {
     // Action Bar
     "action_bar.title": "Immediate Actions",
     "action_bar.ice_locator": "Locate Detainee (ICE)",
-    "action_bar.eoir_status": "Check Case Status (EOIR)",
+    "action_bar.eoir_status": "Verificar Estado del Caso (EOIR)",
+
+
 
     // Consultation Scheduling
     "consultation.tab.inquiry": "Send Inquiry",
@@ -798,6 +800,7 @@ const translations = {
     "detention.step1.button": "Localizador do ICE",
     "detention.step2.title": "Passo 2: Não Assine Nada",
     "detention.step2.desc": "Aconselhe seu ente querido a NÃO assinar nenhum documento sem falar com um advogado. Assinar uma 'saída voluntária' significa que eles concordam em ser deportados imediatamente.",
+
     "detention.step3.title": "Passo 3: Contate um Advogado",
     "detention.step3.desc": "Ligue para a Amaral Law imediatamente em 1-844-ICE-FREE. Podemos intervir para impedir a transferência, solicitar uma audiência de fiança e lutar pela libertação.",
     "detention.step3.button": "Ligar Agora",
@@ -818,6 +821,7 @@ const translations = {
     "action_bar.title": "Ações Imediatas",
     "action_bar.ice_locator": "Localizar Detento (ICE)",
     "action_bar.eoir_status": "Verificar Status do Caso (EOIR)",
+    "action_bar.bond_questionnaire": "Questionário de Fiança",
 
     // Consultation Scheduling
     "consultation.tab.inquiry": "Enviar Consulta",

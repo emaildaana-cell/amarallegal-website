@@ -91,6 +91,13 @@ export default function Home() {
                     {t("action_bar.eoir_status") || "Check Case Status (EOIR)"}
                   </Button>
                 </a>
+
+                <Link href="/bond-questionnaire">
+                  <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-12 px-6 gap-3 shadow-lg shadow-primary/20 transition-all duration-300">
+                    <FileText className="h-4 w-4 group-hover:scale-110 transition-transform" />
+                    {t("action_bar.bond_questionnaire") || "Bond Questionnaire"}
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
