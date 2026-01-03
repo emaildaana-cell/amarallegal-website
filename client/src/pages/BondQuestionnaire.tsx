@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Separator } from '@/components/ui/separator';
 import emailjs from '@emailjs/browser';
 import { toast } from 'sonner';
+import { CreditCard } from 'lucide-react';
 
 export default function BondQuestionnaire() {
   const { t } = useLanguage();
@@ -66,6 +67,20 @@ export default function BondQuestionnaire() {
           <CardDescription>{t("bond.description")}</CardDescription>
         </CardHeader>
         <CardContent>
+          <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-md mb-8">
+            <div className="flex items-start gap-3">
+              <CreditCard className="h-5 w-5 text-amber-600 mt-0.5" />
+              <div>
+                <h4 className="font-bold text-amber-800">{t("consultation.fee.title")}</h4>
+                <p className="text-amber-700 text-sm mt-1">
+                  {t("consultation.fee.desc")}
+                </p>
+                <p className="text-amber-700 text-sm mt-2 font-medium">
+                  {t("consultation.fee.invoice")}
+                </p>
+              </div>
+            </div>
+          </div>
           <form ref={form} onSubmit={handleSubmit} className="space-y-8">
             {/* Detainee Information Section */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
