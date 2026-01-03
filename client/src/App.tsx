@@ -1,17 +1,20 @@
-import { Toaster } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
-import ErrorBoundary from "./components/ErrorBoundary";
-import { ThemeProvider } from "./contexts/ThemeContext";
-import { LanguageProvider } from "./contexts/LanguageContext";
-import Layout from "./components/Layout";
-import Home from "./pages/Home";
-import Attorneys from "./pages/Attorneys";
-import AttorneyProfile from "./pages/AttorneyProfile";
-import KnowledgeCenter from "./pages/KnowledgeCenter";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
+import { Toaster } from "@/components/ui/sonner";
+import NotFound from "@/pages/NotFound";
+import Layout from "@/components/Layout";
+import Home from "@/pages/Home";
+import Attorneys from "@/pages/Attorneys";
+import AttorneyProfile from "@/pages/AttorneyProfile";
+import KnowledgeCenter from "@/pages/KnowledgeCenter";
+import Contact from "@/pages/Contact"; // Assuming Contact.tsx exists or will be created, otherwise use placeholder
 import Consultation from "@/pages/Consultation";
 import BondQuestionnaire from "@/pages/BondQuestionnaire";
+import Detention from "@/pages/Detention";
+import { LanguageProvider } from "@/contexts/LanguageContext";
+
+const queryClient = new QueryClient();
 
 function Router() {
   return (
@@ -21,11 +24,11 @@ function Router() {
           <Route path="/" component={Home} />
           <Route path="/attorneys" component={Attorneys} />
           <Route path="/attorneys/:id" component={AttorneyProfile} />
-          <Route path="/practice-areas" component={() => <div>Practice Areas Page (Coming Soon)</div>} />
           <Route path="/knowledge-center" component={KnowledgeCenter} />
-          <Route path="/contact" component={() => <div>Contact Page (Coming Soon)</div>} />
+          <Route path="/contact" component={Contact} />
           <Route path="/consultation" component={Consultation} />
           <Route path="/bond-questionnaire" component={BondQuestionnaire} />
+          <Route path="/detention" component={Detention} />
           <Route component={NotFound} />
         </Switch>
       </Layout>
@@ -35,14 +38,10 @@ function Router() {
 
 function App() {
   return (
-    <ErrorBoundary>
-      <ThemeProvider defaultTheme="light">
-        <TooltipProvider>
-          <Toaster />
-          <Router />
-        </TooltipProvider>
-      </ThemeProvider>
-    </ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <Router />
+      <Toaster />
+    </QueryClientProvider>
   );
 }
 

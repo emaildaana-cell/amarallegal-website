@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Scale, Shield, Users, BookOpen, CheckCircle2, Gavel, Phone } from "lucide-react";
+import { ArrowRight, Scale, Shield, Users, BookOpen, CheckCircle2, Gavel, Phone, Search, FileText } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Home() {
@@ -46,6 +46,38 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Action Bar */}
+      <div className="bg-secondary text-secondary-foreground py-4 shadow-md relative z-20">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-12 text-sm md:text-base font-bold">
+            <span className="uppercase tracking-wider opacity-90 hidden md:inline">{t("action_bar.title") || "Immediate Actions"}:</span>
+            <a 
+              href="https://locator.ice.gov/odls/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-white transition-colors group"
+            >
+              <div className="bg-secondary-foreground/10 p-1.5 rounded-full group-hover:bg-secondary-foreground/20 transition-colors">
+                <Search className="h-4 w-4" />
+              </div>
+              {t("action_bar.ice_locator") || "Locate Detainee (ICE)"}
+            </a>
+            <span className="hidden md:inline opacity-30">|</span>
+            <a 
+              href="https://portal.eoir.justice.gov/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:text-white transition-colors group"
+            >
+              <div className="bg-secondary-foreground/10 p-1.5 rounded-full group-hover:bg-secondary-foreground/20 transition-colors">
+                <FileText className="h-4 w-4" />
+              </div>
+              {t("action_bar.eoir_status") || "Check Case Status (EOIR)"}
+            </a>
+          </div>
+        </div>
+      </div>
       {/* Vanity Number Section */}
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="container">
