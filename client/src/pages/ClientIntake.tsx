@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from '@emailjs/browser';
 
 export default function ClientIntake() {
   const { t } = useLanguage();
@@ -21,6 +22,9 @@ export default function ClientIntake() {
     const form = e.currentTarget;
     
     try {
+      // Replace with your actual EmailJS service ID, template ID, and public key
+      // await emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form, 'YOUR_PUBLIC_KEY');
+      
       // Simulating API call
       await new Promise(resolve => setTimeout(resolve, 1500));
 
