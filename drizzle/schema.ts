@@ -77,6 +77,56 @@ export const bondSubmissions = mysqlTable("bond_submissions", {
   // Health & Humanitarian Factors
   medicalConditions: text("medicalConditions"),
   specialCircumstances: text("specialCircumstances"),
+  mentalHealthHistory: text("mentalHealthHistory"),
+  currentMedications: text("currentMedications"),
+  mentalHealthSupport: text("mentalHealthSupport"),
+  physicalDisabilities: text("physicalDisabilities"),
+  
+  // Prior Immigration Proceedings
+  priorImmigrationHearings: text("priorImmigrationHearings"),
+  priorAppeals: text("priorAppeals"),
+  previousBondHearings: text("previousBondHearings"),
+  
+  // Financial Information
+  hasAssets: boolean("hasAssets").default(false),
+  assetsDescription: text("assetsDescription"),
+  hasDebts: boolean("hasDebts").default(false),
+  debtsDescription: text("debtsDescription"),
+  bankAccounts: text("bankAccounts"),
+  abilityToPostBond: varchar("abilityToPostBond", { length: 100 }),
+  
+  // Education & Skills
+  educationLevel: varchar("educationLevel", { length: 100 }),
+  certifications: text("certifications"),
+  professionalSkills: text("professionalSkills"),
+  
+  // Dependents & Family Obligations
+  hasDependents: boolean("hasDependents").default(false),
+  dependentsDescription: text("dependentsDescription"),
+  elderlyDependents: text("elderlyDependents"),
+  childrenInUS: int("childrenInUS").default(0),
+  childrenCountries: text("childrenCountries"),
+  
+  // Ties to Country of Origin vs. U.S.
+  tiesCountryOfOrigin: text("tiesCountryOfOrigin"),
+  frequencyOfVisits: varchar("frequencyOfVisits", { length: 100 }),
+  lastVisitCountryOfOrigin: varchar("lastVisitCountryOfOrigin", { length: 20 }),
+  
+  // Expanded Criminal Record
+  criminalRecordDetails: text("criminalRecordDetails"),
+  sentencesServed: text("sentencesServed"),
+  rehabilitationPrograms: text("rehabilitationPrograms"),
+  
+  // Character References (Multiple)
+  characterReference1Name: varchar("characterReference1Name", { length: 255 }),
+  characterReference1Relation: varchar("characterReference1Relation", { length: 100 }),
+  characterReference1Contact: varchar("characterReference1Contact", { length: 100 }),
+  characterReference2Name: varchar("characterReference2Name", { length: 255 }),
+  characterReference2Relation: varchar("characterReference2Relation", { length: 100 }),
+  characterReference2Contact: varchar("characterReference2Contact", { length: 100 }),
+  characterReference3Name: varchar("characterReference3Name", { length: 255 }),
+  characterReference3Relation: varchar("characterReference3Relation", { length: 100 }),
+  characterReference3Contact: varchar("characterReference3Contact", { length: 100 }),
   
   // Sponsor Information
   sponsorName: varchar("sponsorName", { length: 255 }),
@@ -86,6 +136,8 @@ export const bondSubmissions = mysqlTable("bond_submissions", {
   sponsorPhone: varchar("sponsorPhone", { length: 30 }),
   sponsorEmail: varchar("sponsorEmail", { length: 320 }),
   sponsorUnderstandsRisk: boolean("sponsorUnderstandsRisk").default(false),
+  sponsorCriminalHistory: text("sponsorCriminalHistory"),
+  sponsorEmploymentHistory: text("sponsorEmploymentHistory"),
   
   // Contact Information (for follow-up)
   contactPhone: varchar("contactPhone", { length: 30 }),

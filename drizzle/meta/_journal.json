@@ -15,6 +15,13 @@
       "when": 1767476783251,
       "tag": "0001_elite_spitfire",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1767479214446,
+      "tag": "0002_naive_hemingway",
+      "breakpoints": true
     }
   ]
 }
