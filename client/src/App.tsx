@@ -1,48 +1,48 @@
-import { Switch, Route } from "wouter";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "./lib/queryClient";
-import { Toaster } from "@/components/ui/toaster";
-import { LanguageProvider } from "@/contexts/LanguageContext";
-import Layout from "@/components/Layout";
-import Home from "@/pages/Home";
-import About from "@/pages/About";
-import PracticeAreas from "@/pages/PracticeAreas";
-import KnowledgeCenter from "@/pages/KnowledgeCenter";
-import Contact from "@/pages/Contact";
+import { Toaster } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import NotFound from "@/pages/NotFound";
+import { Route, Switch } from "wouter";
+import ErrorBoundary from "./components/ErrorBoundary";
+import { ThemeProvider } from "./contexts/ThemeContext";
+import { LanguageProvider } from "./contexts/LanguageContext";
+import Layout from "./components/Layout";
+import Home from "./pages/Home";
+import Attorneys from "./pages/Attorneys";
+import AttorneyProfile from "./pages/AttorneyProfile";
+import KnowledgeCenter from "./pages/KnowledgeCenter";
+import Consultation from "@/pages/Consultation";
 import BondQuestionnaire from "@/pages/BondQuestionnaire";
-import SponsorResponsibilities from "@/pages/SponsorResponsibilities";
-import Resources from "@/pages/Resources";
-import ClientIntake from "@/pages/ClientIntake";
-import NotFound from "@/pages/not-found";
 
 function Router() {
   return (
-    <Layout>
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/about" component={About} />
-        <Route path="/practice-areas" component={PracticeAreas} />
-        <Route path="/knowledge-center" component={KnowledgeCenter} />
-        <Route path="/contact" component={Contact} />
-        <Route path="/consultation" component={Contact} />
-        <Route path="/bond-questionnaire" component={BondQuestionnaire} />
-        <Route path="/sponsor-responsibilities" component={SponsorResponsibilities} />
-        <Route path="/resources" component={Resources} />
-        <Route path="/client-intake" component={ClientIntake} />
-        <Route component={NotFound} />
-      </Switch>
-    </Layout>
+    <LanguageProvider>
+      <Layout>
+        <Switch>
+          <Route path="/" component={Home} />
+          <Route path="/attorneys" component={Attorneys} />
+          <Route path="/attorneys/:id" component={AttorneyProfile} />
+          <Route path="/practice-areas" component={() => <div>Practice Areas Page (Coming Soon)</div>} />
+          <Route path="/knowledge-center" component={KnowledgeCenter} />
+          <Route path="/contact" component={() => <div>Contact Page (Coming Soon)</div>} />
+          <Route path="/consultation" component={Consultation} />
+          <Route path="/bond-questionnaire" component={BondQuestionnaire} />
+          <Route component={NotFound} />
+        </Switch>
+      </Layout>
+    </LanguageProvider>
   );
 }
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
-        <Router />
-        <Toaster />
-      </LanguageProvider>
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <ThemeProvider defaultTheme="light">
+        <TooltipProvider>
+          <Toaster />
+          <Router />
+        </TooltipProvider>
+      </ThemeProvider>
+    </ErrorBoundary>
   );
 }
 
