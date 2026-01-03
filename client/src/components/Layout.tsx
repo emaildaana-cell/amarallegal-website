@@ -84,10 +84,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 else if (language === 'es') setLanguage('pt');
                 else setLanguage('en');
               }}
-              className="flex items-center gap-2 font-medium"
+              className="flex items-center gap-2 font-medium text-lg"
+              title={language === 'en' ? 'Switch to Spanish' : language === 'es' ? 'Switch to Portuguese' : 'Switch to English'}
             >
-              <Globe className="h-4 w-4" />
-              {language === 'en' ? 'ES' : language === 'es' ? 'PT' : 'EN'}
+              {language === 'en' ? '🇺🇸' : language === 'es' ? '🇪🇸' : '🇧🇷'}
             </Button>
             <Link href="/consultation">
               <Button variant="default" className="bg-primary hover:bg-primary/90 text-primary-foreground font-serif tracking-wide rounded-sm">
@@ -134,8 +134,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                       else setLanguage('en');
                     }}
                   >
-                    <Globe className="h-4 w-4" />
-                    {language === 'en' ? 'Español' : language === 'es' ? 'Português' : 'English'}
+                    <span className="text-lg">{language === 'en' ? '🇺🇸' : language === 'es' ? '🇪🇸' : '🇧🇷'}</span>
+                    {language === 'en' ? 'English' : language === 'es' ? 'Español' : 'Português'}
                   </Button>
                   <Link href="/consultation">
                     <Button className="w-full mt-4 bg-primary hover:bg-primary/90 text-primary-foreground rounded-sm">

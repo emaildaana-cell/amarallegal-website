@@ -121,7 +121,7 @@ export const translations: Record<Language, Record<string, string>> = {
     "hero.call_now": "Llama Ahora",
     "hero.title_prefix": "Expertos en Defensa de",
     "hero.title_suffix": "Deportación",
-    "hero.description": "Amaral Law ofrece representación legal autorizada para defensa compleja de deportación y apelaciones de inmigración. Luchamos para mantener a su familia unida.",
+    "hero.description": "Cuando usted o un ser querido enfrenta la detención migratoria, el tiempo es crítico. Nuestros abogados experimentados brindan una representación compasiva y agresiva para proteger sus derechos y asegurar su libertad.",
     "hero.meet_attorneys": "Cuestionario de Fianza",
     
     // Footer
@@ -218,7 +218,7 @@ export const translations: Record<Language, Record<string, string>> = {
     "hero.call_now": "Ligue Agora",
     "hero.title_prefix": "Especialistas em",
     "hero.title_suffix": "Defesa de Deportação",
-    "hero.description": "A Amaral Law oferece representação legal autorizada para defesa complexa de deportação e apelações de imigração. Lutamos para manter sua família unida.",
+    "hero.description": "Quando você ou um ente querido enfrenta a detenção imigratória, o tempo é crítico. Nossos advogados experientes oferecem representação compassiva e agressiva para proteger seus direitos e garantir sua liberdade.",
     "hero.meet_attorneys": "Questionário de Fiança",
     
     // Footer
