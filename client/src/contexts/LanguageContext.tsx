@@ -302,7 +302,11 @@ const translations = {
     // Action Bar
     "action_bar.title": "Immediate Actions",
     "action_bar.ice_locator": "Locate Detainee (ICE)",
-    "action_bar.eoir_status": "Verificar Estado del Caso (EOIR)",
+    "action_bar.eoir_status": "Check Case Status (EOIR)",
+    "action_bar.bond_questionnaire": "Bond Questionnaire",
+    "action_bar.ice_locator_tooltip": "Search the ICE detention database to find a detained individual by name or A-Number",
+    "action_bar.eoir_status_tooltip": "Check your immigration court case status and upcoming hearing dates",
+    "action_bar.bond_questionnaire_tooltip": "Complete our intake form to begin your bond case evaluation",
 
 
 
@@ -586,6 +590,10 @@ const translations = {
     "action_bar.title": "Acciones Inmediatas",
     "action_bar.ice_locator": "Localizar Detenido (ICE)",
     "action_bar.eoir_status": "Verificar Estado del Caso (EOIR)",
+    "action_bar.bond_questionnaire": "Cuestionario de Fianza",
+    "action_bar.ice_locator_tooltip": "Busque en la base de datos de detención de ICE para encontrar a una persona detenida por nombre o número A",
+    "action_bar.eoir_status_tooltip": "Verifique el estado de su caso en la corte de inmigración y las próximas fechas de audiencia",
+    "action_bar.bond_questionnaire_tooltip": "Complete nuestro formulario de admisión para comenzar la evaluación de su caso de fianza",
 
     // Consultation Scheduling
     "consultation.tab.inquiry": "Enviar Consulta",
@@ -899,6 +907,9 @@ const translations = {
     "action_bar.ice_locator": "Localizar Detento (ICE)",
     "action_bar.eoir_status": "Verificar Status do Caso (EOIR)",
     "action_bar.bond_questionnaire": "Questionário de Fiança",
+    "action_bar.ice_locator_tooltip": "Pesquise no banco de dados de detenção do ICE para encontrar uma pessoa detida por nome ou número A",
+    "action_bar.eoir_status_tooltip": "Verifique o status do seu caso no tribunal de imigração e as próximas datas de audiência",
+    "action_bar.bond_questionnaire_tooltip": "Preencha nosso formulário de admissão para iniciar a avaliação do seu caso de fiança",
 
     // Consultation Scheduling
     "consultation.tab.inquiry": "Enviar Consulta",

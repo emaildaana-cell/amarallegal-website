@@ -25,3 +25,7 @@
 - [ ] Attorney assignment and case tracking
 - [ ] Email digest for new submissions
 - [ ] Advanced search and analytics
+
+## Quick Access Tools Enhancement
+- [x] Add tooltip translations for Quick Access Tools (EN/ES/PT)
+- [x] Implement tooltips on Action Bar buttons using shadcn/ui Tooltip component

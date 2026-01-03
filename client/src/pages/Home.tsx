@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { ArrowRight, Scale, Shield, Users, BookOpen, CheckCircle2, Gavel, Phone, Search, FileText } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import SEO from "@/components/SEO";
@@ -72,38 +73,61 @@ export default function Home() {
                 </div>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-                <a 
-                  href="https://locator.ice.gov/odls/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex-1 sm:flex-none group"
-                >
-                  <Button variant="outline" className="w-full border-secondary/20 hover:border-secondary hover:bg-secondary/5 text-primary font-medium h-12 px-6 gap-3 transition-all duration-300">
-                    <Search className="h-4 w-4 text-secondary group-hover:scale-110 transition-transform" />
-                    {t("action_bar.ice_locator") || "Locate Detainee (ICE)"}
-                  </Button>
-                </a>
-                
-                <a 
-                  href="https://portal.eoir.justice.gov/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex-1 sm:flex-none group"
-                >
-                  <Button className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold h-12 px-6 gap-3 shadow-lg shadow-secondary/20 transition-all duration-300">
-                    <FileText className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                    {t("action_bar.eoir_status") || "Check Case Status (EOIR)"}
-                  </Button>
-                </a>
+              <TooltipProvider>
+                <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <a 
+                        href="https://locator.ice.gov/odls/" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex-1 sm:flex-none group"
+                      >
+                        <Button variant="outline" className="w-full border-secondary/20 hover:border-secondary hover:bg-secondary/5 text-primary font-medium h-12 px-6 gap-3 transition-all duration-300">
+                          <Search className="h-4 w-4 text-secondary group-hover:scale-110 transition-transform" />
+                          {t("action_bar.ice_locator") || "Locate Detainee (ICE)"}
+                        </Button>
+                      </a>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom" className="max-w-xs text-center">
+                      <p>{t("action_bar.ice_locator_tooltip")}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <a 
+                        href="https://portal.eoir.justice.gov/" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex-1 sm:flex-none group"
+                      >
+                        <Button className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold h-12 px-6 gap-3 shadow-lg shadow-secondary/20 transition-all duration-300">
+                          <FileText className="h-4 w-4 group-hover:scale-110 transition-transform" />
+                          {t("action_bar.eoir_status") || "Check Case Status (EOIR)"}
+                        </Button>
+                      </a>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom" className="max-w-xs text-center">
+                      <p>{t("action_bar.eoir_status_tooltip")}</p>
+                    </TooltipContent>
+                  </Tooltip>
 
-                <Link href="/bond-questionnaire">
-                  <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-12 px-6 gap-3 shadow-lg shadow-primary/20 transition-all duration-300">
-                    <FileText className="h-4 w-4 group-hover:scale-110 transition-transform" />
-                    {t("action_bar.bond_questionnaire") || "Bond Questionnaire"}
-                  </Button>
-                </Link>
-              </div>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link href="/bond-questionnaire">
+                        <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-12 px-6 gap-3 shadow-lg shadow-primary/20 transition-all duration-300">
+                          <FileText className="h-4 w-4 group-hover:scale-110 transition-transform" />
+                          {t("action_bar.bond_questionnaire") || "Bond Questionnaire"}
+                        </Button>
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom" className="max-w-xs text-center">
+                      <p>{t("action_bar.bond_questionnaire_tooltip")}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
+              </TooltipProvider>
             </div>
           </div>
         </div>
