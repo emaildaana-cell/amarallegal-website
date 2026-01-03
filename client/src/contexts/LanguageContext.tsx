@@ -24,7 +24,7 @@ export const translations: Record<Language, Record<string, string>> = {
     "hero.call_now": "Call Now",
     "hero.title_prefix": "Immigration Removal",
     "hero.title_suffix": "Experts",
-    "hero.description": "Amaral Law provides authoritative legal representation for complex deportation defense and immigration appeals. We fight to keep your family together.",
+    "hero.description": "When you or a loved one faces immigration detention, time is critical. Our experienced attorneys provide compassionate, aggressive representation to protect your rights and secure your freedom.",
     "hero.meet_attorneys": "Bond Questionnaire",
     
     // Footer
