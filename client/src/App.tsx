@@ -16,8 +16,8 @@ import Detention from "@/pages/Detention";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const queryClient = new QueryClient();
-
 function Router() {
+  // make sure to consider if you need authentication for certain routes
   return (
     <LanguageProvider>
       <Layout>
