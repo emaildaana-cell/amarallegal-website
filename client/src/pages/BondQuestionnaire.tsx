@@ -67,20 +67,7 @@ export default function BondQuestionnaire() {
           <CardDescription>{t("bond.description")}</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-md mb-8">
-            <div className="flex items-start gap-3">
-              <CreditCard className="h-5 w-5 text-amber-600 mt-0.5" />
-              <div>
-                <h4 className="font-bold text-amber-800">{t("consultation.fee.title")}</h4>
-                <p className="text-amber-700 text-sm mt-1">
-                  {t("consultation.fee.desc")}
-                </p>
-                <p className="text-amber-700 text-sm mt-2 font-medium">
-                  {t("consultation.fee.invoice")}
-                </p>
-              </div>
-            </div>
-          </div>
+
           <form ref={form} onSubmit={handleSubmit} className="space-y-8">
             {/* Detainee Information Section */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -129,9 +116,60 @@ export default function BondQuestionnaire() {
                 <Label htmlFor="criminalHistory">{t("bond.criminal_history")}</Label>
                 <Textarea id="criminalHistory" name="criminalHistory" placeholder={t("bond.placeholder.criminal")} className="min-h-[100px]" />
               </div>
+            </div>
+
+            <Separator />
+
+            {/* Immigration History Section */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-serif font-semibold text-primary">{t("bond.immigration_history")}</h3>
+              <div className="space-y-2">
+                <Label htmlFor="deportations">{t("bond.deportations")}</Label>
+                <Textarea id="deportations" name="deportations" placeholder={t("bond.placeholder.deportations")} className="min-h-[80px]" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="pendingApplications">{t("bond.pending_applications")}</Label>
+                <Textarea id="pendingApplications" name="pendingApplications" placeholder={t("bond.placeholder.pending")} className="min-h-[80px]" />
+              </div>
+            </div>
+
+            <Separator />
+
+            {/* Community Ties Section */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-serif font-semibold text-primary">{t("bond.community_ties")}</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="residenceLength">{t("bond.residence_length")}</Label>
+                  <Input id="residenceLength" name="residenceLength" placeholder={t("bond.placeholder.residence")} />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="propertyOwnership">{t("bond.property_ownership")}</Label>
+                  <Input id="propertyOwnership" name="propertyOwnership" placeholder={t("bond.placeholder.property")} />
+                </div>
+              </div>
               <div className="space-y-2">
                 <Label htmlFor="familyTies">{t("bond.family_ties")}</Label>
                 <Textarea id="familyTies" name="familyTies" placeholder={t("bond.placeholder.family")} className="min-h-[100px]" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="employmentHistory">{t("bond.employment_history")}</Label>
+                <Textarea id="employmentHistory" name="employmentHistory" placeholder={t("bond.placeholder.employment")} className="min-h-[100px]" />
+              </div>
+            </div>
+
+            <Separator />
+
+            {/* Health & Humanitarian Section */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-serif font-semibold text-primary">{t("bond.health_humanitarian")}</h3>
+              <div className="space-y-2">
+                <Label htmlFor="medicalConditions">{t("bond.medical_conditions")}</Label>
+                <Textarea id="medicalConditions" name="medicalConditions" placeholder={t("bond.placeholder.medical")} className="min-h-[80px]" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="specialCircumstances">{t("bond.special_circumstances")}</Label>
+                <Textarea id="specialCircumstances" name="specialCircumstances" placeholder={t("bond.placeholder.special")} className="min-h-[80px]" />
               </div>
             </div>
 
