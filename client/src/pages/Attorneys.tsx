@@ -11,19 +11,19 @@ export default function Attorneys() {
       name: "Ana Paola Amaral-Muschlitz",
       role: "Lead Immigration Attorney",
       bio: "An immigrant from Brazil with over 40 years in the U.S., Ana Paola specializes in detention defense and removal proceedings, bringing personal experience and deep empathy to every case.",
-      image: "/images/ana-paola.jpg" // Placeholder, ideally we'd have the real image
+      image: "/images/ana-paola.webp"
     },
     {
       name: "Reggie Smith",
       role: "Complex Immigration Litigation Attorney",
       bio: "Specialized in complex immigration litigation with extensive experience in appellate proceedings, federal court litigation, and challenging immigration cases requiring advanced legal strategies.",
-      image: "/images/reggie-smith.jpg" // Placeholder
+      image: "/images/reggie-smith.webp"
     },
     {
       name: "Balaiz Vigh",
       role: "Of Counsel - Civil Litigation",
       bio: "Experienced in civil litigation matters including contract disputes, property claims, and complex civil cases. Provides expert legal representation for clients needing specialized civil law counsel.",
-      image: "/images/balaiz-vigh.jpg" // Placeholder
+      image: "/images/balaiz-vigh.webp"
     }
   ];
 
@@ -48,16 +48,11 @@ export default function Attorneys() {
             {attorneys.map((attorney, index) => (
               <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
                 <div className="aspect-[3/4] bg-muted relative overflow-hidden">
-                  {/* In a real implementation, we would use the actual images. 
-                      For now, we'll use a placeholder div or the image tag if available. */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-gray-200 text-gray-400">
-                    <span className="text-4xl">⚖️</span>
-                  </div>
-                  {/* <img 
+                  <img 
                     src={attorney.image} 
                     alt={attorney.name}
                     className="w-full h-full object-cover"
-                  /> */}
+                  />
                 </div>
                 <CardHeader>
                   <CardTitle className="text-xl font-serif text-primary">{attorney.name}</CardTitle>
