@@ -67,18 +67,12 @@ export default function Home() {
               </a>
             </div>
             <div className="flex-1 flex justify-center">
-              <div className="relative w-full max-w-md aspect-square flex items-center justify-center bg-white/5 rounded-full border border-white/10 backdrop-blur-sm p-12">
-                <div className="text-center space-y-2">
-                  <div className="text-7xl md:text-8xl font-bold text-secondary tracking-tighter">
-                    1-844
-                  </div>
-                  <div className="text-5xl md:text-7xl font-bold text-white tracking-widest">
-                    ICE-FREE
-                  </div>
-                  <div className="text-xl text-white/60 font-mono mt-4">
-                    (1-844-262-5442)
-                  </div>
-                </div>
+              <div className="relative w-full max-w-md aspect-square flex items-center justify-center">
+                <img 
+                  src="/images/ana-paola-ice-free.png" 
+                  alt="Ana Paola Amaral-Muschlitz - 1-844-ICE-FREE" 
+                  className="w-full h-full object-contain drop-shadow-2xl"
+                />
               </div>
             </div>
           </div>
