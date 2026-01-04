@@ -54,7 +54,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         )}
       >
         <div className="container flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-3 group mr-12">
             <img 
               src="/images/logo.svg" 
               alt="Amaral Law" 
@@ -63,7 +63,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-8 ml-auto">
             {navItems.map((item) => (
               <Link 
                 key={item.href} 

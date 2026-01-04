@@ -33,3 +33,6 @@
 ## Navigation Fixes
 - [x] Fix language selector flags to display properly
 - [x] Ensure logo is positioned on the left side of navigation
+
+## Logo Positioning
+- [ ] Move logo to the left top corner of navigation

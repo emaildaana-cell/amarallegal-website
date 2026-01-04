@@ -40,6 +40,8 @@ export default defineConfig({
       clientPort: 443,
       protocol: 'wss',
       host: '3000-ipxra2pnt9ic79518swo4-bca490cb.us1.manus.computer',
+      path: '/@vite/client',
+      overlay: false,
     },
     fs: {
       strict: true,
