@@ -82,7 +82,7 @@ const translations = {
     "service.removal.voluntary": "Voluntary Departure",
     "service.removal.voluntary_desc": "When removal is inevitable, voluntary departure may preserve future immigration options.",
     "service.removal.why_title": "Why Choose Amaral Law?",
-    "service.removal.why_desc": "With decades of experience in immigration court, we understand the complexities of removal proceedings. We fight for every possible avenue of relief and never give up on our clients.",
+    "service.removal.why_desc": "With extensive experience in immigration court, we understand the complexities of removal proceedings. We fight for every possible avenue of relief and never give up on our clients.",
     "service.removal.cta": "Schedule Your Consultation",
 
     // Service Page - Asylum
