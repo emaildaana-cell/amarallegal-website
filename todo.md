@@ -92,3 +92,9 @@
 - [x] Create emergency banner component for ICE detention cases
 - [x] Add banner to homepage with urgent call-to-action
 - [x] Make banner dismissible but persistent across sessions
+
+## Consultation Page (from published site)
+- [x] Create consultation/appointments page with form
+- [x] Add attorney photo and contact information sidebar
+- [x] Include consultation type dropdown, date/time pickers
+- [x] Add Google Maps embed for office location
