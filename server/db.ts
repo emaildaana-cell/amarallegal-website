@@ -568,3 +568,188 @@ export async function getDocumentsByPlanIdPublic(planId: number): Promise<Emerge
     return [];
   }
 }
+
+
+// Character Reference Letter Functions
+import { characterReferenceLetters, InsertCharacterReferenceLetter, CharacterReferenceLetter } from "../drizzle/schema";
+import crypto from "crypto";
+
+export async function createCharacterReferenceLetter(data: {
+  respondentName: string;
+  caseType?: "bond_hearing" | "asylum" | "cancellation_of_removal" | "adjustment_of_status" | "naturalization" | "waiver" | "other";
+  caseId?: string;
+  requestedBy?: number;
+  language?: string;
+}): Promise<CharacterReferenceLetter | undefined> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create character reference letter: database not available");
+    return undefined;
+  }
+
+  try {
+    // Generate unique access token
+    const accessToken = crypto.randomBytes(32).toString("hex");
+    
+    const result = await db.insert(characterReferenceLetters).values({
+      accessToken,
+      respondentName: data.respondentName,
+      caseType: data.caseType || "bond_hearing",
+      caseId: data.caseId,
+      requestedBy: data.requestedBy,
+      language: data.language || "en",
+      status: "pending",
+    });
+    
+    const insertId = result[0].insertId;
+    const inserted = await db.select().from(characterReferenceLetters).where(eq(characterReferenceLetters.id, insertId)).limit(1);
+    
+    return inserted[0];
+  } catch (error) {
+    console.error("[Database] Failed to create character reference letter:", error);
+    throw error;
+  }
+}
+
+export async function getCharacterReferenceLetterByToken(accessToken: string): Promise<CharacterReferenceLetter | undefined> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get character reference letter: database not available");
+    return undefined;
+  }
+
+  try {
+    const result = await db.select().from(characterReferenceLetters)
+      .where(eq(characterReferenceLetters.accessToken, accessToken))
+      .limit(1);
+    return result[0];
+  } catch (error) {
+    console.error("[Database] Failed to get character reference letter:", error);
+    return undefined;
+  }
+}
+
+export async function getCharacterReferenceLetterById(id: number): Promise<CharacterReferenceLetter | undefined> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get character reference letter: database not available");
+    return undefined;
+  }
+
+  try {
+    const result = await db.select().from(characterReferenceLetters)
+      .where(eq(characterReferenceLetters.id, id))
+      .limit(1);
+    return result[0];
+  } catch (error) {
+    console.error("[Database] Failed to get character reference letter:", error);
+    return undefined;
+  }
+}
+
+export async function getAllCharacterReferenceLetters(): Promise<CharacterReferenceLetter[]> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get character reference letters: database not available");
+    return [];
+  }
+
+  try {
+    const result = await db.select().from(characterReferenceLetters)
+      .orderBy(desc(characterReferenceLetters.createdAt));
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get character reference letters:", error);
+    return [];
+  }
+}
+
+export async function updateCharacterReferenceLetter(
+  accessToken: string,
+  data: Partial<Omit<InsertCharacterReferenceLetter, "id" | "accessToken" | "createdAt" | "requestedAt" | "requestedBy">>
+): Promise<CharacterReferenceLetter | undefined> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update character reference letter: database not available");
+    return undefined;
+  }
+
+  try {
+    await db.update(characterReferenceLetters)
+      .set(data)
+      .where(eq(characterReferenceLetters.accessToken, accessToken));
+    
+    return getCharacterReferenceLetterByToken(accessToken);
+  } catch (error) {
+    console.error("[Database] Failed to update character reference letter:", error);
+    throw error;
+  }
+}
+
+export async function signCharacterReferenceLetter(
+  accessToken: string,
+  signatureData: string,
+  ipAddress: string
+): Promise<CharacterReferenceLetter | undefined> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot sign character reference letter: database not available");
+    return undefined;
+  }
+
+  try {
+    await db.update(characterReferenceLetters)
+      .set({
+        signatureData,
+        signedAt: new Date(),
+        signedIpAddress: ipAddress,
+        status: "completed",
+      })
+      .where(eq(characterReferenceLetters.accessToken, accessToken));
+    
+    return getCharacterReferenceLetterByToken(accessToken);
+  } catch (error) {
+    console.error("[Database] Failed to sign character reference letter:", error);
+    throw error;
+  }
+}
+
+export async function updateCharacterReferenceLetterPdf(
+  accessToken: string,
+  pdfFileKey: string,
+  pdfFileUrl: string
+): Promise<void> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update PDF info: database not available");
+    return;
+  }
+
+  try {
+    await db.update(characterReferenceLetters)
+      .set({
+        pdfFileKey,
+        pdfFileUrl,
+      })
+      .where(eq(characterReferenceLetters.accessToken, accessToken));
+  } catch (error) {
+    console.error("[Database] Failed to update PDF info:", error);
+    throw error;
+  }
+}
+
+export async function deleteCharacterReferenceLetter(id: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot delete character reference letter: database not available");
+    return false;
+  }
+
+  try {
+    await db.delete(characterReferenceLetters).where(eq(characterReferenceLetters.id, id));
+    return true;
+  } catch (error) {
+    console.error("[Database] Failed to delete character reference letter:", error);
+    return false;
+  }
+}

@@ -29,6 +29,8 @@ import FamilyEmergencyPlan from "@/pages/FamilyEmergencyPlan";
 import SharedPlanViewer from "@/pages/SharedPlanViewer";
 import Appointments from "@/pages/Appointments";
 import Services from "@/pages/Services";
+import CharacterReferenceLetter from "@/pages/CharacterReferenceLetter";
+import AdminCharacterLetters from "@/pages/AdminCharacterLetters";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const queryClient = new QueryClient();
@@ -63,6 +65,8 @@ function Router() {
           <Route path="/appointments" component={Appointments} />
           <Route path="/services" component={Services} />
           <Route path="/practice-areas" component={Services} />
+          <Route path="/character-letter/:token" component={CharacterReferenceLetter} />
+          <Route path="/admin/character-letters" component={AdminCharacterLetters} />
           <Route component={NotFound} />
         </Switch>
       </Layout>

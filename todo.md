@@ -135,3 +135,13 @@
 - [x] Add types of immigration bonds section
 - [x] Add mandatory detention information
 - [x] Add translations for all three languages
+
+## Character Reference Letters Feature
+- [x] Design database schema for character reference letters
+- [x] Create tRPC procedures for letter CRUD operations
+- [x] Build fillable character reference letter form
+- [x] Add electronic signature pad component
+- [x] Generate PDF from completed letters
+- [x] Add admin page for managing letter requests
+- [x] Add letter templates for different case types
+- [x] Write tests for letter functionality

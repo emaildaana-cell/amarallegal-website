@@ -309,3 +309,82 @@ export const emergencyPlanShareLinks = mysqlTable("emergency_plan_share_links", 
 
 export type EmergencyPlanShareLink = typeof emergencyPlanShareLinks.$inferSelect;
 export type InsertEmergencyPlanShareLink = typeof emergencyPlanShareLinks.$inferInsert;
+
+
+/**
+ * Character Reference Letters
+ * Stores fillable character reference letters for immigration cases
+ */
+export const characterReferenceLetters = mysqlTable("character_reference_letters", {
+  id: int("id").autoincrement().primaryKey(),
+  
+  // Unique access token for the letter (allows non-logged-in users to fill out)
+  accessToken: varchar("accessToken", { length: 64 }).notNull().unique(),
+  
+  // Case Information (set by attorney/staff)
+  caseId: varchar("caseId", { length: 50 }),
+  respondentName: varchar("respondentName", { length: 255 }).notNull(),
+  caseType: mysqlEnum("caseType", [
+    "bond_hearing",
+    "asylum",
+    "cancellation_of_removal",
+    "adjustment_of_status",
+    "naturalization",
+    "waiver",
+    "other"
+  ]).default("bond_hearing").notNull(),
+  
+  // Letter Writer Information
+  writerName: varchar("writerName", { length: 255 }),
+  writerRelationship: varchar("writerRelationship", { length: 100 }),
+  writerAddress: text("writerAddress"),
+  writerCity: varchar("writerCity", { length: 100 }),
+  writerState: varchar("writerState", { length: 50 }),
+  writerZip: varchar("writerZip", { length: 20 }),
+  writerPhone: varchar("writerPhone", { length: 30 }),
+  writerEmail: varchar("writerEmail", { length: 320 }),
+  writerOccupation: varchar("writerOccupation", { length: 100 }),
+  writerEmployer: varchar("writerEmployer", { length: 255 }),
+  writerImmigrationStatus: varchar("writerImmigrationStatus", { length: 100 }),
+  
+  // Relationship Details
+  howLongKnown: varchar("howLongKnown", { length: 50 }),
+  howMet: text("howMet"),
+  frequencyOfContact: varchar("frequencyOfContact", { length: 100 }),
+  
+  // Letter Content
+  characterDescription: text("characterDescription"),
+  specificExamples: text("specificExamples"),
+  communityInvolvement: text("communityInvolvement"),
+  familyRole: text("familyRole"),
+  workEthic: text("workEthic"),
+  moralCharacter: text("moralCharacter"),
+  whyDeservesBond: text("whyDeservesBond"),
+  additionalComments: text("additionalComments"),
+  
+  // Electronic Signature
+  signatureData: text("signatureData"), // Base64 encoded signature image
+  signedAt: timestamp("signedAt"),
+  signedIpAddress: varchar("signedIpAddress", { length: 45 }),
+  
+  // Generated PDF
+  pdfFileKey: varchar("pdfFileKey", { length: 500 }),
+  pdfFileUrl: varchar("pdfFileUrl", { length: 1000 }),
+  
+  // Status
+  status: mysqlEnum("status", ["pending", "draft", "completed", "submitted"]).default("pending").notNull(),
+  
+  // Requested by (staff member who sent the request)
+  requestedBy: int("requestedBy"),
+  requestedAt: timestamp("requestedAt").defaultNow().notNull(),
+  
+  // Language preference
+  language: varchar("language", { length: 10 }).default("en"),
+  
+  // Timestamps
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type CharacterReferenceLetter = typeof characterReferenceLetters.$inferSelect;
+export type InsertCharacterReferenceLetter = typeof characterReferenceLetters.$inferInsert;

@@ -6,6 +6,7 @@ import { z } from "zod";
 import { createBondSubmission, getAllBondSubmissions, getBondSubmissionById, updateBondSubmissionStatus } from "./db";
 import { notifyOwner } from "./_core/notification";
 import { emergencyPlanRouter } from "./routers/emergencyPlan";
+import { characterLetterRouter } from "./routers/characterLetter";
 
 // Zod schema for bond submission input
 const bondSubmissionSchema = z.object({
@@ -83,6 +84,7 @@ export const appRouter = router({
   }),
 
   emergencyPlan: emergencyPlanRouter,
+  characterLetter: characterLetterRouter,
 
   bond: router({
     // Public procedure - anyone can submit a bond questionnaire
