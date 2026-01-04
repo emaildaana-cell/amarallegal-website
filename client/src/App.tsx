@@ -14,6 +14,12 @@ import Consultation from "@/pages/Consultation";
 import BondQuestionnaire from "@/pages/BondQuestionnaire";
 import Detention from "@/pages/Detention";
 import AdminDashboard from "@/pages/AdminDashboard";
+import RemovalDefense from "@/pages/services/RemovalDefense";
+import Asylum from "@/pages/services/Asylum";
+import FamilyPetitions from "@/pages/services/FamilyPetitions";
+import BondHearings from "@/pages/services/BondHearings";
+import Crimmigration from "@/pages/services/Crimmigration";
+import FederalLitigation from "@/pages/services/FederalLitigation";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const queryClient = new QueryClient();
@@ -32,6 +38,12 @@ function Router() {
           <Route path="/bond-questionnaire" component={BondQuestionnaire} />
           <Route path="/detention" component={Detention} />
           <Route path="/admin/dashboard" component={AdminDashboard} />
+          <Route path="/services/removal-defense" component={RemovalDefense} />
+          <Route path="/services/asylum" component={Asylum} />
+          <Route path="/services/family-petitions" component={FamilyPetitions} />
+          <Route path="/services/bond-hearings" component={BondHearings} />
+          <Route path="/services/crimmigration" component={Crimmigration} />
+          <Route path="/services/federal-litigation" component={FederalLitigation} />
           <Route component={NotFound} />
         </Switch>
       </Layout>

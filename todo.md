@@ -36,3 +36,13 @@
 
 ## Logo Positioning
 - [ ] Move logo to the left top corner of navigation
+
+## Service Pages
+- [x] Create Removal Defense page
+- [x] Create Asylum & Appeals page
+- [x] Create Family Petitions page
+- [x] Create Bond Hearings page
+- [x] Create Crimmigration page
+- [x] Create Federal Litigation page
+- [x] Add routes for all service pages
+- [x] Update navigation links to service pages

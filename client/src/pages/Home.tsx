@@ -177,26 +177,31 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { icon: Scale, title: t("practice.removal_defense"), desc: t("practice.removal_defense_desc") },
-              { icon: Shield, title: t("practice.asylum"), desc: t("practice.asylum_desc") },
-              { icon: Users, title: t("practice.family"), desc: t("practice.family_desc") },
-              { icon: BookOpen, title: t("practice.bond"), desc: t("practice.bond_desc") },
-              { icon: CheckCircle2, title: t("practice.crimmigration"), desc: t("practice.crimmigration_desc") },
-              { icon: Scale, title: t("practice.federal"), desc: t("practice.federal_desc") },
+              { icon: Scale, title: t("practice.removal_defense"), desc: t("practice.removal_defense_desc"), link: "/services/removal-defense" },
+              { icon: Shield, title: t("practice.asylum"), desc: t("practice.asylum_desc"), link: "/services/asylum" },
+              { icon: Users, title: t("practice.family"), desc: t("practice.family_desc"), link: "/services/family-petitions" },
+              { icon: BookOpen, title: t("practice.bond"), desc: t("practice.bond_desc"), link: "/services/bond-hearings" },
+              { icon: CheckCircle2, title: t("practice.crimmigration"), desc: t("practice.crimmigration_desc"), link: "/services/crimmigration" },
+              { icon: Scale, title: t("practice.federal"), desc: t("practice.federal_desc"), link: "/services/federal-litigation" },
             ].map((area, i) => (
-              <Card key={i} className="bg-white/5 border-white/10 hover:bg-white/10 transition-colors duration-300 border-none">
-                <CardHeader>
-                  <div className="bg-secondary/20 w-12 h-12 rounded-sm flex items-center justify-center mb-4">
-                    <area.icon className="h-6 w-6 text-secondary" />
-                  </div>
-                  <CardTitle className="text-xl font-serif text-secondary">{area.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-primary-foreground/70 leading-relaxed">
-                    {area.desc}
-                  </p>
-                </CardContent>
-              </Card>
+              <Link key={i} href={area.link}>
+                <Card className="bg-white/5 border-white/10 hover:bg-white/10 transition-colors duration-300 border-none cursor-pointer h-full group">
+                  <CardHeader>
+                    <div className="bg-secondary/20 w-12 h-12 rounded-sm flex items-center justify-center mb-4 group-hover:bg-secondary/30 transition-colors">
+                      <area.icon className="h-6 w-6 text-secondary" />
+                    </div>
+                    <CardTitle className="text-xl font-serif text-secondary group-hover:text-secondary/80 transition-colors">{area.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-primary-foreground/70 leading-relaxed">
+                      {area.desc}
+                    </p>
+                    <div className="mt-4 flex items-center text-secondary text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                      Learn More <ArrowRight className="ml-2 h-4 w-4" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>
