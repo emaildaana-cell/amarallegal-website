@@ -13,7 +13,6 @@ import {
   Shield, 
   Scale,
   Download,
-  ExternalLink,
   CheckCircle,
   AlertTriangle,
   Info,
@@ -24,7 +23,8 @@ import {
   CreditCard,
   Globe,
   PenTool,
-  ChevronRight
+  ChevronRight,
+  Languages
 } from "lucide-react";
 import { useState } from "react";
 
@@ -33,10 +33,10 @@ interface DocumentItem {
   description: string;
   purpose: string;
   icon: React.ReactNode;
-  sampleLink?: string;
   createOnlineLink?: string;
-  externalLink?: string;
+  guideLink?: string;
   important?: boolean;
+  requiresTranslation?: boolean;
 }
 
 interface DocumentCategory {
@@ -73,33 +73,35 @@ export default function BondDocumentChecklist() {
           description: "Official document showing your name, date of birth, and place of birth.",
           purpose: "Establishes your identity, age, and nationality. This is a foundational document for your case.",
           icon: <FileText className="h-5 w-5" />,
-          externalLink: "https://www.cdc.gov/nchs/w2w/index.htm"
+          requiresTranslation: true
         },
         {
           name: "Passport or National ID",
           description: "Government-issued identification from your home country.",
           purpose: "Provides official proof of your identity and citizenship. If expired, it can still be useful.",
-          icon: <Globe className="h-5 w-5" />
+          icon: <Globe className="h-5 w-5" />,
+          requiresTranslation: true
         },
         {
           name: "U.S. Visa or Entry Documents",
           description: "Any visa stamps, I-94 arrival records, or entry permits.",
           purpose: "Shows how and when you entered the United States, which is important for establishing your immigration history.",
-          icon: <FileCheck className="h-5 w-5" />,
-          externalLink: "https://i94.cbp.dhs.gov/I94/"
+          icon: <FileCheck className="h-5 w-5" />
         },
         {
           name: "Marriage Certificate",
           description: "Official document proving your marriage.",
           purpose: "Establishes family ties in the U.S. if your spouse is a citizen or resident. Shows stability and roots.",
-          icon: <Heart className="h-5 w-5" />
+          icon: <Heart className="h-5 w-5" />,
+          requiresTranslation: true
         },
         {
           name: "Children's Birth Certificates",
           description: "Birth certificates for any children, especially U.S.-born children.",
           purpose: "U.S. citizen children are strong evidence of ties to the country and potential hardship if you're not released.",
           icon: <Users className="h-5 w-5" />,
-          important: true
+          important: true,
+          requiresTranslation: true
         }
       ]
     },
@@ -114,7 +116,8 @@ export default function BondDocumentChecklist() {
           description: "A detailed letter from your sponsor explaining their relationship to you and their commitment to support you.",
           purpose: "This is one of the most important documents. The sponsor must promise to provide housing, financial support, and ensure you attend all court hearings.",
           icon: <PenTool className="h-5 w-5" />,
-          sampleLink: "/downloads",
+          createOnlineLink: "/sponsor-letter-generator",
+          guideLink: "/sponsor-guide",
           important: true
         },
         {
@@ -122,25 +125,29 @@ export default function BondDocumentChecklist() {
           description: "Copy of sponsor's U.S. passport, birth certificate, or green card.",
           purpose: "Shows the judge that your sponsor has legal status in the U.S. and can reliably support you.",
           icon: <CreditCard className="h-5 w-5" />,
+          guideLink: "/sponsor-guide",
           important: true
         },
         {
           name: "Sponsor's Proof of Address",
           description: "Recent utility bill, lease agreement, or mortgage statement in the sponsor's name.",
           purpose: "Confirms where you will live if released. The address must match what's stated in the letter of support.",
-          icon: <Home className="h-5 w-5" />
+          icon: <Home className="h-5 w-5" />,
+          guideLink: "/sponsor-guide"
         },
         {
           name: "Sponsor's Proof of Income",
           description: "Recent pay stubs (last 3-6 months), tax returns, or employer letter.",
           purpose: "Demonstrates that your sponsor has the financial means to support you while your case is pending.",
-          icon: <Briefcase className="h-5 w-5" />
+          icon: <Briefcase className="h-5 w-5" />,
+          guideLink: "/sponsor-guide"
         },
         {
           name: "Sponsor's Photo ID",
           description: "Copy of driver's license or government-issued photo ID.",
           purpose: "Verifies the sponsor's identity and adds credibility to their letter of support.",
-          icon: <User className="h-5 w-5" />
+          icon: <User className="h-5 w-5" />,
+          guideLink: "/sponsor-guide"
         }
       ]
     },
@@ -174,8 +181,7 @@ export default function BondDocumentChecklist() {
           name: "Tax Returns",
           description: "Federal and state tax returns from previous years.",
           purpose: "Shows you have been paying taxes and contributing to the U.S. economy. Very persuasive evidence.",
-          icon: <FileText className="h-5 w-5" />,
-          externalLink: "https://www.irs.gov/individuals/get-transcript"
+          icon: <FileText className="h-5 w-5" />
         },
         {
           name: "Family Photographs",
@@ -215,7 +221,8 @@ export default function BondDocumentChecklist() {
           name: "Certificates & Awards",
           description: "Any certificates, diplomas, or awards you've received.",
           purpose: "Shows your achievements and positive contributions. Can include educational certificates, workplace awards, or volunteer recognition.",
-          icon: <Award className="h-5 w-5" />
+          icon: <Award className="h-5 w-5" />,
+          requiresTranslation: true
         },
         {
           name: "Rehabilitation Program Certificates",
@@ -234,7 +241,8 @@ export default function BondDocumentChecklist() {
           name: "Police Clearance Records",
           description: "Documents from police departments showing no criminal record.",
           purpose: "Demonstrates you have no criminal history in the jurisdictions where you've lived.",
-          icon: <Shield className="h-5 w-5" />
+          icon: <Shield className="h-5 w-5" />,
+          requiresTranslation: true
         }
       ]
     },
@@ -254,15 +262,13 @@ export default function BondDocumentChecklist() {
           name: "EOIR-28 (Notice of Appearance)",
           description: "Form filed by your attorney to officially appear on your case.",
           purpose: "Required if you have an attorney representing you in immigration court.",
-          icon: <FileCheck className="h-5 w-5" />,
-          externalLink: "https://www.justice.gov/eoir/form-eoir-28-background"
+          icon: <FileCheck className="h-5 w-5" />
         },
         {
           name: "G-28 (Notice of Appearance)",
           description: "Form filed with DHS to notify them of your legal representation.",
           purpose: "Ensures DHS knows you have an attorney and sends copies of documents to them.",
-          icon: <FileCheck className="h-5 w-5" />,
-          externalLink: "https://www.uscis.gov/g-28"
+          icon: <FileCheck className="h-5 w-5" />
         },
         {
           name: "Client's Affidavit/Declaration",
@@ -343,16 +349,16 @@ export default function BondDocumentChecklist() {
                 Create Character Letter Online
               </Button>
             </Link>
+            <Link href="/sponsor-guide">
+              <Button variant="outline" className="gap-2">
+                <Users className="h-4 w-4" />
+                Sponsor Requirements Guide
+              </Button>
+            </Link>
             <Link href="/downloads">
               <Button variant="outline" className="gap-2">
                 <Download className="h-4 w-4" />
                 Download Sample Documents
-              </Button>
-            </Link>
-            <Link href="/sponsor-guide">
-              <Button variant="outline" className="gap-2">
-                <Users className="h-4 w-4" />
-                Sponsor Guide
               </Button>
             </Link>
           </div>
@@ -416,6 +422,16 @@ export default function BondDocumentChecklist() {
                                   </div>
                                 </div>
                                 
+                                {/* Translation Warning */}
+                                {doc.requiresTranslation && (
+                                  <div className="flex items-center gap-2 mb-4 p-2 bg-red-50 border border-red-200 rounded-lg">
+                                    <Languages className="h-4 w-4 text-red-600 flex-shrink-0" />
+                                    <p className="text-sm text-red-700 font-medium">
+                                      This document must be translated to English by a certified translator
+                                    </p>
+                                  </div>
+                                )}
+                                
                                 {/* Action Links */}
                                 <div className="flex flex-wrap gap-2">
                                   {doc.createOnlineLink && (
@@ -426,21 +442,13 @@ export default function BondDocumentChecklist() {
                                       </Button>
                                     </Link>
                                   )}
-                                  {doc.sampleLink && (
-                                    <Link href={doc.sampleLink}>
+                                  {doc.guideLink && (
+                                    <Link href={doc.guideLink}>
                                       <Button size="sm" variant="outline" className="gap-1">
-                                        <Download className="h-3 w-3" />
-                                        Download Sample
+                                        <Info className="h-3 w-3" />
+                                        View Requirements
                                       </Button>
                                     </Link>
-                                  )}
-                                  {doc.externalLink && (
-                                    <a href={doc.externalLink} target="_blank" rel="noopener noreferrer">
-                                      <Button size="sm" variant="outline" className="gap-1">
-                                        <ExternalLink className="h-3 w-3" />
-                                        Official Website
-                                      </Button>
-                                    </a>
                                   )}
                                 </div>
                               </div>

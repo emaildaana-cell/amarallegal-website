@@ -159,3 +159,9 @@
 - [x] Add explanations for each document type
 - [x] Link to samples or online creation tools (e.g., character letter form)
 - [ ] Add translations for all content
+
+## Bond Checklist Update
+- [x] Remove external links from bond document checklist
+- [x] Add red notice that documents need to be translated to English
+- [x] Link Sponsor Letter to automated generator (not download)
+- [x] Link to sponsor requirements page
