@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import AccessibilityMenu from "./AccessibilityMenu";
+import EmergencyBanner from "./EmergencyBanner";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
 
@@ -42,6 +43,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen flex flex-col bg-background font-sans text-foreground selection:bg-primary/20">
+      {/* Emergency Banner */}
+      <EmergencyBanner />
+      
       {/* Top Bar - Contact Info */}
       <div className="bg-primary text-primary-foreground py-2 text-sm hidden md:block border-b border-secondary/30">
         <div className="container flex items-center justify-between">

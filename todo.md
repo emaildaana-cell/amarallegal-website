@@ -87,3 +87,8 @@
 - [x] Create public shared plan viewer page
 - [x] Add password protection for shared links
 - [x] Write vitest tests for sharing functionality
+
+## Emergency Banner Feature
+- [x] Create emergency banner component for ICE detention cases
+- [x] Add banner to homepage with urgent call-to-action
+- [x] Make banner dismissible but persistent across sessions
