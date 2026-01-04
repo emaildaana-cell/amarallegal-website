@@ -98,3 +98,18 @@
 - [x] Add attorney photo and contact information sidebar
 - [x] Include consultation type dropdown, date/time pickers
 - [x] Add Google Maps embed for office location
+
+
+## Google Calendar Integration
+- [ ] Set up Google Calendar API integration
+- [ ] Request Google Calendar API credentials from user
+- [ ] Create backend endpoints for fetching available time slots
+- [ ] Create endpoint for booking appointments to calendar
+- [ ] Update appointment form UI with real-time availability
+- [ ] Write tests for calendar integration
+
+## Link Revision from Published Site
+- [x] Update Resources page with comprehensive external links matching published site
+- [x] Add Services landing page with all service cards
+- [x] Add Services dropdown to navigation menu
+- [x] Verify all navigation links work correctly

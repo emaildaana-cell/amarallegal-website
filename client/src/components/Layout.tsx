@@ -41,6 +41,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     { label: "Downloadable Guides", href: "/downloads" },
   ];
 
+  const serviceItems = [
+    { label: "Immigration Bonds", href: "/services/bond-hearings" },
+    { label: "Removal Defense", href: "/services/removal-defense" },
+    { label: "Asylum & Humanitarian", href: "/services/asylum" },
+    { label: "Family Petitions", href: "/services/family-petitions" },
+    { label: "Crimmigration", href: "/services/crimmigration" },
+    { label: "Federal Litigation", href: "/services/federal-litigation" },
+  ];
+
   return (
     <div className="min-h-screen flex flex-col bg-background font-sans text-foreground selection:bg-primary/20">
       {/* Emergency Banner */}
@@ -86,7 +95,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8 ml-auto">
-            {navItems.map((item) => (
+            {navItems.filter(item => item.href !== '/practice-areas').map((item) => (
               <Link 
                 key={item.href} 
                 href={item.href}
@@ -98,6 +107,32 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 {item.label}
               </Link>
             ))}
+            {/* Services Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className={cn(
+                "text-sm font-medium transition-colors hover:text-primary uppercase tracking-wide flex items-center gap-1",
+                location.startsWith('/services') || location.startsWith('/practice-areas')
+                  ? "text-primary font-bold" 
+                  : "text-muted-foreground"
+              )}>
+                {t("nav.practice_areas")}
+                <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuItem asChild>
+                  <Link href="/services" className="cursor-pointer w-full font-medium">
+                    All Services
+                  </Link>
+                </DropdownMenuItem>
+                {serviceItems.map((item) => (
+                  <DropdownMenuItem key={item.href} asChild>
+                    <Link href={item.href} className="cursor-pointer w-full">
+                      {item.label}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
             {/* Resources Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger className={cn(
@@ -185,7 +220,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   />
                 </div>
                 <nav className="flex flex-col gap-4">
-                  {navItems.map((item) => (
+                  {navItems.filter(item => item.href !== '/practice-areas').map((item) => (
                     <Link 
                       key={item.href} 
                       href={item.href}
@@ -197,6 +232,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                       {item.label}
                     </Link>
                   ))}
+                  {/* Services Section for Mobile */}
+                  <div className="border-b border-border/50 pb-2">
+                    <span className="text-lg font-medium text-muted-foreground">{t("nav.practice_areas")}</span>
+                    <div className="ml-4 mt-2 flex flex-col gap-2">
+                      <Link href="/services" className="text-sm text-muted-foreground hover:text-primary font-medium">All Services</Link>
+                      {serviceItems.map((item) => (
+                        <Link key={item.href} href={item.href} className="text-sm text-muted-foreground hover:text-primary">
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                   {/* Resources Section for Mobile */}
                   <div className="border-b border-border/50 pb-2">
                     <span className="text-lg font-medium text-muted-foreground">Resources</span>
