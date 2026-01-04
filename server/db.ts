@@ -170,3 +170,195 @@ export async function updateBondSubmissionStatus(
     throw error;
   }
 }
+
+
+// Emergency Plan Functions
+import { emergencyPlans, emergencyPlanDocuments, InsertEmergencyPlan, EmergencyPlan, InsertEmergencyPlanDocument, EmergencyPlanDocument } from "../drizzle/schema";
+
+export async function createEmergencyPlan(userId: number, data: Omit<InsertEmergencyPlan, "id" | "userId" | "createdAt" | "updatedAt">): Promise<EmergencyPlan | undefined> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create emergency plan: database not available");
+    return undefined;
+  }
+
+  try {
+    const result = await db.insert(emergencyPlans).values({
+      ...data,
+      userId,
+    });
+    
+    const insertId = result[0].insertId;
+    const inserted = await db.select().from(emergencyPlans).where(eq(emergencyPlans.id, insertId)).limit(1);
+    
+    return inserted[0];
+  } catch (error) {
+    console.error("[Database] Failed to create emergency plan:", error);
+    throw error;
+  }
+}
+
+export async function getEmergencyPlansByUserId(userId: number): Promise<EmergencyPlan[]> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get emergency plans: database not available");
+    return [];
+  }
+
+  try {
+    const result = await db.select().from(emergencyPlans).where(eq(emergencyPlans.userId, userId)).orderBy(desc(emergencyPlans.updatedAt));
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get emergency plans:", error);
+    return [];
+  }
+}
+
+export async function getEmergencyPlanById(id: number, userId: number): Promise<EmergencyPlan | undefined> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get emergency plan: database not available");
+    return undefined;
+  }
+
+  try {
+    const result = await db.select().from(emergencyPlans)
+      .where(eq(emergencyPlans.id, id))
+      .limit(1);
+    
+    // Verify ownership
+    if (result[0] && result[0].userId !== userId) {
+      return undefined;
+    }
+    
+    return result[0];
+  } catch (error) {
+    console.error("[Database] Failed to get emergency plan:", error);
+    return undefined;
+  }
+}
+
+export async function updateEmergencyPlan(id: number, userId: number, data: Partial<InsertEmergencyPlan>): Promise<EmergencyPlan | undefined> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update emergency plan: database not available");
+    return undefined;
+  }
+
+  try {
+    // First verify ownership
+    const existing = await getEmergencyPlanById(id, userId);
+    if (!existing) {
+      throw new Error("Emergency plan not found or access denied");
+    }
+    
+    // Remove fields that shouldn't be updated
+    const { id: _id, userId: _userId, createdAt: _createdAt, ...updateData } = data as any;
+    
+    await db.update(emergencyPlans).set(updateData).where(eq(emergencyPlans.id, id));
+    
+    return getEmergencyPlanById(id, userId);
+  } catch (error) {
+    console.error("[Database] Failed to update emergency plan:", error);
+    throw error;
+  }
+}
+
+export async function deleteEmergencyPlan(id: number, userId: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot delete emergency plan: database not available");
+    return false;
+  }
+
+  try {
+    // Verify ownership
+    const existing = await getEmergencyPlanById(id, userId);
+    if (!existing) {
+      return false;
+    }
+    
+    // Delete associated documents first
+    await db.delete(emergencyPlanDocuments).where(eq(emergencyPlanDocuments.planId, id));
+    
+    // Delete the plan
+    await db.delete(emergencyPlans).where(eq(emergencyPlans.id, id));
+    
+    return true;
+  } catch (error) {
+    console.error("[Database] Failed to delete emergency plan:", error);
+    return false;
+  }
+}
+
+// Emergency Plan Document Functions
+
+export async function createEmergencyPlanDocument(data: Omit<InsertEmergencyPlanDocument, "id" | "uploadedAt">): Promise<EmergencyPlanDocument | undefined> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create document: database not available");
+    return undefined;
+  }
+
+  try {
+    const result = await db.insert(emergencyPlanDocuments).values(data);
+    
+    const insertId = result[0].insertId;
+    const inserted = await db.select().from(emergencyPlanDocuments).where(eq(emergencyPlanDocuments.id, insertId)).limit(1);
+    
+    return inserted[0];
+  } catch (error) {
+    console.error("[Database] Failed to create document:", error);
+    throw error;
+  }
+}
+
+export async function getDocumentsByPlanId(planId: number, userId: number): Promise<EmergencyPlanDocument[]> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get documents: database not available");
+    return [];
+  }
+
+  try {
+    // Verify plan ownership first
+    const plan = await getEmergencyPlanById(planId, userId);
+    if (!plan) {
+      return [];
+    }
+    
+    const result = await db.select().from(emergencyPlanDocuments)
+      .where(eq(emergencyPlanDocuments.planId, planId))
+      .orderBy(desc(emergencyPlanDocuments.uploadedAt));
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get documents:", error);
+    return [];
+  }
+}
+
+export async function deleteEmergencyPlanDocument(id: number, userId: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot delete document: database not available");
+    return false;
+  }
+
+  try {
+    // Get the document to verify ownership
+    const doc = await db.select().from(emergencyPlanDocuments)
+      .where(eq(emergencyPlanDocuments.id, id))
+      .limit(1);
+    
+    if (!doc[0] || doc[0].userId !== userId) {
+      return false;
+    }
+    
+    await db.delete(emergencyPlanDocuments).where(eq(emergencyPlanDocuments.id, id));
+    
+    return true;
+  } catch (error) {
+    console.error("[Database] Failed to delete document:", error);
+    return false;
+  }
+}

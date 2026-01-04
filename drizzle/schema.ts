@@ -154,3 +154,113 @@ export const bondSubmissions = mysqlTable("bond_submissions", {
 
 export type BondSubmission = typeof bondSubmissions.$inferSelect;
 export type InsertBondSubmission = typeof bondSubmissions.$inferInsert;
+
+
+/**
+ * Family Emergency Plans
+ * Stores emergency plan information for families preparing for immigration enforcement
+ */
+export const emergencyPlans = mysqlTable("emergency_plans", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  
+  // Plan Metadata
+  planName: varchar("planName", { length: 255 }).notNull().default("My Family Emergency Plan"),
+  
+  // Primary Contact (Plan Owner)
+  ownerName: varchar("ownerName", { length: 255 }).notNull(),
+  ownerPhone: varchar("ownerPhone", { length: 30 }),
+  ownerEmail: varchar("ownerEmail", { length: 320 }),
+  ownerAddress: text("ownerAddress"),
+  
+  // Emergency Contacts (JSON array)
+  emergencyContacts: text("emergencyContacts"), // JSON: [{name, relationship, phone, email, canPickUpChildren}]
+  
+  // Attorney Information
+  attorneyName: varchar("attorneyName", { length: 255 }),
+  attorneyPhone: varchar("attorneyPhone", { length: 30 }),
+  attorneyEmail: varchar("attorneyEmail", { length: 320 }),
+  attorneyFirm: varchar("attorneyFirm", { length: 255 }),
+  
+  // Consulate Information
+  consulateName: varchar("consulateName", { length: 255 }),
+  consulatePhone: varchar("consulatePhone", { length: 30 }),
+  consulateAddress: text("consulateAddress"),
+  
+  // Children Information (JSON array)
+  children: text("children"), // JSON: [{name, dob, school, schoolPhone, medicalInfo, specialNeeds, allergies}]
+  
+  // Power of Attorney
+  poaDesignee: varchar("poaDesignee", { length: 255 }),
+  poaDesigneePhone: varchar("poaDesigneePhone", { length: 30 }),
+  poaDesigneeRelationship: varchar("poaDesigneeRelationship", { length: 100 }),
+  hasPOADocument: boolean("hasPOADocument").default(false),
+  
+  // Document Locations (JSON object)
+  documentLocations: text("documentLocations"), // JSON: {passports, birthCertificates, socialSecurityCards, etc.}
+  
+  // Financial Information
+  bankName: varchar("bankName", { length: 255 }),
+  bankAccountInfo: text("bankAccountInfo"),
+  financialPOA: varchar("financialPOA", { length: 255 }),
+  
+  // Important Instructions
+  specialInstructions: text("specialInstructions"),
+  knowYourRightsAcknowledged: boolean("knowYourRightsAcknowledged").default(false),
+  
+  // Timestamps
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type EmergencyPlan = typeof emergencyPlans.$inferSelect;
+export type InsertEmergencyPlan = typeof emergencyPlans.$inferInsert;
+
+/**
+ * Emergency Plan Documents
+ * Stores uploaded document references for emergency plans
+ */
+export const emergencyPlanDocuments = mysqlTable("emergency_plan_documents", {
+  id: int("id").autoincrement().primaryKey(),
+  planId: int("planId").notNull(),
+  userId: int("userId").notNull(),
+  
+  // Document Information
+  documentType: mysqlEnum("documentType", [
+    "passport",
+    "birth_certificate",
+    "social_security_card",
+    "green_card",
+    "work_permit",
+    "visa",
+    "marriage_certificate",
+    "divorce_decree",
+    "power_of_attorney",
+    "medical_records",
+    "school_records",
+    "financial_records",
+    "property_deed",
+    "vehicle_title",
+    "insurance_policy",
+    "other"
+  ]).notNull(),
+  
+  documentName: varchar("documentName", { length: 255 }).notNull(),
+  description: text("description"),
+  
+  // File Storage (S3)
+  fileKey: varchar("fileKey", { length: 500 }).notNull(),
+  fileUrl: varchar("fileUrl", { length: 1000 }).notNull(),
+  fileName: varchar("fileName", { length: 255 }).notNull(),
+  fileSize: int("fileSize").notNull(),
+  mimeType: varchar("mimeType", { length: 100 }).notNull(),
+  
+  // For whom (optional - e.g., which family member)
+  belongsTo: varchar("belongsTo", { length: 255 }),
+  
+  // Timestamps
+  uploadedAt: timestamp("uploadedAt").defaultNow().notNull(),
+});
+
+export type EmergencyPlanDocument = typeof emergencyPlanDocuments.$inferSelect;
+export type InsertEmergencyPlanDocument = typeof emergencyPlanDocuments.$inferInsert;

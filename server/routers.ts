@@ -5,6 +5,7 @@ import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import { createBondSubmission, getAllBondSubmissions, getBondSubmissionById, updateBondSubmissionStatus } from "./db";
 import { notifyOwner } from "./_core/notification";
+import { emergencyPlanRouter } from "./routers/emergencyPlan";
 
 // Zod schema for bond submission input
 const bondSubmissionSchema = z.object({
@@ -80,6 +81,8 @@ export const appRouter = router({
       } as const;
     }),
   }),
+
+  emergencyPlan: emergencyPlanRouter,
 
   bond: router({
     // Public procedure - anyone can submit a bond questionnaire

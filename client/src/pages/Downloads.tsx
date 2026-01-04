@@ -22,6 +22,7 @@ interface DownloadItem {
   fileType: string;
   comingSoon?: boolean;
   downloadUrl?: string;
+  interactiveUrl?: string;
 }
 
 const downloads: DownloadItem[] = [
@@ -54,7 +55,8 @@ const downloads: DownloadItem[] = [
     icon: Heart,
     category: "Family Preparedness",
     fileType: "PDF (Fillable)",
-    downloadUrl: "/downloads/family-emergency-plan.pdf"
+    downloadUrl: "/downloads/family-emergency-plan.pdf",
+    interactiveUrl: "/family-emergency-plan"
   },
   {
     title: "Immigration Court Process Overview",
@@ -174,24 +176,37 @@ export default function Downloads() {
                                   {download.fileType}
                                 </span>
                                 {!download.comingSoon && (
-                                  <Button 
-                                    size="sm" 
-                                    variant="outline"
-                                    className="gap-2"
-                                    asChild
-                                  >
-                                    {download.downloadUrl ? (
-                                      <a href={download.downloadUrl} download>
-                                        <Download className="w-4 h-4" />
-                                        Download
-                                      </a>
-                                    ) : (
-                                      <span onClick={() => alert("This resource is coming soon. Please contact us for more information.")}>
-                                        <Download className="w-4 h-4" />
-                                        Download
-                                      </span>
+                                  <div className="flex gap-2">
+                                    {download.interactiveUrl && (
+                                      <Link href={download.interactiveUrl}>
+                                        <Button 
+                                          size="sm" 
+                                          className="gap-2"
+                                        >
+                                          <ExternalLink className="w-4 h-4" />
+                                          Create Online
+                                        </Button>
+                                      </Link>
                                     )}
-                                  </Button>
+                                    <Button 
+                                      size="sm" 
+                                      variant="outline"
+                                      className="gap-2"
+                                      asChild
+                                    >
+                                      {download.downloadUrl ? (
+                                        <a href={download.downloadUrl} download>
+                                          <Download className="w-4 h-4" />
+                                          PDF
+                                        </a>
+                                      ) : (
+                                        <span onClick={() => alert("This resource is coming soon. Please contact us for more information.")}>
+                                          <Download className="w-4 h-4" />
+                                          Download
+                                        </span>
+                                      )}
+                                    </Button>
+                                  </div>
                                 )}
                               </div>
                             </div>

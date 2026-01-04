@@ -70,3 +70,12 @@
 ## Family Emergency Plan PDF
 - [x] Create fillable Family Emergency Plan PDF template
 - [x] Update Downloads page with new PDF link
+
+## Family Emergency Plan with Document Uploads
+- [x] Design database schema for emergency plans and uploaded documents
+- [x] Create tRPC procedures for emergency plan CRUD operations
+- [x] Implement S3 file upload for document attachments
+- [x] Build interactive Family Emergency Plan page with form
+- [x] Add document upload UI with drag-and-drop support
+- [x] Write vitest tests for emergency plan functionality
+- [x] Update Downloads page to link to interactive version
