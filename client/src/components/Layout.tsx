@@ -58,7 +58,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <img 
               src="/images/logo.svg" 
               alt="Amaral Law" 
-              className="h-12 w-auto object-contain transition-all duration-300" 
+              className="h-16 w-auto object-contain transition-all duration-300" 
             />
           </Link>
 
