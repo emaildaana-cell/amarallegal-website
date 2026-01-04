@@ -76,24 +76,47 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 {item.label}
               </Link>
             ))}
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={() => {
-                if (language === 'en') setLanguage('es');
-                else if (language === 'es') setLanguage('pt');
-                else setLanguage('en');
-              }}
-              className="flex items-center gap-2 font-medium hover:bg-secondary/10"
-              title={language === 'en' ? 'Switch to Spanish' : language === 'es' ? 'Switch to Portuguese' : 'Switch to English'}
-            >
-              <img 
-                src={language === 'en' ? '/images/flag-us.png' : language === 'es' ? '/images/flag-es.png' : '/images/flag-br.png'} 
-                alt={language === 'en' ? 'English' : language === 'es' ? 'Español' : 'Português'}
-                className="h-6 w-8 object-cover rounded border border-border/50 shadow-sm"
-              />
-              <span className="text-sm font-semibold">{language === 'en' ? 'EN' : language === 'es' ? 'ES' : 'PT'}</span>
-            </Button>
+            <div className="flex items-center gap-1">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => setLanguage('en')}
+                className={`p-1 ${language === 'en' ? 'ring-2 ring-primary ring-offset-1' : 'opacity-60 hover:opacity-100'}`}
+                title="English"
+              >
+                <img 
+                  src="/images/flag-us.png" 
+                  alt="English"
+                  className="h-5 w-7 object-cover rounded border border-border/50 shadow-sm"
+                />
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => setLanguage('es')}
+                className={`p-1 ${language === 'es' ? 'ring-2 ring-primary ring-offset-1' : 'opacity-60 hover:opacity-100'}`}
+                title="Español"
+              >
+                <img 
+                  src="/images/flag-es.png" 
+                  alt="Español"
+                  className="h-5 w-7 object-cover rounded border border-border/50 shadow-sm"
+                />
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => setLanguage('pt')}
+                className={`p-1 ${language === 'pt' ? 'ring-2 ring-primary ring-offset-1' : 'opacity-60 hover:opacity-100'}`}
+                title="Português"
+              >
+                <img 
+                  src="/images/flag-br.png" 
+                  alt="Português"
+                  className="h-5 w-7 object-cover rounded border border-border/50 shadow-sm"
+                />
+              </Button>
+            </div>
             <Link href="/consultation">
               <Button variant="default" className="bg-primary hover:bg-primary/90 text-primary-foreground font-serif tracking-wide rounded-sm">
                 {t("nav.request_consultation")}
@@ -130,22 +153,44 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                       {item.label}
                     </Link>
                   ))}
-                  <Button 
-                    variant="outline" 
-                    className="w-full justify-start gap-3"
-                    onClick={() => {
-                      if (language === 'en') setLanguage('es');
-                      else if (language === 'es') setLanguage('pt');
-                      else setLanguage('en');
-                    }}
-                  >
-                    <img 
-                      src={language === 'en' ? '/images/flag-us.png' : language === 'es' ? '/images/flag-es.png' : '/images/flag-br.png'} 
-                      alt={language === 'en' ? 'English' : language === 'es' ? 'Español' : 'Português'}
-                      className="h-6 w-8 object-cover rounded border border-border/50 shadow-sm"
-                    />
-                    <span className="font-medium">{language === 'en' ? 'English' : language === 'es' ? 'Español' : 'Português'}</span>
-                  </Button>
+                  <div className="flex items-center justify-center gap-3 py-2">
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => setLanguage('en')}
+                      className={`p-2 ${language === 'en' ? 'ring-2 ring-primary' : 'opacity-60'}`}
+                    >
+                      <img 
+                        src="/images/flag-us.png" 
+                        alt="English"
+                        className="h-6 w-8 object-cover rounded"
+                      />
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => setLanguage('es')}
+                      className={`p-2 ${language === 'es' ? 'ring-2 ring-primary' : 'opacity-60'}`}
+                    >
+                      <img 
+                        src="/images/flag-es.png" 
+                        alt="Español"
+                        className="h-6 w-8 object-cover rounded"
+                      />
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => setLanguage('pt')}
+                      className={`p-2 ${language === 'pt' ? 'ring-2 ring-primary' : 'opacity-60'}`}
+                    >
+                      <img 
+                        src="/images/flag-br.png" 
+                        alt="Português"
+                        className="h-6 w-8 object-cover rounded"
+                      />
+                    </Button>
+                  </div>
                   <Link href="/consultation">
                     <Button className="w-full mt-4 bg-primary hover:bg-primary/90 text-primary-foreground rounded-sm">
                       {t("nav.request_consultation")}
