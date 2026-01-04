@@ -39,6 +39,7 @@ export default defineConfig({
     hmr: {
       clientPort: 443,
       protocol: 'wss',
+      host: '3000-ipxra2pnt9ic79518swo4-bca490cb.us1.manus.computer',
     },
     fs: {
       strict: true,
