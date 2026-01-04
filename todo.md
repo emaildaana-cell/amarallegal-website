@@ -61,3 +61,8 @@
 - [x] Create Downloadable Guides page
 - [x] Update navigation with Resources dropdown
 - [x] Add routes for all new pages
+
+## Downloadable PDF Guides
+- [x] Create Bond Hearing Checklist PDF
+- [x] Create Sponsor Responsibilities Guide PDF
+- [x] Update Downloads page with real PDF links

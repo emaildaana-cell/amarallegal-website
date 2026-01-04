@@ -21,6 +21,7 @@ interface DownloadItem {
   category: string;
   fileType: string;
   comingSoon?: boolean;
+  downloadUrl?: string;
 }
 
 const downloads: DownloadItem[] = [
@@ -29,7 +30,8 @@ const downloads: DownloadItem[] = [
     description: "A comprehensive checklist of documents and evidence to gather before your immigration bond hearing.",
     icon: CheckSquare,
     category: "Immigration Bonds",
-    fileType: "PDF"
+    fileType: "PDF",
+    downloadUrl: "/downloads/bond-hearing-checklist.pdf"
   },
   {
     title: "Know Your Rights Card",
@@ -39,11 +41,12 @@ const downloads: DownloadItem[] = [
     fileType: "PDF"
   },
   {
-    title: "Court Sponsor Information Sheet",
-    description: "Everything a potential court sponsor needs to know about their responsibilities and what to expect.",
+    title: "Sponsor Responsibilities Guide",
+    description: "Everything a potential court sponsor needs to know about their responsibilities, requirements, and what to expect.",
     icon: Users,
     category: "Immigration Bonds",
-    fileType: "PDF"
+    fileType: "PDF",
+    downloadUrl: "/downloads/sponsor-responsibilities-guide.pdf"
   },
   {
     title: "Family Emergency Plan Template",
@@ -174,13 +177,19 @@ export default function Downloads() {
                                     size="sm" 
                                     variant="outline"
                                     className="gap-2"
-                                    onClick={() => {
-                                      // In a real implementation, this would trigger a download
-                                      alert("Download functionality coming soon. Please contact us for these resources.");
-                                    }}
+                                    asChild
                                   >
-                                    <Download className="w-4 h-4" />
-                                    Download
+                                    {download.downloadUrl ? (
+                                      <a href={download.downloadUrl} download>
+                                        <Download className="w-4 h-4" />
+                                        Download
+                                      </a>
+                                    ) : (
+                                      <span onClick={() => alert("This resource is coming soon. Please contact us for more information.")}>
+                                        <Download className="w-4 h-4" />
+                                        Download
+                                      </span>
+                                    )}
                                   </Button>
                                 )}
                               </div>
