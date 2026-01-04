@@ -31,6 +31,7 @@ import Appointments from "@/pages/Appointments";
 import Services from "@/pages/Services";
 import CharacterReferenceLetter from "@/pages/CharacterReferenceLetter";
 import AdminCharacterLetters from "@/pages/AdminCharacterLetters";
+import BondDocumentChecklist from "@/pages/BondDocumentChecklist";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const queryClient = new QueryClient();
@@ -67,6 +68,7 @@ function Router() {
           <Route path="/practice-areas" component={Services} />
           <Route path="/character-letter/:token" component={CharacterReferenceLetter} />
           <Route path="/admin/character-letters" component={AdminCharacterLetters} />
+          <Route path="/bond-document-checklist" component={BondDocumentChecklist} />
           <Route component={NotFound} />
         </Switch>
       </Layout>

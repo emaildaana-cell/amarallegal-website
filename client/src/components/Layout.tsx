@@ -37,6 +37,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const resourceItems = [
     { label: "FAQ", href: "/faq" },
     { label: "ICE Detention Process", href: "/detention-process" },
+    { label: "Bond Document Checklist", href: "/bond-document-checklist" },
     { label: "Court Sponsor Guide", href: "/sponsor-guide" },
     { label: "Downloadable Guides", href: "/downloads" },
   ];
