@@ -195,9 +195,9 @@ const translations = {
     "bond.submit": "Submit Questionnaire",
 
     // Vanity Number Section
-    "vanity.title": "Memorize This Number: 1-844-ICE-FREE",
+    "vanity.title": "Memorize This Number: 1-844-423-3733",
     "vanity.subtitle": "Immediate Legal Assistance When You Need It Most",
-    "vanity.description": "In the event of an unexpected detention by ICE, every second counts. Memorizing 1-844-ICE-FREE (1-844-262-5442) ensures you or your loved ones can instantly connect with our removal defense team. We are available to provide urgent guidance and representation to fight for your release.",
+    "vanity.description": "In the event of an unexpected detention by ICE, every second counts. Memorizing 1-844-423-3733 ensures you or your loved ones can instantly connect with our removal defense team. We are available to provide urgent guidance and representation to fight for your release.",
     "vanity.cta": "Save Contact Now",
 
     // Attorneys Page
@@ -376,7 +376,7 @@ const translations = {
     "detention.step2.title": "Step 2: Do Not Sign Anything",
     "detention.step2.desc": "Advise your loved one NOT to sign any documents without speaking to an attorney. Signing a 'voluntary departure' means they agree to be deported immediately.",
     "detention.step3.title": "Step 3: Contact an Attorney",
-    "detention.step3.desc": "Call Amaral Law immediately at 1-844-ICE-FREE. We can intervene to stop transfer, request a bond hearing, and fight for their release.",
+    "detention.step3.desc": "Call Amaral Law immediately at 1-844-423-3733. We can intervene to stop transfer, request a bond hearing, and fight for their release.",
     "detention.step3.button": "Call Now",
     "detention.rights.title": "Know Your Rights",
     "detention.rights.point1": "You have the right to remain silent.",
@@ -621,9 +621,9 @@ const translations = {
     "bond.submit": "Enviar Cuestionario",
 
     // Vanity Number Section
-    "vanity.title": "Memorice Este Número: 1-844-ICE-FREE",
+    "vanity.title": "Memorice Este Número: 1-844-423-3733",
     "vanity.subtitle": "Asistencia Legal Inmediata Cuando Más la Necesita",
-    "vanity.description": "En caso de una detención inesperada por ICE, cada segundo cuenta. Memorizar 1-844-ICE-FREE (1-844-262-5442) asegura que usted o sus seres queridos puedan conectarse instantáneamente con nuestro equipo de defensa de deportación. Estamos disponibles para brindar orientación urgente y representación para luchar por su liberación.",
+    "vanity.description": "En caso de una detención inesperada por ICE, cada segundo cuenta. Memorizar 1-844-423-3733 asegura que usted o sus seres queridos puedan conectarse instantáneamente con nuestro equipo de defensa de deportación. Estamos disponibles para brindar orientación urgente y representación para luchar por su liberación.",
     "vanity.cta": "Guardar Contacto Ahora",
 
     // Attorneys Page
@@ -998,9 +998,9 @@ const translations = {
     "bond.submit": "Enviar Questionário",
 
     // Vanity Number Section
-    "vanity.title": "Memorize Este Número: 1-844-ICE-FREE",
+    "vanity.title": "Memorize Este Número: 1-844-423-3733",
     "vanity.subtitle": "Assistência Jurídica Imediata Quando Você Mais Precisa",
-    "vanity.description": "No caso de uma detenção inesperada pelo ICE, cada segundo conta. Memorizar 1-844-ICE-FREE (1-844-262-5442) garante que você ou seus entes queridos possam se conectar instantaneamente com nossa equipe de defesa de remoção. Estamos disponíveis para fornecer orientação urgente e representação para lutar pela sua libertação.",
+    "vanity.description": "No caso de uma detenção inesperada pelo ICE, cada segundo conta. Memorizar 1-844-423-3733 garante que você ou seus entes queridos possam se conectar instantaneamente com nossa equipe de defesa de remoção. Estamos disponíveis para fornecer orientação urgente e representação para lutar pela sua libertação.",
     "vanity.cta": "Salvar Contato Agora",
 
     // Attorneys Page

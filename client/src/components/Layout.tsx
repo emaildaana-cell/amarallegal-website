@@ -1,8 +1,14 @@
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Phone, Mail, MapPin, Menu, X, Globe, MessageCircle } from "lucide-react";
+import { Phone, Mail, MapPin, Menu, X, Globe, MessageCircle, ChevronDown } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import AccessibilityMenu from "./AccessibilityMenu";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
@@ -24,30 +30,33 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     { label: t("nav.home"), href: "/" },
     { label: t("nav.attorneys"), href: "/attorneys" },
     { label: t("nav.practice_areas"), href: "/practice-areas" },
-    { label: t("nav.services"), href: "/services" },
     { label: t("nav.contact"), href: "/contact" },
+  ];
+
+  const resourceItems = [
+    { label: "FAQ", href: "/faq" },
+    { label: "ICE Detention Process", href: "/detention-process" },
+    { label: "Court Sponsor Guide", href: "/sponsor-guide" },
+    { label: "Downloadable Guides", href: "/downloads" },
   ];
 
   return (
     <div className="min-h-screen flex flex-col bg-background font-sans text-foreground selection:bg-primary/20">
       {/* Top Bar - Contact Info */}
       <div className="bg-primary text-primary-foreground py-2 text-sm hidden md:block border-b border-secondary/30">
-        <div className="container flex justify-between items-center">
-          <div className="flex gap-6">
-            <span className="flex items-center gap-2"><Phone className="h-3 w-3" /> 1-844-ICE-FREE</span>
+        <div className="container flex items-center justify-between">
+          <div className="flex items-center gap-6">
+            <span className="flex items-center gap-2"><Phone className="h-3 w-3" /> 1-844-423-3733</span>
+            <span className="h-4 w-px bg-primary-foreground/30" />
             <a href="https://wa.me/16198671707" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-secondary transition-colors">
               <MessageCircle className="h-3 w-3" /> WhatsApp: (619) 867-1707
             </a>
-            <span className="flex items-center gap-2"><Mail className="h-3 w-3" /> ap@amarallegal.com</span>
           </div>
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-2"><MapPin className="h-3 w-3" /> 6750 N. Andrews Avenue Ste 208, Fort Lauderdale, FL 33309</span>
-            <Link href="/consultation">
-              <Button size="sm" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold text-xs px-4 py-1 h-7 rounded-sm">
-                {t("nav.request_consultation")}
-              </Button>
-            </Link>
-          </div>
+          <Link href="/consultation">
+            <Button size="sm" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold text-xs px-4 py-1 h-7 rounded-sm">
+              {t("nav.request_consultation")}
+            </Button>
+          </Link>
         </div>
       </div>
 
@@ -81,6 +90,32 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 {item.label}
               </Link>
             ))}
+            {/* Resources Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className={cn(
+                "text-sm font-medium transition-colors hover:text-primary uppercase tracking-wide flex items-center gap-1",
+                location.startsWith('/faq') || location.startsWith('/detention-process') || location.startsWith('/sponsor-guide') || location.startsWith('/downloads') || location.startsWith('/resources')
+                  ? "text-primary font-bold" 
+                  : "text-muted-foreground"
+              )}>
+                Resources
+                <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuItem asChild>
+                  <Link href="/resources" className="cursor-pointer w-full">
+                    All Resources
+                  </Link>
+                </DropdownMenuItem>
+                {resourceItems.map((item) => (
+                  <DropdownMenuItem key={item.href} asChild>
+                    <Link href={item.href} className="cursor-pointer w-full">
+                      {item.label}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
             <div className="flex items-center gap-1">
               <Button 
                 variant="ghost" 
@@ -154,6 +189,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                       {item.label}
                     </Link>
                   ))}
+                  {/* Resources Section for Mobile */}
+                  <div className="border-b border-border/50 pb-2">
+                    <span className="text-lg font-medium text-muted-foreground">Resources</span>
+                    <div className="ml-4 mt-2 flex flex-col gap-2">
+                      <Link href="/resources" className="text-sm text-muted-foreground hover:text-primary">All Resources</Link>
+                      {resourceItems.map((item) => (
+                        <Link key={item.href} href={item.href} className="text-sm text-muted-foreground hover:text-primary">
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                   <div className="flex items-center justify-center gap-3 py-2">
                     <Button 
                       variant="outline" 
@@ -246,7 +293,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </li>
                 <li className="flex items-center gap-2">
                   <Phone className="h-4 w-4 shrink-0" />
-                  <span>1-844-ICE-FREE</span>
+                  <span>1-844-423-3733</span>
                 </li>
                 <li>
                   <a href="https://wa.me/16198671707" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-secondary transition-colors">

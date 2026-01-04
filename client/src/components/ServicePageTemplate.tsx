@@ -62,7 +62,7 @@ export default function ServicePageTemplate({
               <a href="tel:1-844-423-3733">
                 <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
                   <Phone className="mr-2 h-5 w-5" />
-                  1-844-ICE-FREE
+                  1-844-423-3733
                 </Button>
               </a>
             </div>
@@ -147,7 +147,7 @@ export default function ServicePageTemplate({
               <a href="tel:1-844-423-3733">
                 <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
                   <Phone className="mr-2 h-5 w-5" />
-                  1-844-ICE-FREE
+                  1-844-423-3733
                 </Button>
               </a>
             </div>

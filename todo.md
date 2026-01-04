@@ -51,3 +51,13 @@
 - [x] Change Knowledge Center to Services in navigation
 - [x] Update translations for Services nav item
 - [x] Move Request Consultation button to top contact bar
+
+
+## New Pages from Published Site
+- [x] Create FAQ page with searchable categories
+- [x] Create ICE Detention Process page with 9-step guide
+- [x] Create Resources landing page
+- [x] Create Court Sponsor Guide page
+- [x] Create Downloadable Guides page
+- [x] Update navigation with Resources dropdown
+- [x] Add routes for all new pages

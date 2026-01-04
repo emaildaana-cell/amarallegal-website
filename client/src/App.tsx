@@ -20,6 +20,11 @@ import FamilyPetitions from "@/pages/services/FamilyPetitions";
 import BondHearings from "@/pages/services/BondHearings";
 import Crimmigration from "@/pages/services/Crimmigration";
 import FederalLitigation from "@/pages/services/FederalLitigation";
+import FAQ from "@/pages/FAQ";
+import DetentionProcess from "@/pages/DetentionProcess";
+import Resources from "@/pages/Resources";
+import SponsorGuide from "@/pages/SponsorGuide";
+import Downloads from "@/pages/Downloads";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const queryClient = new QueryClient();
@@ -44,6 +49,11 @@ function Router() {
           <Route path="/services/bond-hearings" component={BondHearings} />
           <Route path="/services/crimmigration" component={Crimmigration} />
           <Route path="/services/federal-litigation" component={FederalLitigation} />
+          <Route path="/faq" component={FAQ} />
+          <Route path="/detention-process" component={DetentionProcess} />
+          <Route path="/resources" component={Resources} />
+          <Route path="/sponsor-guide" component={SponsorGuide} />
+          <Route path="/downloads" component={Downloads} />
           <Route component={NotFound} />
         </Switch>
       </Layout>

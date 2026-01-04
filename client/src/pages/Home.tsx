@@ -34,7 +34,7 @@ export default function Home() {
         <div className="container relative z-10 text-center md:text-left">
           <div className="max-w-3xl space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-1000">
             <a href="tel:18442625442" className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground hover:bg-secondary/90 px-6 py-2 rounded-full text-sm font-bold tracking-wider uppercase mb-2 transition-colors">
-              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"/> {t("hero.call_now")}: 1-844-ICE-FREE
+              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"/> {t("hero.call_now")}: 1-844-423-3733
             </a>
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-white leading-tight">
               {t("hero.title_prefix")} <span className="text-secondary italic">{t("hero.title_suffix")}</span>
@@ -156,7 +156,7 @@ export default function Home() {
               <div className="relative w-full max-w-md aspect-square flex items-center justify-center bg-white/5 rounded-full border border-white/10 backdrop-blur-sm p-8 overflow-hidden">
                 <img 
                   src="/images/ana-paola-ice-free.png" 
-                  alt="Ana Paola Amaral-Muschlitz - 1-844-ICE-FREE" 
+                  alt="Ana Paola Amaral-Muschlitz - 1-844-423-3733" 
                   className="w-full h-full object-cover rounded-full"
                 />
               </div>
