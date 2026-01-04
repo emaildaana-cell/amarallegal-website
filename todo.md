@@ -145,3 +145,10 @@
 - [x] Add admin page for managing letter requests
 - [x] Add letter templates for different case types
 - [x] Write tests for letter functionality
+
+## Asylum Page Expansion
+- [x] Add detailed 1-year filing deadline information
+- [x] Add exceptions to the 1-year rule
+- [x] Add BIA appeals process explanation
+- [x] Add appeals timeline and procedures
+- [x] Add translations for all new content
