@@ -56,7 +56,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <MessageCircle className="h-3 w-3" /> WhatsApp: (619) 867-1707
             </a>
             <span className="h-4 w-px bg-primary-foreground/30" />
-            <Link href="/consultation" className="flex items-center gap-2 hover:text-secondary transition-colors">
+            <Link href="/appointments" className="flex items-center gap-2 hover:text-secondary transition-colors">
               <Calendar className="h-3 w-3" /> Request an Appointment
             </Link>
           </div>
