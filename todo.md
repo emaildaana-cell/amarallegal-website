@@ -79,3 +79,11 @@
 - [x] Add document upload UI with drag-and-drop support
 - [x] Write vitest tests for emergency plan functionality
 - [x] Update Downloads page to link to interactive version
+
+## Secure Emergency Plan Sharing
+- [x] Design database schema for share links (token, expiration, password hash)
+- [x] Create tRPC procedures for generating and validating share links
+- [x] Build share dialog UI in Family Emergency Plan page
+- [x] Create public shared plan viewer page
+- [x] Add password protection for shared links
+- [x] Write vitest tests for sharing functionality

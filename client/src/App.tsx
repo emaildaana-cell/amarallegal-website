@@ -26,6 +26,7 @@ import Resources from "@/pages/Resources";
 import SponsorGuide from "@/pages/SponsorGuide";
 import Downloads from "@/pages/Downloads";
 import FamilyEmergencyPlan from "@/pages/FamilyEmergencyPlan";
+import SharedPlanViewer from "@/pages/SharedPlanViewer";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const queryClient = new QueryClient();
@@ -56,6 +57,7 @@ function Router() {
           <Route path="/sponsor-guide" component={SponsorGuide} />
           <Route path="/downloads" component={Downloads} />
           <Route path="/family-emergency-plan" component={FamilyEmergencyPlan} />
+          <Route path="/shared/plan/:token" component={SharedPlanViewer} />
           <Route component={NotFound} />
         </Switch>
       </Layout>

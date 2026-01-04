@@ -362,3 +362,209 @@ export async function deleteEmergencyPlanDocument(id: number, userId: number): P
     return false;
   }
 }
+
+
+// Emergency Plan Share Link Functions
+import { emergencyPlanShareLinks, InsertEmergencyPlanShareLink, EmergencyPlanShareLink } from "../drizzle/schema";
+import { and, lt, gt } from "drizzle-orm";
+
+export async function createShareLink(data: Omit<InsertEmergencyPlanShareLink, "id" | "createdAt" | "viewCount">): Promise<EmergencyPlanShareLink | undefined> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create share link: database not available");
+    return undefined;
+  }
+
+  try {
+    const result = await db.insert(emergencyPlanShareLinks).values({
+      ...data,
+      viewCount: 0,
+    });
+    
+    const insertId = result[0].insertId;
+    const inserted = await db.select().from(emergencyPlanShareLinks).where(eq(emergencyPlanShareLinks.id, insertId)).limit(1);
+    
+    return inserted[0];
+  } catch (error) {
+    console.error("[Database] Failed to create share link:", error);
+    throw error;
+  }
+}
+
+export async function getShareLinksByPlanId(planId: number, userId: number): Promise<EmergencyPlanShareLink[]> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get share links: database not available");
+    return [];
+  }
+
+  try {
+    const result = await db.select().from(emergencyPlanShareLinks)
+      .where(and(
+        eq(emergencyPlanShareLinks.planId, planId),
+        eq(emergencyPlanShareLinks.userId, userId)
+      ))
+      .orderBy(desc(emergencyPlanShareLinks.createdAt));
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get share links:", error);
+    return [];
+  }
+}
+
+export async function getShareLinkByToken(token: string): Promise<EmergencyPlanShareLink | undefined> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get share link: database not available");
+    return undefined;
+  }
+
+  try {
+    const result = await db.select().from(emergencyPlanShareLinks)
+      .where(eq(emergencyPlanShareLinks.shareToken, token))
+      .limit(1);
+    return result[0];
+  } catch (error) {
+    console.error("[Database] Failed to get share link:", error);
+    return undefined;
+  }
+}
+
+export async function validateAndAccessShareLink(token: string, clientIp?: string): Promise<{ valid: boolean; link?: EmergencyPlanShareLink; error?: string }> {
+  const db = await getDb();
+  if (!db) {
+    return { valid: false, error: "Database not available" };
+  }
+
+  try {
+    const link = await getShareLinkByToken(token);
+    
+    if (!link) {
+      return { valid: false, error: "Share link not found" };
+    }
+    
+    if (!link.isActive) {
+      return { valid: false, error: "This share link has been revoked" };
+    }
+    
+    if (new Date() > link.expiresAt) {
+      return { valid: false, error: "This share link has expired" };
+    }
+    
+    if (link.maxViews && link.maxViews > 0 && link.viewCount >= link.maxViews) {
+      return { valid: false, error: "This share link has reached its maximum views" };
+    }
+    
+    // Update access info
+    await db.update(emergencyPlanShareLinks)
+      .set({
+        viewCount: link.viewCount + 1,
+        lastAccessedAt: new Date(),
+        lastAccessedIp: clientIp || null,
+      })
+      .where(eq(emergencyPlanShareLinks.id, link.id));
+    
+    return { valid: true, link };
+  } catch (error) {
+    console.error("[Database] Failed to validate share link:", error);
+    return { valid: false, error: "Failed to validate share link" };
+  }
+}
+
+export async function revokeShareLink(id: number, userId: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot revoke share link: database not available");
+    return false;
+  }
+
+  try {
+    const result = await db.select().from(emergencyPlanShareLinks)
+      .where(and(
+        eq(emergencyPlanShareLinks.id, id),
+        eq(emergencyPlanShareLinks.userId, userId)
+      ))
+      .limit(1);
+    
+    if (!result[0]) {
+      return false;
+    }
+    
+    await db.update(emergencyPlanShareLinks)
+      .set({
+        isActive: false,
+        revokedAt: new Date(),
+      })
+      .where(eq(emergencyPlanShareLinks.id, id));
+    
+    return true;
+  } catch (error) {
+    console.error("[Database] Failed to revoke share link:", error);
+    return false;
+  }
+}
+
+export async function deleteShareLink(id: number, userId: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot delete share link: database not available");
+    return false;
+  }
+
+  try {
+    const result = await db.select().from(emergencyPlanShareLinks)
+      .where(and(
+        eq(emergencyPlanShareLinks.id, id),
+        eq(emergencyPlanShareLinks.userId, userId)
+      ))
+      .limit(1);
+    
+    if (!result[0]) {
+      return false;
+    }
+    
+    await db.delete(emergencyPlanShareLinks).where(eq(emergencyPlanShareLinks.id, id));
+    
+    return true;
+  } catch (error) {
+    console.error("[Database] Failed to delete share link:", error);
+    return false;
+  }
+}
+
+export async function getEmergencyPlanByIdPublic(id: number): Promise<EmergencyPlan | undefined> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get emergency plan: database not available");
+    return undefined;
+  }
+
+  try {
+    const result = await db.select().from(emergencyPlans)
+      .where(eq(emergencyPlans.id, id))
+      .limit(1);
+    
+    return result[0];
+  } catch (error) {
+    console.error("[Database] Failed to get emergency plan:", error);
+    return undefined;
+  }
+}
+
+export async function getDocumentsByPlanIdPublic(planId: number): Promise<EmergencyPlanDocument[]> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get documents: database not available");
+    return [];
+  }
+
+  try {
+    const result = await db.select().from(emergencyPlanDocuments)
+      .where(eq(emergencyPlanDocuments.planId, planId))
+      .orderBy(desc(emergencyPlanDocuments.uploadedAt));
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get documents:", error);
+    return [];
+  }
+}

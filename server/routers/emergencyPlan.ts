@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { protectedProcedure, router } from "../_core/trpc";
+import { protectedProcedure, publicProcedure, router } from "../_core/trpc";
+import * as bcrypt from "bcryptjs";
 import { 
   createEmergencyPlan, 
   getEmergencyPlansByUserId, 
@@ -8,7 +9,15 @@ import {
   deleteEmergencyPlan,
   createEmergencyPlanDocument,
   getDocumentsByPlanId,
-  deleteEmergencyPlanDocument
+  deleteEmergencyPlanDocument,
+  createShareLink,
+  getShareLinksByPlanId,
+  getShareLinkByToken,
+  validateAndAccessShareLink,
+  revokeShareLink,
+  deleteShareLink,
+  getEmergencyPlanByIdPublic,
+  getDocumentsByPlanIdPublic
 } from "../db";
 import { storagePut } from "../storage";
 import { nanoid } from "nanoid";
@@ -201,6 +210,210 @@ export const emergencyPlanRouter = router({
       return { success };
     }),
   
+  // Share link management
+  share: router({
+    // Create a new share link
+    create: protectedProcedure
+      .input(z.object({
+        planId: z.number(),
+        recipientName: z.string().optional(),
+        recipientEmail: z.string().email().optional(),
+        recipientRelationship: z.string().optional(),
+        password: z.string().min(4).optional(),
+        expiresInDays: z.number().min(1).max(365).default(7),
+        maxViews: z.number().min(0).max(1000).default(0), // 0 = unlimited
+        includedSections: z.array(z.string()).default(["contacts", "children", "documents", "instructions"]),
+        includeDocuments: z.boolean().default(false),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const userId = ctx.user.id;
+        
+        // Verify plan ownership
+        const plan = await getEmergencyPlanById(input.planId, userId);
+        if (!plan) {
+          throw new Error("Emergency plan not found or access denied");
+        }
+        
+        // Generate unique share token
+        const shareToken = nanoid(32);
+        
+        // Hash password if provided
+        const passwordHash = input.password ? await bcrypt.hash(input.password, 10) : null;
+        
+        // Calculate expiration date
+        const expiresAt = new Date();
+        expiresAt.setDate(expiresAt.getDate() + input.expiresInDays);
+        
+        const link = await createShareLink({
+          planId: input.planId,
+          userId,
+          shareToken,
+          passwordHash,
+          recipientName: input.recipientName,
+          recipientEmail: input.recipientEmail,
+          recipientRelationship: input.recipientRelationship,
+          expiresAt,
+          maxViews: input.maxViews,
+          includedSections: JSON.stringify(input.includedSections),
+          includeDocuments: input.includeDocuments,
+          isActive: true,
+        });
+        
+        return { 
+          success: true, 
+          link,
+          shareUrl: `/shared/plan/${shareToken}`
+        };
+      }),
+    
+    // List all share links for a plan
+    list: protectedProcedure
+      .input(z.object({ planId: z.number() }))
+      .query(async ({ ctx, input }) => {
+        const userId = ctx.user.id;
+        return getShareLinksByPlanId(input.planId, userId);
+      }),
+    
+    // Revoke a share link
+    revoke: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ ctx, input }) => {
+        const userId = ctx.user.id;
+        const success = await revokeShareLink(input.id, userId);
+        return { success };
+      }),
+    
+    // Delete a share link
+    delete: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ ctx, input }) => {
+        const userId = ctx.user.id;
+        const success = await deleteShareLink(input.id, userId);
+        return { success };
+      }),
+    
+    // Public: Validate a share link (check if valid before showing password prompt)
+    validate: publicProcedure
+      .input(z.object({ token: z.string() }))
+      .query(async ({ input }) => {
+        const link = await getShareLinkByToken(input.token);
+        
+        if (!link) {
+          return { valid: false, error: "Share link not found" };
+        }
+        
+        if (!link.isActive) {
+          return { valid: false, error: "This share link has been revoked" };
+        }
+        
+        if (new Date() > link.expiresAt) {
+          return { valid: false, error: "This share link has expired" };
+        }
+        
+        if (link.maxViews && link.maxViews > 0 && link.viewCount >= link.maxViews) {
+          return { valid: false, error: "This share link has reached its maximum views" };
+        }
+        
+        return { 
+          valid: true, 
+          requiresPassword: !!link.passwordHash,
+          recipientName: link.recipientName,
+          expiresAt: link.expiresAt,
+        };
+      }),
+    
+    // Public: Access a shared plan with optional password
+    access: publicProcedure
+      .input(z.object({ 
+        token: z.string(),
+        password: z.string().optional(),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        const link = await getShareLinkByToken(input.token);
+        
+        if (!link) {
+          return { success: false, error: "Share link not found" };
+        }
+        
+        // Validate the link
+        const validation = await validateAndAccessShareLink(input.token);
+        if (!validation.valid) {
+          return { success: false, error: validation.error };
+        }
+        
+        // Check password if required
+        if (link.passwordHash) {
+          if (!input.password) {
+            return { success: false, error: "Password required", requiresPassword: true };
+          }
+          
+          const passwordValid = await bcrypt.compare(input.password, link.passwordHash);
+          if (!passwordValid) {
+            return { success: false, error: "Incorrect password", requiresPassword: true };
+          }
+        }
+        
+        // Get the plan data
+        const plan = await getEmergencyPlanByIdPublic(link.planId);
+        if (!plan) {
+          return { success: false, error: "Plan not found" };
+        }
+        
+        // Parse included sections
+        const includedSections = link.includedSections ? JSON.parse(link.includedSections) : [];
+        
+        // Build response with only included sections
+        const planData: any = {
+          planName: plan.planName,
+          ownerName: plan.ownerName,
+          ownerPhone: plan.ownerPhone,
+          ownerEmail: plan.ownerEmail,
+        };
+        
+        if (includedSections.includes("contacts")) {
+          planData.emergencyContacts = plan.emergencyContacts ? JSON.parse(plan.emergencyContacts) : [];
+          planData.attorneyName = plan.attorneyName;
+          planData.attorneyPhone = plan.attorneyPhone;
+          planData.attorneyEmail = plan.attorneyEmail;
+          planData.attorneyFirm = plan.attorneyFirm;
+          planData.consulateName = plan.consulateName;
+          planData.consulatePhone = plan.consulatePhone;
+          planData.consulateAddress = plan.consulateAddress;
+          planData.poaDesignee = plan.poaDesignee;
+          planData.poaDesigneePhone = plan.poaDesigneePhone;
+          planData.poaDesigneeRelationship = plan.poaDesigneeRelationship;
+        }
+        
+        if (includedSections.includes("children")) {
+          planData.children = plan.children ? JSON.parse(plan.children) : [];
+        }
+        
+        if (includedSections.includes("documents")) {
+          planData.documentLocations = plan.documentLocations ? JSON.parse(plan.documentLocations) : {};
+          planData.bankName = plan.bankName;
+          planData.financialPOA = plan.financialPOA;
+        }
+        
+        if (includedSections.includes("instructions")) {
+          planData.specialInstructions = plan.specialInstructions;
+        }
+        
+        // Get uploaded documents if included
+        let documents: any[] = [];
+        if (link.includeDocuments) {
+          documents = await getDocumentsByPlanIdPublic(link.planId);
+        }
+        
+        return { 
+          success: true, 
+          plan: planData,
+          documents,
+          sharedBy: plan.ownerName,
+          expiresAt: link.expiresAt,
+        };
+      }),
+  }),
+
   // Document management
   documents: router({
     // Upload a document

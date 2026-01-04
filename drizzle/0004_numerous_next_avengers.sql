@@ -1,0 +1,22 @@
+CREATE TABLE `emergency_plan_share_links` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`planId` int NOT NULL,
+	`userId` int NOT NULL,
+	`shareToken` varchar(64) NOT NULL,
+	`passwordHash` varchar(255),
+	`recipientName` varchar(255),
+	`recipientEmail` varchar(320),
+	`recipientRelationship` varchar(100),
+	`expiresAt` timestamp NOT NULL,
+	`maxViews` int DEFAULT 0,
+	`viewCount` int NOT NULL DEFAULT 0,
+	`includedSections` text,
+	`includeDocuments` boolean DEFAULT false,
+	`isActive` boolean NOT NULL DEFAULT true,
+	`revokedAt` timestamp,
+	`lastAccessedAt` timestamp,
+	`lastAccessedIp` varchar(45),
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `emergency_plan_share_links_id` PRIMARY KEY(`id`),
+	CONSTRAINT `emergency_plan_share_links_shareToken_unique` UNIQUE(`shareToken`)
+);

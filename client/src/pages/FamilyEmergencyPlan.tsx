@@ -27,7 +27,14 @@ import {
   Download,
   Loader2,
   CheckCircle2,
-  X
+  X,
+  Share2,
+  Link,
+  Copy,
+  Clock,
+  Eye,
+  Lock,
+  Unlock
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { getLoginUrl } from "@/const";
@@ -96,6 +103,19 @@ export default function FamilyEmergencyPlan() {
   const [saving, setSaving] = useState(false);
   const [uploadingFile, setUploadingFile] = useState(false);
   const [selectedPlanId, setSelectedPlanId] = useState<number | null>(null);
+  
+  // Share state
+  const [shareRecipientName, setShareRecipientName] = useState("");
+  const [shareRecipientEmail, setShareRecipientEmail] = useState("");
+  const [shareRecipientRelationship, setShareRecipientRelationship] = useState("");
+  const [sharePassword, setSharePassword] = useState("");
+  const [shareExpiresInDays, setShareExpiresInDays] = useState(7);
+  const [shareMaxViews, setShareMaxViews] = useState(0);
+  const [shareIncludeDocuments, setShareIncludeDocuments] = useState(false);
+  const [shareIncludedSections, setShareIncludedSections] = useState<string[]>(["contacts", "children", "documents", "instructions"]);
+  const [creatingShareLink, setCreatingShareLink] = useState(false);
+  const [newShareUrl, setNewShareUrl] = useState<string | null>(null);
+  const [copiedUrl, setCopiedUrl] = useState(false);
   
   // Form state
   const [planName, setPlanName] = useState("My Family Emergency Plan");
@@ -215,6 +235,87 @@ export default function FamilyEmergencyPlan() {
       refetchDocuments();
     },
   });
+  
+  // Share link queries and mutations
+  const shareLinksQuery = trpc.emergencyPlan.share.list.useQuery(
+    { planId: selectedPlanId! },
+    { enabled: !!selectedPlanId }
+  );
+  const shareLinks = shareLinksQuery.data || [];
+  
+  const createShareLinkMutation = trpc.emergencyPlan.share.create.useMutation({
+    onSuccess: (data) => {
+      shareLinksQuery.refetch();
+      setNewShareUrl(window.location.origin + data.shareUrl);
+      setCreatingShareLink(false);
+      // Reset form
+      setShareRecipientName("");
+      setShareRecipientEmail("");
+      setShareRecipientRelationship("");
+      setSharePassword("");
+      setShareExpiresInDays(7);
+      setShareMaxViews(0);
+      setShareIncludeDocuments(false);
+    },
+    onError: (error) => {
+      console.error("Failed to create share link:", error);
+      setCreatingShareLink(false);
+    },
+  });
+  
+  const revokeShareLinkMutation = trpc.emergencyPlan.share.revoke.useMutation({
+    onSuccess: () => {
+      shareLinksQuery.refetch();
+    },
+  });
+  
+  const deleteShareLinkMutation = trpc.emergencyPlan.share.delete.useMutation({
+    onSuccess: () => {
+      shareLinksQuery.refetch();
+    },
+  });
+  
+  // Handle creating share link
+  const handleCreateShareLink = async () => {
+    if (!selectedPlanId) return;
+    
+    setCreatingShareLink(true);
+    setNewShareUrl(null);
+    
+    createShareLinkMutation.mutate({
+      planId: selectedPlanId,
+      recipientName: shareRecipientName || undefined,
+      recipientEmail: shareRecipientEmail || undefined,
+      recipientRelationship: shareRecipientRelationship || undefined,
+      password: sharePassword || undefined,
+      expiresInDays: shareExpiresInDays,
+      maxViews: shareMaxViews,
+      includedSections: shareIncludedSections,
+      includeDocuments: shareIncludeDocuments,
+    });
+  };
+  
+  // Copy URL to clipboard
+  const copyToClipboard = async (url: string) => {
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopiedUrl(true);
+      setTimeout(() => setCopiedUrl(false), 2000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+    }
+  };
+  
+  // Format date for display
+  const formatDate = (date: Date | string) => {
+    return new Date(date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
   
   // Load plan data when selected
   const loadPlanData = useCallback((plan: any) => {
@@ -499,12 +600,16 @@ export default function FamilyEmergencyPlan() {
         
         {/* Main Content */}
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid grid-cols-5 w-full mb-6">
+          <TabsList className="grid grid-cols-6 w-full mb-6">
             <TabsTrigger value="info">Your Info</TabsTrigger>
             <TabsTrigger value="contacts">Contacts</TabsTrigger>
             <TabsTrigger value="children">Children</TabsTrigger>
             <TabsTrigger value="documents">Documents</TabsTrigger>
             <TabsTrigger value="instructions">Instructions</TabsTrigger>
+            <TabsTrigger value="share" disabled={!selectedPlanId}>
+              <Share2 className="h-4 w-4 mr-1" />
+              Share
+            </TabsTrigger>
           </TabsList>
           
           {/* Your Information Tab */}
@@ -1321,6 +1426,312 @@ export default function FamilyEmergencyPlan() {
                   {selectedPlanId ? "Save Changes" : "Create Plan"}
                 </Button>
               </div>
+            </div>
+          </TabsContent>
+          
+          {/* Share Tab */}
+          <TabsContent value="share">
+            <div className="grid gap-6">
+              {/* Create New Share Link */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Share2 className="h-5 w-5 text-primary" />
+                    Create Share Link
+                  </CardTitle>
+                  <CardDescription>
+                    Generate a secure link to share your emergency plan with trusted contacts
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {/* Newly created URL */}
+                  {newShareUrl && (
+                    <div className="p-4 bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded-lg">
+                      <div className="flex items-center gap-2 mb-2">
+                        <CheckCircle2 className="h-5 w-5 text-green-600" />
+                        <span className="font-medium text-green-800 dark:text-green-200">Share link created!</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Input value={newShareUrl} readOnly className="font-mono text-sm" />
+                        <Button onClick={() => copyToClipboard(newShareUrl)} variant="outline">
+                          {copiedUrl ? <CheckCircle2 className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                        </Button>
+                      </div>
+                      {sharePassword && (
+                        <p className="text-sm text-green-700 dark:text-green-300 mt-2">
+                          Password: <code className="bg-green-100 dark:bg-green-900 px-1 rounded">{sharePassword}</code>
+                        </p>
+                      )}
+                    </div>
+                  )}
+                  
+                  {/* Recipient Information */}
+                  <div className="grid gap-4 md:grid-cols-3">
+                    <div>
+                      <Label>Recipient Name (Optional)</Label>
+                      <Input
+                        value={shareRecipientName}
+                        onChange={(e) => setShareRecipientName(e.target.value)}
+                        placeholder="John Doe"
+                      />
+                    </div>
+                    <div>
+                      <Label>Recipient Email (Optional)</Label>
+                      <Input
+                        type="email"
+                        value={shareRecipientEmail}
+                        onChange={(e) => setShareRecipientEmail(e.target.value)}
+                        placeholder="john@example.com"
+                      />
+                    </div>
+                    <div>
+                      <Label>Relationship (Optional)</Label>
+                      <Input
+                        value={shareRecipientRelationship}
+                        onChange={(e) => setShareRecipientRelationship(e.target.value)}
+                        placeholder="Spouse, Parent, Friend"
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Security Settings */}
+                  <div className="grid gap-4 md:grid-cols-3">
+                    <div>
+                      <Label className="flex items-center gap-2">
+                        <Lock className="h-4 w-4" />
+                        Password Protection (Optional)
+                      </Label>
+                      <Input
+                        type="password"
+                        value={sharePassword}
+                        onChange={(e) => setSharePassword(e.target.value)}
+                        placeholder="Enter password (min 4 chars)"
+                      />
+                    </div>
+                    <div>
+                      <Label className="flex items-center gap-2">
+                        <Clock className="h-4 w-4" />
+                        Expires In
+                      </Label>
+                      <Select value={shareExpiresInDays.toString()} onValueChange={(v) => setShareExpiresInDays(parseInt(v))}>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="1">1 day</SelectItem>
+                          <SelectItem value="7">7 days</SelectItem>
+                          <SelectItem value="30">30 days</SelectItem>
+                          <SelectItem value="90">90 days</SelectItem>
+                          <SelectItem value="365">1 year</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <Label className="flex items-center gap-2">
+                        <Eye className="h-4 w-4" />
+                        Max Views (0 = unlimited)
+                      </Label>
+                      <Input
+                        type="number"
+                        min="0"
+                        max="1000"
+                        value={shareMaxViews}
+                        onChange={(e) => setShareMaxViews(parseInt(e.target.value) || 0)}
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* What to Include */}
+                  <div>
+                    <Label className="mb-3 block">What to Include</Label>
+                    <div className="grid gap-3 md:grid-cols-2">
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="include-contacts"
+                          checked={shareIncludedSections.includes("contacts")}
+                          onCheckedChange={(checked) => {
+                            if (checked) {
+                              setShareIncludedSections([...shareIncludedSections, "contacts"]);
+                            } else {
+                              setShareIncludedSections(shareIncludedSections.filter(s => s !== "contacts"));
+                            }
+                          }}
+                        />
+                        <Label htmlFor="include-contacts">Emergency Contacts & Attorney Info</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="include-children"
+                          checked={shareIncludedSections.includes("children")}
+                          onCheckedChange={(checked) => {
+                            if (checked) {
+                              setShareIncludedSections([...shareIncludedSections, "children"]);
+                            } else {
+                              setShareIncludedSections(shareIncludedSections.filter(s => s !== "children"));
+                            }
+                          }}
+                        />
+                        <Label htmlFor="include-children">Children Information</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="include-documents"
+                          checked={shareIncludedSections.includes("documents")}
+                          onCheckedChange={(checked) => {
+                            if (checked) {
+                              setShareIncludedSections([...shareIncludedSections, "documents"]);
+                            } else {
+                              setShareIncludedSections(shareIncludedSections.filter(s => s !== "documents"));
+                            }
+                          }}
+                        />
+                        <Label htmlFor="include-documents">Document Locations & Financial Info</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="include-instructions"
+                          checked={shareIncludedSections.includes("instructions")}
+                          onCheckedChange={(checked) => {
+                            if (checked) {
+                              setShareIncludedSections([...shareIncludedSections, "instructions"]);
+                            } else {
+                              setShareIncludedSections(shareIncludedSections.filter(s => s !== "instructions"));
+                            }
+                          }}
+                        />
+                        <Label htmlFor="include-instructions">Special Instructions</Label>
+                      </div>
+                      <div className="flex items-center space-x-2 md:col-span-2">
+                        <Checkbox
+                          id="include-uploaded-docs"
+                          checked={shareIncludeDocuments}
+                          onCheckedChange={(checked) => setShareIncludeDocuments(checked as boolean)}
+                        />
+                        <Label htmlFor="include-uploaded-docs" className="flex items-center gap-2">
+                          <FileText className="h-4 w-4" />
+                          Include Uploaded Document Files
+                        </Label>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <Button
+                    onClick={handleCreateShareLink}
+                    disabled={creatingShareLink || shareIncludedSections.length === 0}
+                    className="w-full"
+                  >
+                    {creatingShareLink ? (
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    ) : (
+                      <Link className="h-4 w-4 mr-2" />
+                    )}
+                    Generate Share Link
+                  </Button>
+                </CardContent>
+              </Card>
+              
+              {/* Existing Share Links */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Link className="h-5 w-5 text-primary" />
+                    Active Share Links ({shareLinks.filter(l => l.isActive).length})
+                  </CardTitle>
+                  <CardDescription>
+                    Manage your existing share links
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {shareLinks.length === 0 ? (
+                    <div className="text-center py-8 text-muted-foreground">
+                      <Share2 className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                      <p>No share links created yet. Create one above to share your plan.</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {shareLinks.map((link) => (
+                        <div
+                          key={link.id}
+                          className={`p-4 border rounded-lg ${!link.isActive ? 'opacity-50 bg-muted' : ''}`}
+                        >
+                          <div className="flex items-start justify-between">
+                            <div className="space-y-1">
+                              <div className="flex items-center gap-2">
+                                {link.recipientName ? (
+                                  <span className="font-medium">{link.recipientName}</span>
+                                ) : (
+                                  <span className="text-muted-foreground">Anonymous recipient</span>
+                                )}
+                                {link.passwordHash && (
+                                  <Badge variant="secondary" className="text-xs">
+                                    <Lock className="h-3 w-3 mr-1" />
+                                    Password Protected
+                                  </Badge>
+                                )}
+                                {!link.isActive && (
+                                  <Badge variant="destructive" className="text-xs">Revoked</Badge>
+                                )}
+                              </div>
+                              {link.recipientEmail && (
+                                <p className="text-sm text-muted-foreground">{link.recipientEmail}</p>
+                              )}
+                              <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                                <span className="flex items-center gap-1">
+                                  <Clock className="h-3 w-3" />
+                                  Expires: {formatDate(link.expiresAt)}
+                                </span>
+                                <span className="flex items-center gap-1">
+                                  <Eye className="h-3 w-3" />
+                                  Views: {link.viewCount}{link.maxViews ? `/${link.maxViews}` : ''}
+                                </span>
+                                {link.lastAccessedAt && (
+                                  <span>Last accessed: {formatDate(link.lastAccessedAt)}</span>
+                                )}
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              {link.isActive && (
+                                <>
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => copyToClipboard(`${window.location.origin}/shared/plan/${link.shareToken}`)}
+                                  >
+                                    <Copy className="h-4 w-4" />
+                                  </Button>
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => {
+                                      if (confirm("Revoke this share link? Recipients will no longer be able to access your plan.")) {
+                                        revokeShareLinkMutation.mutate({ id: link.id });
+                                      }
+                                    }}
+                                  >
+                                    <Unlock className="h-4 w-4" />
+                                  </Button>
+                                </>
+                              )}
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="text-destructive hover:text-destructive"
+                                onClick={() => {
+                                  if (confirm("Delete this share link permanently?")) {
+                                    deleteShareLinkMutation.mutate({ id: link.id });
+                                  }
+                                }}
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
             </div>
           </TabsContent>
         </Tabs>

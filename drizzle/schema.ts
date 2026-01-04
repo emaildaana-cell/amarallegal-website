@@ -264,3 +264,48 @@ export const emergencyPlanDocuments = mysqlTable("emergency_plan_documents", {
 
 export type EmergencyPlanDocument = typeof emergencyPlanDocuments.$inferSelect;
 export type InsertEmergencyPlanDocument = typeof emergencyPlanDocuments.$inferInsert;
+
+
+/**
+ * Emergency Plan Share Links
+ * Allows users to securely share their emergency plans with designated contacts
+ */
+export const emergencyPlanShareLinks = mysqlTable("emergency_plan_share_links", {
+  id: int("id").autoincrement().primaryKey(),
+  planId: int("planId").notNull(),
+  userId: int("userId").notNull(),
+  
+  // Share Token (unique identifier for the share link)
+  shareToken: varchar("shareToken", { length: 64 }).notNull().unique(),
+  
+  // Security
+  passwordHash: varchar("passwordHash", { length: 255 }), // Optional password protection
+  
+  // Recipient Information
+  recipientName: varchar("recipientName", { length: 255 }),
+  recipientEmail: varchar("recipientEmail", { length: 320 }),
+  recipientRelationship: varchar("recipientRelationship", { length: 100 }),
+  
+  // Access Control
+  expiresAt: timestamp("expiresAt").notNull(),
+  maxViews: int("maxViews").default(0), // 0 = unlimited
+  viewCount: int("viewCount").default(0).notNull(),
+  
+  // What to share (JSON array of sections to include)
+  includedSections: text("includedSections"), // JSON: ["contacts", "children", "documents", "instructions"]
+  includeDocuments: boolean("includeDocuments").default(false),
+  
+  // Status
+  isActive: boolean("isActive").default(true).notNull(),
+  revokedAt: timestamp("revokedAt"),
+  
+  // Audit
+  lastAccessedAt: timestamp("lastAccessedAt"),
+  lastAccessedIp: varchar("lastAccessedIp", { length: 45 }),
+  
+  // Timestamps
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type EmergencyPlanShareLink = typeof emergencyPlanShareLinks.$inferSelect;
+export type InsertEmergencyPlanShareLink = typeof emergencyPlanShareLinks.$inferInsert;
