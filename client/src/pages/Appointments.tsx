@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Calendar, Phone, Mail, MapPin, Clock, AlertCircle, CheckCircle2 } from "lucide-react";
+import { Calendar, Phone, Mail, MapPin, Clock, AlertCircle, CheckCircle2, DollarSign } from "lucide-react";
 import { toast } from "sonner";
 import { useLanguage } from "@/contexts/LanguageContext";
 import SEO from "@/components/SEO";
@@ -81,6 +81,8 @@ export default function Appointments() {
       subtitle: "Take the first step toward resolving your immigration detention case. Our experienced attorneys are ready to help you navigate the complex legal process.",
       formTitle: "Consultation Form",
       formSubtitle: "Fill out the form below and we will contact you to confirm your consultation time",
+      feeTitle: "Consultation Fee: $250.00",
+      feeDesc: "Please note that there is a consultation fee of $250.00 for all initial appointments. A LawPay invoice will be emailed to you prior to your appointment.",
       contactTitle: "Contact Information",
       contactSubtitle: "Get in touch with our office",
       officeHours: "Office Hours",
@@ -97,6 +99,8 @@ export default function Appointments() {
       subtitle: "Dé el primer paso para resolver su caso de detención migratoria. Nuestros abogados experimentados están listos para ayudarle a navegar el complejo proceso legal.",
       formTitle: "Formulario de Consulta",
       formSubtitle: "Complete el formulario a continuación y nos comunicaremos con usted para confirmar su hora de consulta",
+      feeTitle: "Tarifa de Consulta: $250.00",
+      feeDesc: "Tenga en cuenta que hay una tarifa de consulta de $250.00 para todas las citas iniciales. Se le enviará una factura de LawPay por correo electrónico antes de su cita.",
       contactTitle: "Información de Contacto",
       contactSubtitle: "Comuníquese con nuestra oficina",
       officeHours: "Horario de Oficina",
@@ -113,6 +117,8 @@ export default function Appointments() {
       subtitle: "Dê o primeiro passo para resolver seu caso de detenção imigratória. Nossos advogados experientes estão prontos para ajudá-lo a navegar pelo complexo processo legal.",
       formTitle: "Formulário de Consulta",
       formSubtitle: "Preencha o formulário abaixo e entraremos em contato para confirmar o horário da sua consulta",
+      feeTitle: "Taxa de Consulta: $250.00",
+      feeDesc: "Observe que há uma taxa de consulta de $250.00 para todos os agendamentos iniciais. Uma fatura do LawPay será enviada para você por e-mail antes da sua consulta.",
       contactTitle: "Informações de Contato",
       contactSubtitle: "Entre em contato com nosso escritório",
       officeHours: "Horário de Funcionamento",
@@ -294,6 +300,18 @@ export default function Appointments() {
                 <p className="text-muted-foreground">{c.formSubtitle}</p>
               </CardHeader>
               <CardContent>
+                {/* Consultation Fee Notice */}
+                <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 mb-6">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                      <DollarSign className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-primary text-lg">{c.feeTitle}</p>
+                      <p className="text-sm text-muted-foreground mt-1">{c.feeDesc}</p>
+                    </div>
+                  </div>
+                </div>
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <div className="grid md:grid-cols-2 gap-4">

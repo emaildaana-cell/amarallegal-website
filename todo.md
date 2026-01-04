@@ -113,3 +113,16 @@
 - [x] Add Services landing page with all service cards
 - [x] Add Services dropdown to navigation menu
 - [x] Verify all navigation links work correctly
+
+## Multilingual Support for Services and Resources
+- [ ] Add Spanish translations for Services page
+- [ ] Add Portuguese translations for Services page
+- [ ] Add Spanish translations for Resources page
+- [ ] Add Portuguese translations for Resources page
+- [ ] Update Services page to use translation keys
+- [ ] Update Resources page to use translation keys
+
+## Consultation Form Update
+- [x] Update consultation form to match published site design
+- [x] Include $250 consultation fee prominently
+- [x] Match layout and fields from published site
