@@ -43,7 +43,7 @@ const translations = {
     "footer.admin": "Admin Portal",
 
     // Home Content
-    "home.excellence_title": "Decades of Excellence in Legal Practice",
+    "home.excellence_title": "Excellence in Legal Practice",
     "home.excellence_p1": "At Amaral Law, we specialize exclusively in defending immigrants facing deportation. We understand that your life in the United States is on the line, and we fight tirelessly to keep families together.",
     "home.excellence_p2": "With a proven track record in immigration court, our attorneys have successfully defended the rights of countless individuals against removal proceedings.",
     "home.learn_more": "Learn More About Our Firm",
@@ -469,7 +469,7 @@ const translations = {
     "footer.admin": "Portal de Administración",
 
     // Home Content
-    "home.excellence_title": "Décadas de Excelencia en Práctica Legal",
+    "home.excellence_title": "Excelencia en Práctica Legal",
     "home.excellence_p1": "En Amaral Law, nos especializamos exclusivamente en defender a inmigrantes que enfrentan la deportación. Entendemos que su vida en los Estados Unidos está en juego y luchamos incansablemente para mantener unidas a las familias.",
     "home.excellence_p2": "Con un historial comprobado en la corte de inmigración, nuestros abogados han defendido con éxito los derechos de innumerables personas contra los procedimientos de deportación.",
     "home.learn_more": "Más Sobre Nuestra Firma",
@@ -846,7 +846,7 @@ const translations = {
     "footer.admin": "Portal Administrativo",
 
     // Home Content
-    "home.excellence_title": "Décadas de Excelência na Prática Jurídica",
+    "home.excellence_title": "Excelência na Prática Jurídica",
     "home.excellence_p1": "Na Amaral Law, nos especializamos exclusivamente na defesa de imigrantes que enfrentam a deportação. Entendemos que sua vida nos Estados Unidos está em jogo e lutamos incansavelmente para manter as famílias unidas.",
     "home.excellence_p2": "Com um histórico comprovado no tribunal de imigração, nossos advogados defenderam com sucesso os direitos de inúmeras pessoas contra processos de remoção.",
     "home.learn_more": "Saiba Mais Sobre Nosso Escritório",
