@@ -50,10 +50,11 @@ const downloads: DownloadItem[] = [
   },
   {
     title: "Family Emergency Plan Template",
-    description: "A template to help families prepare for the possibility of immigration enforcement, including important contacts and documents.",
+    description: "A fillable template to help families prepare for immigration enforcement, including emergency contacts, children's information, document locations, and know your rights information.",
     icon: Heart,
     category: "Family Preparedness",
-    fileType: "PDF"
+    fileType: "PDF (Fillable)",
+    downloadUrl: "/downloads/family-emergency-plan.pdf"
   },
   {
     title: "Immigration Court Process Overview",
