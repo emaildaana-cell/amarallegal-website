@@ -126,3 +126,12 @@
 - [x] Update consultation form to match published site design
 - [x] Include $250 consultation fee prominently
 - [x] Match layout and fields from published site
+
+## Bond Hearings Page Update
+- [x] Add detailed explanation of how bond hearings work
+- [x] Explain scheduling rules and procedures
+- [x] Include timeline information (how long after motion is filed)
+- [x] Add information about bond amounts and factors considered
+- [x] Add types of immigration bonds section
+- [x] Add mandatory detention information
+- [x] Add translations for all three languages
