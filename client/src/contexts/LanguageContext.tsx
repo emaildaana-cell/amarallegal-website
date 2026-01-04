@@ -16,7 +16,7 @@ const translations = {
     "nav.home": "Home",
     "nav.attorneys": "Attorneys",
     "nav.practice_areas": "Practice Areas",
-    "nav.knowledge_center": "Knowledge Center",
+    "nav.services": "Services",
     "nav.contact": "Contact",
     "nav.request_consultation": "Request Consultation",
     
@@ -442,7 +442,7 @@ const translations = {
     "nav.home": "Inicio",
     "nav.attorneys": "Abogados",
     "nav.practice_areas": "Áreas de Práctica",
-    "nav.knowledge_center": "Centro de Conocimiento",
+    "nav.services": "Servicios",
     "nav.contact": "Contacto",
     "nav.request_consultation": "Solicitar Consulta",
     
@@ -819,7 +819,7 @@ const translations = {
     "nav.home": "Início",
     "nav.attorneys": "Advogados",
     "nav.practice_areas": "Áreas de Atuação",
-    "nav.knowledge_center": "Centro de Conhecimento",
+    "nav.services": "Serviços",
     "nav.contact": "Contato",
     "nav.request_consultation": "Solicitar Consulta",
     

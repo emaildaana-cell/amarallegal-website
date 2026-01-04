@@ -24,7 +24,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     { label: t("nav.home"), href: "/" },
     { label: t("nav.attorneys"), href: "/attorneys" },
     { label: t("nav.practice_areas"), href: "/practice-areas" },
-    { label: t("nav.knowledge_center"), href: "/knowledge-center" },
+    { label: t("nav.services"), href: "/services" },
     { label: t("nav.contact"), href: "/contact" },
   ];
 
@@ -40,8 +40,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </a>
             <span className="flex items-center gap-2"><Mail className="h-3 w-3" /> ap@amarallegal.com</span>
           </div>
-          <div className="flex items-center gap-2">
-            <MapPin className="h-3 w-3" /> 6750 N. Andrews Avenue Ste 208, Fort Lauderdale, FL 33309
+          <div className="flex items-center gap-4">
+            <span className="flex items-center gap-2"><MapPin className="h-3 w-3" /> 6750 N. Andrews Avenue Ste 208, Fort Lauderdale, FL 33309</span>
+            <Link href="/consultation">
+              <Button size="sm" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold text-xs px-4 py-1 h-7 rounded-sm">
+                {t("nav.request_consultation")}
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
@@ -117,11 +122,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 />
               </Button>
             </div>
-            <Link href="/consultation">
-              <Button variant="default" className="bg-primary hover:bg-primary/90 text-primary-foreground font-serif tracking-wide rounded-sm">
-                {t("nav.request_consultation")}
-              </Button>
-            </Link>
+
           </nav>
 
           {/* Mobile Nav */}

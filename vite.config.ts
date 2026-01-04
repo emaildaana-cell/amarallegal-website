@@ -36,13 +36,7 @@ export default defineConfig({
       "localhost",
       "127.0.0.1",
     ],
-    hmr: {
-      clientPort: 443,
-      protocol: 'wss',
-      host: '3000-ipxra2pnt9ic79518swo4-bca490cb.us1.manus.computer',
-      path: '/@vite/client',
-      overlay: false,
-    },
+    hmr: false,
     fs: {
       strict: true,
       deny: ["**/.*"],

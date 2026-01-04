@@ -46,3 +46,8 @@
 - [x] Create Federal Litigation page
 - [x] Add routes for all service pages
 - [x] Update navigation links to service pages
+
+## Navigation Update
+- [x] Change Knowledge Center to Services in navigation
+- [x] Update translations for Services nav item
+- [x] Move Request Consultation button to top contact bar
