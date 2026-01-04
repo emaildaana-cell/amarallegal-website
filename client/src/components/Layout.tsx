@@ -1,6 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Phone, Mail, MapPin, Menu, X, Globe, MessageCircle, ChevronDown } from "lucide-react";
+import { Phone, Mail, MapPin, Menu, X, Globe, MessageCircle, ChevronDown, Calendar } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
@@ -51,6 +51,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <a href="https://wa.me/16198671707" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-secondary transition-colors">
               <MessageCircle className="h-3 w-3" /> WhatsApp: (619) 867-1707
             </a>
+            <span className="h-4 w-px bg-primary-foreground/30" />
+            <Link href="/consultation" className="flex items-center gap-2 hover:text-secondary transition-colors">
+              <Calendar className="h-3 w-3" /> Request an Appointment
+            </Link>
           </div>
           <Link href="/consultation">
             <Button size="sm" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold text-xs px-4 py-1 h-7 rounded-sm">
