@@ -281,3 +281,11 @@
 - [x] Include contact information (ICE Contact Center, EOIR Hotline, Freedom for Immigrants)
 - [x] Add navigation links in Resources dropdown
 - [x] Add translations (EN, ES, PT)
+
+## Extensive Practice Area Pages
+- [x] Expand Removal Defense page with comprehensive content (types, defenses, process, eligibility, FAQs)
+- [x] Expand Asylum & Appeals page with comprehensive content (types, process, timeline, evidence, FAQs)
+- [x] Expand Family Petitions page with comprehensive content (categories, process, wait times, documents, FAQs)
+- [x] Expand Bond Hearings page with comprehensive content (types, factors, process, preparation, FAQs)
+- [x] Expand Crimmigration page with comprehensive content (crimes, consequences, defenses, relief options, FAQs)
+- [x] Expand Federal Litigation page with comprehensive content (types, process, appeals, habeas corpus, FAQs)
