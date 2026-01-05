@@ -1,6 +1,6 @@
 import { eq, desc } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, bondSubmissions, InsertBondSubmission, BondSubmission } from "../drizzle/schema";
+import { InsertUser, users, bondSubmissions, InsertBondSubmission, BondSubmission, sponsorLetters, InsertSponsorLetter, SponsorLetter } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -751,5 +751,112 @@ export async function deleteCharacterReferenceLetter(id: number): Promise<boolea
   } catch (error) {
     console.error("[Database] Failed to delete character reference letter:", error);
     return false;
+  }
+}
+
+
+// ============================================
+// Sponsor Letter Functions
+// ============================================
+
+export async function createSponsorLetter(data: Omit<InsertSponsorLetter, "id" | "createdAt" | "updatedAt">): Promise<SponsorLetter | null> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create sponsor letter: database not available");
+    return null;
+  }
+
+  try {
+    const result = await db.insert(sponsorLetters).values(data);
+    const insertId = result[0].insertId;
+    const [letter] = await db.select().from(sponsorLetters).where(eq(sponsorLetters.id, insertId));
+    return letter || null;
+  } catch (error) {
+    console.error("[Database] Failed to create sponsor letter:", error);
+    throw error;
+  }
+}
+
+export async function getSponsorLetterById(id: number): Promise<SponsorLetter | null> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get sponsor letter: database not available");
+    return null;
+  }
+
+  try {
+    const [letter] = await db.select().from(sponsorLetters).where(eq(sponsorLetters.id, id));
+    return letter || null;
+  } catch (error) {
+    console.error("[Database] Failed to get sponsor letter:", error);
+    return null;
+  }
+}
+
+export async function getSponsorLettersByUserId(userId: number): Promise<SponsorLetter[]> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get sponsor letters: database not available");
+    return [];
+  }
+
+  try {
+    const letters = await db.select().from(sponsorLetters)
+      .where(eq(sponsorLetters.userId, userId))
+      .orderBy(desc(sponsorLetters.createdAt));
+    return letters;
+  } catch (error) {
+    console.error("[Database] Failed to get sponsor letters:", error);
+    return [];
+  }
+}
+
+export async function updateSponsorLetter(id: number, data: Partial<InsertSponsorLetter>): Promise<SponsorLetter | null> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update sponsor letter: database not available");
+    return null;
+  }
+
+  try {
+    await db.update(sponsorLetters).set(data).where(eq(sponsorLetters.id, id));
+    const [letter] = await db.select().from(sponsorLetters).where(eq(sponsorLetters.id, id));
+    return letter || null;
+  } catch (error) {
+    console.error("[Database] Failed to update sponsor letter:", error);
+    throw error;
+  }
+}
+
+export async function deleteSponsorLetter(id: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot delete sponsor letter: database not available");
+    return false;
+  }
+
+  try {
+    await db.delete(sponsorLetters).where(eq(sponsorLetters.id, id));
+    return true;
+  } catch (error) {
+    console.error("[Database] Failed to delete sponsor letter:", error);
+    return false;
+  }
+}
+
+export async function updateSponsorLetterPdf(id: number, pdfFileKey: string, pdfFileUrl: string): Promise<void> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update sponsor letter PDF: database not available");
+    return;
+  }
+
+  try {
+    await db.update(sponsorLetters)
+      .set({ pdfFileKey, pdfFileUrl })
+      .where(eq(sponsorLetters.id, id));
+  } catch (error) {
+    console.error("[Database] Failed to update sponsor letter PDF:", error);
+    throw error;
   }
 }

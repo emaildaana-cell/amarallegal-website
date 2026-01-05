@@ -168,3 +168,11 @@
 
 ## LawPay Invoice Link
 - [x] Add LawPay invoice link to Appointments page for $250 consultation fee
+
+## Sponsor Letter Generator
+- [x] Design database schema for sponsor letters
+- [x] Create tRPC procedures for sponsor letter CRUD
+- [x] Build sponsor letter generator form page
+- [x] Add letter preview functionality
+- [x] Generate downloadable HTML document
+- [x] Write tests for sponsor letter functionality

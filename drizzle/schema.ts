@@ -388,3 +388,78 @@ export const characterReferenceLetters = mysqlTable("character_reference_letters
 
 export type CharacterReferenceLetter = typeof characterReferenceLetters.$inferSelect;
 export type InsertCharacterReferenceLetter = typeof characterReferenceLetters.$inferInsert;
+
+/**
+ * Sponsor Letters
+ * Generated support letters from sponsors for immigration bond hearings
+ */
+export const sponsorLetters = mysqlTable("sponsor_letters", {
+  id: int("id").autoincrement().primaryKey(),
+  
+  // Link to user if logged in
+  userId: int("userId"),
+  
+  // Respondent (person being sponsored)
+  respondentName: varchar("respondentName", { length: 255 }).notNull(),
+  respondentRelationship: varchar("respondentRelationship", { length: 100 }).notNull(),
+  respondentANumber: varchar("respondentANumber", { length: 20 }),
+  
+  // Sponsor Information
+  sponsorName: varchar("sponsorName", { length: 255 }).notNull(),
+  sponsorAddress: varchar("sponsorAddress", { length: 500 }).notNull(),
+  sponsorCity: varchar("sponsorCity", { length: 100 }).notNull(),
+  sponsorState: varchar("sponsorState", { length: 50 }).notNull(),
+  sponsorZip: varchar("sponsorZip", { length: 20 }).notNull(),
+  sponsorPhone: varchar("sponsorPhone", { length: 30 }).notNull(),
+  sponsorEmail: varchar("sponsorEmail", { length: 320 }),
+  sponsorDateOfBirth: varchar("sponsorDateOfBirth", { length: 20 }),
+  sponsorOccupation: varchar("sponsorOccupation", { length: 100 }),
+  sponsorEmployer: varchar("sponsorEmployer", { length: 255 }),
+  sponsorEmployerAddress: varchar("sponsorEmployerAddress", { length: 500 }),
+  sponsorImmigrationStatus: varchar("sponsorImmigrationStatus", { length: 100 }).notNull(),
+  
+  // Financial Information
+  sponsorAnnualIncome: varchar("sponsorAnnualIncome", { length: 50 }),
+  sponsorEmploymentLength: varchar("sponsorEmploymentLength", { length: 50 }),
+  householdSize: int("householdSize"),
+  
+  // Housing Information
+  housingType: varchar("housingType", { length: 50 }), // own, rent, other
+  housingAddress: varchar("housingAddress", { length: 500 }),
+  bedroomCount: int("bedroomCount"),
+  willProvideHousing: boolean("willProvideHousing").default(true),
+  
+  // Commitments
+  willEnsureCourtAppearance: boolean("willEnsureCourtAppearance").default(true),
+  willProvideTransportation: boolean("willProvideTransportation").default(false),
+  willProvideFinancialSupport: boolean("willProvideFinancialSupport").default(false),
+  additionalCommitments: text("additionalCommitments"),
+  
+  // Relationship Details
+  howLongKnown: varchar("howLongKnown", { length: 50 }),
+  relationshipDescription: text("relationshipDescription"),
+  
+  // Supporting Statements
+  whyWillingToSponsor: text("whyWillingToSponsor"),
+  characterStatement: text("characterStatement"),
+  flightRiskStatement: text("flightRiskStatement"),
+  
+  // Electronic Signature
+  signatureData: text("signatureData"), // Base64 encoded signature image
+  signedAt: timestamp("signedAt"),
+  signedIpAddress: varchar("signedIpAddress", { length: 45 }),
+  
+  // Generated Documents
+  pdfFileKey: varchar("pdfFileKey", { length: 500 }),
+  pdfFileUrl: varchar("pdfFileUrl", { length: 1000 }),
+  
+  // Language preference
+  language: varchar("language", { length: 10 }).default("en"),
+  
+  // Timestamps
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type SponsorLetter = typeof sponsorLetters.$inferSelect;
+export type InsertSponsorLetter = typeof sponsorLetters.$inferInsert;
