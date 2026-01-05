@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Calendar, Phone, Mail, MapPin, Clock, AlertCircle, CheckCircle2, DollarSign } from "lucide-react";
+import { Calendar, Phone, Mail, MapPin, Clock, AlertCircle, CheckCircle2, DollarSign, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 import { useLanguage } from "@/contexts/LanguageContext";
 import SEO from "@/components/SEO";
@@ -82,7 +82,9 @@ export default function Appointments() {
       formTitle: "Consultation Form",
       formSubtitle: "Fill out the form below and we will contact you to confirm your consultation time",
       feeTitle: "Consultation Fee: $250.00",
-      feeDesc: "Please note that there is a consultation fee of $250.00 for all initial appointments. A LawPay invoice will be emailed to you prior to your appointment.",
+      feeDesc: "Please note that there is a consultation fee of $250.00 for all initial appointments.",
+      payNow: "Pay Now via LawPay",
+      orPayLater: "Or pay later - a LawPay invoice will be emailed to you prior to your appointment.",
       contactTitle: "Contact Information",
       contactSubtitle: "Get in touch with our office",
       officeHours: "Office Hours",
@@ -100,7 +102,9 @@ export default function Appointments() {
       formTitle: "Formulario de Consulta",
       formSubtitle: "Complete el formulario a continuación y nos comunicaremos con usted para confirmar su hora de consulta",
       feeTitle: "Tarifa de Consulta: $250.00",
-      feeDesc: "Tenga en cuenta que hay una tarifa de consulta de $250.00 para todas las citas iniciales. Se le enviará una factura de LawPay por correo electrónico antes de su cita.",
+      feeDesc: "Tenga en cuenta que hay una tarifa de consulta de $250.00 para todas las citas iniciales.",
+      payNow: "Pagar Ahora vía LawPay",
+      orPayLater: "O pague después - se le enviará una factura de LawPay por correo electrónico antes de su cita.",
       contactTitle: "Información de Contacto",
       contactSubtitle: "Comuníquese con nuestra oficina",
       officeHours: "Horario de Oficina",
@@ -118,7 +122,9 @@ export default function Appointments() {
       formTitle: "Formulário de Consulta",
       formSubtitle: "Preencha o formulário abaixo e entraremos em contato para confirmar o horário da sua consulta",
       feeTitle: "Taxa de Consulta: $250.00",
-      feeDesc: "Observe que há uma taxa de consulta de $250.00 para todos os agendamentos iniciais. Uma fatura do LawPay será enviada para você por e-mail antes da sua consulta.",
+      feeDesc: "Observe que há uma taxa de consulta de $250.00 para todos os agendamentos iniciais.",
+      payNow: "Pagar Agora via LawPay",
+      orPayLater: "Ou pague depois - uma fatura do LawPay será enviada para você por e-mail antes da sua consulta.",
       contactTitle: "Informações de Contato",
       contactSubtitle: "Entre em contato com nosso escritório",
       officeHours: "Horário de Funcionamento",
@@ -306,9 +312,21 @@ export default function Appointments() {
                     <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
                       <DollarSign className="h-5 w-5 text-primary" />
                     </div>
-                    <div>
+                    <div className="flex-1">
                       <p className="font-semibold text-primary text-lg">{c.feeTitle}</p>
                       <p className="text-sm text-muted-foreground mt-1">{c.feeDesc}</p>
+                      <div className="mt-3 flex flex-col sm:flex-row sm:items-center gap-3">
+                        <a
+                          href="https://secure.lawpay.com/pages/amarallawllc/operating250"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md font-medium text-sm transition-colors"
+                        >
+                          {c.payNow}
+                          <ExternalLink className="h-4 w-4" />
+                        </a>
+                        <span className="text-xs text-muted-foreground">{c.orPayLater}</span>
+                      </div>
                     </div>
                   </div>
                 </div>

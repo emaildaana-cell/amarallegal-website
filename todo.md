@@ -165,3 +165,6 @@
 - [x] Add red notice that documents need to be translated to English
 - [x] Link Sponsor Letter to automated generator (not download)
 - [x] Link to sponsor requirements page
+
+## LawPay Invoice Link
+- [x] Add LawPay invoice link to Appointments page for $250 consultation fee
