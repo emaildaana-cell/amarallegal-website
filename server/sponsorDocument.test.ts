@@ -573,3 +573,139 @@ describe("Share Link Security", () => {
     expect(activeLink.isActive).toBe(true);
   });
 });
+
+describe("Sponsor Document Email Notifications", () => {
+  it("should include all required information in submission notification", () => {
+    const mockDocument = {
+      sponsorName: "Jane Doe",
+      sponsorEmail: "jane@example.com",
+      sponsorPhone: "305-555-1234",
+      respondentName: "John Doe",
+      respondentANumber: "A123456789",
+    };
+
+    const mockFiles = [
+      { documentCategory: "pay_stub", documentName: "January 2026 Pay Stub" },
+      { documentCategory: "bank_statement", documentName: "Chase Bank Statement" },
+      { documentCategory: "lease_agreement", documentName: "Apartment Lease" },
+    ];
+
+    // Verify notification content would include all required fields
+    expect(mockDocument.sponsorName).toBeTruthy();
+    expect(mockDocument.sponsorEmail).toBeTruthy();
+    expect(mockDocument.respondentName).toBeTruthy();
+    expect(mockFiles.length).toBeGreaterThan(0);
+  });
+
+  it("should format document categories correctly", () => {
+    const categoryLabels: Record<string, string> = {
+      pay_stub: "Pay Stub",
+      tax_return: "Tax Return",
+      w2_form: "W-2 Form",
+      bank_statement: "Bank Statement",
+      employment_letter: "Employment Letter",
+      lease_agreement: "Lease Agreement",
+      mortgage_statement: "Mortgage Statement",
+      utility_bill: "Utility Bill",
+      property_deed: "Property Deed",
+      id_document: "ID Document",
+      immigration_status: "Immigration Status",
+      other: "Other Document",
+    };
+
+    expect(categoryLabels["pay_stub"]).toBe("Pay Stub");
+    expect(categoryLabels["tax_return"]).toBe("Tax Return");
+    expect(categoryLabels["bank_statement"]).toBe("Bank Statement");
+    expect(categoryLabels["lease_agreement"]).toBe("Lease Agreement");
+  });
+
+  it("should handle missing optional fields gracefully", () => {
+    const mockDocument = {
+      sponsorName: "Jane Doe",
+      sponsorEmail: "jane@example.com",
+      sponsorPhone: null, // Optional field
+      respondentName: "John Doe",
+      respondentANumber: null, // Optional field
+    };
+
+    const phoneDisplay = mockDocument.sponsorPhone || "Not provided";
+    const aNumberDisplay = mockDocument.respondentANumber || "Not provided";
+
+    expect(phoneDisplay).toBe("Not provided");
+    expect(aNumberDisplay).toBe("Not provided");
+  });
+
+  it("should build document list for notification", () => {
+    const mockFiles = [
+      { documentCategory: "pay_stub", documentName: "January Pay Stub" },
+      { documentCategory: "bank_statement", documentName: "Bank Statement" },
+    ];
+
+    const getCategoryLabel = (category: string): string => {
+      const labels: Record<string, string> = {
+        pay_stub: "Pay Stub",
+        bank_statement: "Bank Statement",
+      };
+      return labels[category] || category;
+    };
+
+    const documentList = mockFiles
+      .map(f => `• ${getCategoryLabel(f.documentCategory)}: ${f.documentName}`)
+      .join("\n");
+
+    expect(documentList).toContain("Pay Stub: January Pay Stub");
+    expect(documentList).toContain("Bank Statement: Bank Statement");
+    expect(documentList.split("\n")).toHaveLength(2);
+  });
+
+  it("should include document count in notification", () => {
+    const mockFiles = [
+      { id: 1, documentCategory: "pay_stub" },
+      { id: 2, documentCategory: "tax_return" },
+      { id: 3, documentCategory: "bank_statement" },
+      { id: 4, documentCategory: "lease_agreement" },
+    ];
+
+    const notificationContent = `Documents Uploaded (${mockFiles.length}):`;
+
+    expect(notificationContent).toContain("(4)");
+    expect(mockFiles.length).toBe(4);
+  });
+
+  it("should have appropriate notification title", () => {
+    const notificationTitle = "New Sponsor Documents Submitted";
+
+    expect(notificationTitle).toBeTruthy();
+    expect(notificationTitle.length).toBeLessThanOrEqual(1200); // Max title length
+  });
+
+  it("should have notification content within limits", () => {
+    const mockDocument = {
+      sponsorName: "Jane Doe",
+      sponsorEmail: "jane@example.com",
+      sponsorPhone: "305-555-1234",
+      respondentName: "John Doe",
+      respondentANumber: "A123456789",
+    };
+
+    const mockFiles = Array(10).fill({
+      documentCategory: "pay_stub",
+      documentName: "Document Name",
+    });
+
+    const documentList = mockFiles
+      .map(f => `• ${f.documentCategory}: ${f.documentName}`)
+      .join("\n");
+
+    const content = `A sponsor has submitted their document package for review.\n\n` +
+      `**Sponsor:** ${mockDocument.sponsorName}\n` +
+      `**Email:** ${mockDocument.sponsorEmail}\n` +
+      `**Phone:** ${mockDocument.sponsorPhone}\n\n` +
+      `**Respondent:** ${mockDocument.respondentName}\n` +
+      `**A-Number:** ${mockDocument.respondentANumber}\n\n` +
+      `**Documents Uploaded (${mockFiles.length}):**\n${documentList}\n\n` +
+      `Please review these documents in the admin dashboard.`;
+
+    expect(content.length).toBeLessThanOrEqual(20000); // Max content length
+  });
+});

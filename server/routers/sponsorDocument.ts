@@ -18,7 +18,27 @@ import {
   getShareLinksByDocumentId,
 } from "../db";
 import { storagePut, storageGet } from "../storage";
+import { notifyOwner } from "../_core/notification";
 import crypto from "crypto";
+
+// Helper function to get human-readable category name
+const getCategoryLabel = (category: string): string => {
+  const labels: Record<string, string> = {
+    pay_stub: "Pay Stub",
+    tax_return: "Tax Return",
+    w2_form: "W-2 Form",
+    bank_statement: "Bank Statement",
+    employment_letter: "Employment Letter",
+    lease_agreement: "Lease Agreement",
+    mortgage_statement: "Mortgage Statement",
+    utility_bill: "Utility Bill",
+    property_deed: "Property Deed",
+    id_document: "ID Document",
+    immigration_status: "Immigration Status",
+    other: "Other Document",
+  };
+  return labels[category] || category;
+};
 
 // Document categories
 const documentCategories = [
@@ -215,6 +235,22 @@ export const sponsorDocumentRouter = router({
       
       // Update status to submitted
       const updated = await updateSponsorDocumentStatus(doc.id, "submitted");
+      
+      // Build document list for notification
+      const documentList = files.map(f => `• ${getCategoryLabel(f.documentCategory)}: ${f.documentName}`).join("\n");
+      
+      // Send notification to legal team
+      await notifyOwner({
+        title: "New Sponsor Documents Submitted",
+        content: `A sponsor has submitted their document package for review.\n\n` +
+          `**Sponsor:** ${doc.sponsorName}\n` +
+          `**Email:** ${doc.sponsorEmail}\n` +
+          `**Phone:** ${doc.sponsorPhone || "Not provided"}\n\n` +
+          `**Respondent:** ${doc.respondentName}\n` +
+          `**A-Number:** ${doc.respondentANumber || "Not provided"}\n\n` +
+          `**Documents Uploaded (${files.length}):**\n${documentList}\n\n` +
+          `Please review these documents in the admin dashboard.`,
+      });
       
       return updated;
     }),
