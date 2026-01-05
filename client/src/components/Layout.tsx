@@ -13,11 +13,19 @@ import AccessibilityMenu from "./AccessibilityMenu";
 import EmergencyBanner from "./EmergencyBanner";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/_core/hooks/useAuth";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const { language, setLanguage, t } = useLanguage();
+  const { user } = useAuth();
+
+  const adminItems = [
+    { label: "Bond Questionnaires", href: "/admin/dashboard" },
+    { label: "Character Letters", href: "/admin/character-letters" },
+    { label: "Sponsor Documents", href: "/admin/sponsor-documents" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -160,6 +168,29 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
+            {/* Admin Dropdown - Only show when logged in */}
+            {user && (
+              <DropdownMenu>
+                <DropdownMenuTrigger className={cn(
+                  "text-sm font-medium transition-colors hover:text-primary uppercase tracking-wide flex items-center gap-1",
+                  location.startsWith('/admin')
+                    ? "text-primary font-bold" 
+                    : "text-muted-foreground"
+                )}>
+                  Admin
+                  <ChevronDown className="h-4 w-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  {adminItems.map((item) => (
+                    <DropdownMenuItem key={item.href} asChild>
+                      <Link href={item.href} className="cursor-pointer w-full">
+                        {item.label}
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
             <div className="flex items-center gap-1">
               <Button 
                 variant="ghost" 
@@ -257,6 +288,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                       ))}
                     </div>
                   </div>
+                  {/* Admin Section - Mobile */}
+                  {user && (
+                    <div className="py-2">
+                      <span className="text-lg font-medium text-muted-foreground">Admin</span>
+                      <div className="ml-4 mt-2 flex flex-col gap-2">
+                        {adminItems.map((item) => (
+                          <Link key={item.href} href={item.href} className="text-sm text-muted-foreground hover:text-primary">
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                   <div className="flex items-center justify-center gap-3 py-2">
                     <Button 
                       variant="outline" 

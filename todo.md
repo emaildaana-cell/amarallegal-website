@@ -242,3 +242,8 @@
 - [x] Add document download functionality
 - [x] Ensure admin-only access protection (redirects to home if not logged in)
 - [x] Create SharedDocumentsViewer page for viewing shared documents
+
+## Admin Panel Navigation Link
+- [x] Add Admin dropdown menu to main navigation (visible only when logged in)
+- [x] Include links to Bond Questionnaires, Character Letters, and Sponsor Documents admin panels
+- [x] Add Admin section to mobile navigation
