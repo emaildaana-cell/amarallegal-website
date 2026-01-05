@@ -463,3 +463,126 @@ export const sponsorLetters = mysqlTable("sponsor_letters", {
 
 export type SponsorLetter = typeof sponsorLetters.$inferSelect;
 export type InsertSponsorLetter = typeof sponsorLetters.$inferInsert;
+
+
+/**
+ * Sponsor Documents
+ * Stores uploaded financial and housing documents from sponsors for bond hearings
+ */
+export const sponsorDocuments = mysqlTable("sponsor_documents", {
+  id: int("id").autoincrement().primaryKey(),
+  
+  // Unique access token for document submission (allows non-logged-in sponsors)
+  accessToken: varchar("accessToken", { length: 64 }).notNull().unique(),
+  
+  // Sponsor Information
+  sponsorName: varchar("sponsorName", { length: 255 }).notNull(),
+  sponsorEmail: varchar("sponsorEmail", { length: 320 }).notNull(),
+  sponsorPhone: varchar("sponsorPhone", { length: 30 }),
+  
+  // Respondent Information (person being sponsored)
+  respondentName: varchar("respondentName", { length: 255 }).notNull(),
+  respondentANumber: varchar("respondentANumber", { length: 20 }),
+  
+  // Link to sponsor letter if exists
+  sponsorLetterId: int("sponsorLetterId"),
+  
+  // Status
+  status: mysqlEnum("status", ["pending", "submitted", "reviewed", "approved", "rejected"]).default("pending").notNull(),
+  
+  // Admin notes
+  adminNotes: text("adminNotes"),
+  reviewedBy: int("reviewedBy"),
+  reviewedAt: timestamp("reviewedAt"),
+  
+  // Timestamps
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type SponsorDocument = typeof sponsorDocuments.$inferSelect;
+export type InsertSponsorDocument = typeof sponsorDocuments.$inferInsert;
+
+/**
+ * Sponsor Document Files
+ * Individual files uploaded as part of a sponsor document submission
+ */
+export const sponsorDocumentFiles = mysqlTable("sponsor_document_files", {
+  id: int("id").autoincrement().primaryKey(),
+  
+  // Link to parent sponsor document submission
+  sponsorDocumentId: int("sponsorDocumentId").notNull(),
+  
+  // Document Category
+  documentCategory: mysqlEnum("documentCategory", [
+    "pay_stub",
+    "tax_return",
+    "w2_form",
+    "bank_statement",
+    "employment_letter",
+    "lease_agreement",
+    "mortgage_statement",
+    "utility_bill",
+    "property_deed",
+    "id_document",
+    "immigration_status",
+    "other"
+  ]).notNull(),
+  
+  // Document Details
+  documentName: varchar("documentName", { length: 255 }).notNull(),
+  description: text("description"),
+  
+  // File Storage (S3)
+  fileKey: varchar("fileKey", { length: 500 }).notNull(),
+  fileUrl: varchar("fileUrl", { length: 1000 }).notNull(),
+  fileName: varchar("fileName", { length: 255 }).notNull(),
+  fileSize: int("fileSize").notNull(),
+  mimeType: varchar("mimeType", { length: 100 }).notNull(),
+  
+  // Timestamps
+  uploadedAt: timestamp("uploadedAt").defaultNow().notNull(),
+});
+
+export type SponsorDocumentFile = typeof sponsorDocumentFiles.$inferSelect;
+export type InsertSponsorDocumentFile = typeof sponsorDocumentFiles.$inferInsert;
+
+/**
+ * Sponsor Document Share Links
+ * Time-limited secure links for sharing sponsor documents with attorneys
+ */
+export const sponsorDocumentShareLinks = mysqlTable("sponsor_document_share_links", {
+  id: int("id").autoincrement().primaryKey(),
+  
+  // Link to sponsor document submission
+  sponsorDocumentId: int("sponsorDocumentId").notNull(),
+  
+  // Share Token (unique identifier for the share link)
+  shareToken: varchar("shareToken", { length: 64 }).notNull().unique(),
+  
+  // Security
+  passwordHash: varchar("passwordHash", { length: 255 }), // Optional password protection
+  
+  // Recipient Information
+  recipientName: varchar("recipientName", { length: 255 }),
+  recipientEmail: varchar("recipientEmail", { length: 320 }),
+  
+  // Access Control
+  expiresAt: timestamp("expiresAt").notNull(),
+  maxViews: int("maxViews").default(0), // 0 = unlimited
+  viewCount: int("viewCount").default(0).notNull(),
+  
+  // Status
+  isActive: boolean("isActive").default(true).notNull(),
+  revokedAt: timestamp("revokedAt"),
+  
+  // Audit
+  lastAccessedAt: timestamp("lastAccessedAt"),
+  lastAccessedIp: varchar("lastAccessedIp", { length: 45 }),
+  
+  // Timestamps
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type SponsorDocumentShareLink = typeof sponsorDocumentShareLinks.$inferSelect;
+export type InsertSponsorDocumentShareLink = typeof sponsorDocumentShareLinks.$inferInsert;

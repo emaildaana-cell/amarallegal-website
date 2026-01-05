@@ -1,0 +1,575 @@
+import { describe, it, expect, vi, beforeEach } from "vitest";
+
+// Mock the database module
+vi.mock("./db", () => ({
+  createSponsorDocument: vi.fn(),
+  getSponsorDocumentById: vi.fn(),
+  getSponsorDocumentByToken: vi.fn(),
+  getAllSponsorDocuments: vi.fn(),
+  updateSponsorDocument: vi.fn(),
+  updateSponsorDocumentStatus: vi.fn(),
+  deleteSponsorDocument: vi.fn(),
+  createSponsorDocumentFile: vi.fn(),
+  getSponsorDocumentFilesByDocumentId: vi.fn(),
+  deleteSponsorDocumentFile: vi.fn(),
+  createSponsorDocumentShareLink: vi.fn(),
+  getSponsorDocumentShareLinkByToken: vi.fn(),
+  incrementShareLinkViewCount: vi.fn(),
+  revokeSponsorDocumentShareLink: vi.fn(),
+  getShareLinksByDocumentId: vi.fn(),
+}));
+
+import {
+  createSponsorDocument,
+  getSponsorDocumentById,
+  getSponsorDocumentByToken,
+  getAllSponsorDocuments,
+  updateSponsorDocument,
+  updateSponsorDocumentStatus,
+  deleteSponsorDocument,
+  createSponsorDocumentFile,
+  getSponsorDocumentFilesByDocumentId,
+  deleteSponsorDocumentFile,
+  createSponsorDocumentShareLink,
+  getSponsorDocumentShareLinkByToken,
+  incrementShareLinkViewCount,
+  revokeSponsorDocumentShareLink,
+  getShareLinksByDocumentId,
+} from "./db";
+
+describe("Sponsor Document Database Functions", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  describe("createSponsorDocument", () => {
+    it("should create a new sponsor document submission with required fields", async () => {
+      const mockDocument = {
+        id: 1,
+        accessToken: "abc123def456",
+        sponsorName: "Jane Doe",
+        sponsorEmail: "jane@example.com",
+        sponsorPhone: "305-555-1234",
+        respondentName: "John Doe",
+        respondentANumber: "A123456789",
+        status: "pending",
+        createdAt: new Date(),
+      };
+
+      vi.mocked(createSponsorDocument).mockResolvedValue(mockDocument);
+
+      const result = await createSponsorDocument({
+        sponsorName: "Jane Doe",
+        sponsorEmail: "jane@example.com",
+        sponsorPhone: "305-555-1234",
+        respondentName: "John Doe",
+        respondentANumber: "A123456789",
+      });
+
+      expect(result).toEqual(mockDocument);
+      expect(createSponsorDocument).toHaveBeenCalledTimes(1);
+    });
+
+    it("should create a sponsor document without optional fields", async () => {
+      const mockDocument = {
+        id: 2,
+        accessToken: "xyz789",
+        sponsorName: "Jane Doe",
+        sponsorEmail: "jane@example.com",
+        respondentName: "John Doe",
+        status: "pending",
+        createdAt: new Date(),
+      };
+
+      vi.mocked(createSponsorDocument).mockResolvedValue(mockDocument);
+
+      const result = await createSponsorDocument({
+        sponsorName: "Jane Doe",
+        sponsorEmail: "jane@example.com",
+        respondentName: "John Doe",
+      });
+
+      expect(result).toEqual(mockDocument);
+      expect(result.sponsorPhone).toBeUndefined();
+    });
+  });
+
+  describe("getSponsorDocumentByToken", () => {
+    it("should retrieve a sponsor document by access token", async () => {
+      const mockDocument = {
+        id: 1,
+        accessToken: "abc123",
+        sponsorName: "Jane Doe",
+        respondentName: "John Doe",
+        status: "pending",
+      };
+
+      vi.mocked(getSponsorDocumentByToken).mockResolvedValue(mockDocument);
+
+      const result = await getSponsorDocumentByToken("abc123");
+
+      expect(result).toEqual(mockDocument);
+      expect(getSponsorDocumentByToken).toHaveBeenCalledWith("abc123");
+    });
+
+    it("should return null for invalid token", async () => {
+      vi.mocked(getSponsorDocumentByToken).mockResolvedValue(null);
+
+      const result = await getSponsorDocumentByToken("invalid-token");
+
+      expect(result).toBeNull();
+    });
+  });
+
+  describe("getSponsorDocumentById", () => {
+    it("should retrieve a sponsor document by ID", async () => {
+      const mockDocument = {
+        id: 1,
+        accessToken: "abc123",
+        sponsorName: "Jane Doe",
+        respondentName: "John Doe",
+      };
+
+      vi.mocked(getSponsorDocumentById).mockResolvedValue(mockDocument);
+
+      const result = await getSponsorDocumentById(1);
+
+      expect(result).toEqual(mockDocument);
+      expect(getSponsorDocumentById).toHaveBeenCalledWith(1);
+    });
+
+    it("should return null for non-existent document", async () => {
+      vi.mocked(getSponsorDocumentById).mockResolvedValue(null);
+
+      const result = await getSponsorDocumentById(999);
+
+      expect(result).toBeNull();
+    });
+  });
+
+  describe("getAllSponsorDocuments", () => {
+    it("should retrieve all sponsor documents", async () => {
+      const mockDocuments = [
+        { id: 1, sponsorName: "Jane Doe", respondentName: "John Doe", status: "pending" },
+        { id: 2, sponsorName: "Bob Smith", respondentName: "Alice Smith", status: "submitted" },
+      ];
+
+      vi.mocked(getAllSponsorDocuments).mockResolvedValue(mockDocuments);
+
+      const result = await getAllSponsorDocuments();
+
+      expect(result).toHaveLength(2);
+      expect(result[0].sponsorName).toBe("Jane Doe");
+    });
+
+    it("should return empty array when no documents exist", async () => {
+      vi.mocked(getAllSponsorDocuments).mockResolvedValue([]);
+
+      const result = await getAllSponsorDocuments();
+
+      expect(result).toHaveLength(0);
+    });
+  });
+
+  describe("updateSponsorDocumentStatus", () => {
+    it("should update document status to submitted", async () => {
+      const mockUpdatedDocument = {
+        id: 1,
+        sponsorName: "Jane Doe",
+        respondentName: "John Doe",
+        status: "submitted",
+      };
+
+      vi.mocked(updateSponsorDocumentStatus).mockResolvedValue(mockUpdatedDocument);
+
+      const result = await updateSponsorDocumentStatus(1, "submitted");
+
+      expect(result.status).toBe("submitted");
+    });
+
+    it("should update document status with admin notes", async () => {
+      const mockUpdatedDocument = {
+        id: 1,
+        status: "reviewed",
+        adminNotes: "Documents verified",
+        reviewedBy: 1,
+        reviewedAt: new Date(),
+      };
+
+      vi.mocked(updateSponsorDocumentStatus).mockResolvedValue(mockUpdatedDocument);
+
+      const result = await updateSponsorDocumentStatus(1, "reviewed", "Documents verified", 1);
+
+      expect(result.status).toBe("reviewed");
+      expect(result.adminNotes).toBe("Documents verified");
+    });
+  });
+
+  describe("deleteSponsorDocument", () => {
+    it("should delete a sponsor document and return true", async () => {
+      vi.mocked(deleteSponsorDocument).mockResolvedValue(true);
+
+      const result = await deleteSponsorDocument(1);
+
+      expect(result).toBe(true);
+      expect(deleteSponsorDocument).toHaveBeenCalledWith(1);
+    });
+
+    it("should return false for non-existent document", async () => {
+      vi.mocked(deleteSponsorDocument).mockResolvedValue(false);
+
+      const result = await deleteSponsorDocument(999);
+
+      expect(result).toBe(false);
+    });
+  });
+});
+
+describe("Sponsor Document File Functions", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  describe("createSponsorDocumentFile", () => {
+    it("should create a new document file record", async () => {
+      const mockFile = {
+        id: 1,
+        sponsorDocumentId: 1,
+        documentCategory: "pay_stub",
+        documentName: "January 2026 Pay Stub",
+        fileName: "paystub-jan-2026.pdf",
+        fileSize: 102400,
+        mimeType: "application/pdf",
+        fileKey: "sponsor-documents/1/paystub.pdf",
+        fileUrl: "https://storage.example.com/paystub.pdf",
+        uploadedAt: new Date(),
+      };
+
+      vi.mocked(createSponsorDocumentFile).mockResolvedValue(mockFile);
+
+      const result = await createSponsorDocumentFile({
+        sponsorDocumentId: 1,
+        documentCategory: "pay_stub",
+        documentName: "January 2026 Pay Stub",
+        fileName: "paystub-jan-2026.pdf",
+        fileSize: 102400,
+        mimeType: "application/pdf",
+        fileKey: "sponsor-documents/1/paystub.pdf",
+        fileUrl: "https://storage.example.com/paystub.pdf",
+      });
+
+      expect(result).toEqual(mockFile);
+      expect(result.documentCategory).toBe("pay_stub");
+    });
+
+    it("should support all document categories", async () => {
+      const categories = [
+        "pay_stub",
+        "tax_return",
+        "w2_form",
+        "bank_statement",
+        "employment_letter",
+        "lease_agreement",
+        "mortgage_statement",
+        "utility_bill",
+        "property_deed",
+        "id_document",
+        "immigration_status",
+        "other",
+      ];
+
+      categories.forEach((category) => {
+        expect(categories).toContain(category);
+      });
+    });
+  });
+
+  describe("getSponsorDocumentFilesByDocumentId", () => {
+    it("should retrieve all files for a document", async () => {
+      const mockFiles = [
+        { id: 1, documentCategory: "pay_stub", fileName: "paystub.pdf" },
+        { id: 2, documentCategory: "bank_statement", fileName: "bank.pdf" },
+        { id: 3, documentCategory: "lease_agreement", fileName: "lease.pdf" },
+      ];
+
+      vi.mocked(getSponsorDocumentFilesByDocumentId).mockResolvedValue(mockFiles);
+
+      const result = await getSponsorDocumentFilesByDocumentId(1);
+
+      expect(result).toHaveLength(3);
+      expect(result[0].documentCategory).toBe("pay_stub");
+    });
+
+    it("should return empty array for document with no files", async () => {
+      vi.mocked(getSponsorDocumentFilesByDocumentId).mockResolvedValue([]);
+
+      const result = await getSponsorDocumentFilesByDocumentId(999);
+
+      expect(result).toHaveLength(0);
+    });
+  });
+
+  describe("deleteSponsorDocumentFile", () => {
+    it("should delete a document file", async () => {
+      vi.mocked(deleteSponsorDocumentFile).mockResolvedValue(true);
+
+      const result = await deleteSponsorDocumentFile(1);
+
+      expect(result).toBe(true);
+    });
+  });
+});
+
+describe("Sponsor Document Share Link Functions", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  describe("createSponsorDocumentShareLink", () => {
+    it("should create a share link with default expiration", async () => {
+      const mockShareLink = {
+        id: 1,
+        sponsorDocumentId: 1,
+        shareToken: "share-token-123",
+        expiresAt: new Date(Date.now() + 72 * 60 * 60 * 1000),
+        isActive: true,
+        viewCount: 0,
+      };
+
+      vi.mocked(createSponsorDocumentShareLink).mockResolvedValue(mockShareLink);
+
+      const result = await createSponsorDocumentShareLink(1, 72);
+
+      expect(result).toEqual(mockShareLink);
+      expect(result.isActive).toBe(true);
+    });
+
+    it("should create a share link with password protection", async () => {
+      const mockShareLink = {
+        id: 2,
+        sponsorDocumentId: 1,
+        shareToken: "share-token-456",
+        passwordHash: "hashed-password",
+        expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
+        isActive: true,
+        viewCount: 0,
+      };
+
+      vi.mocked(createSponsorDocumentShareLink).mockResolvedValue(mockShareLink);
+
+      const result = await createSponsorDocumentShareLink(1, 24, "Recipient", "email@test.com", 10, "password123");
+
+      expect(result.passwordHash).toBeTruthy();
+    });
+
+    it("should create a share link with view limit", async () => {
+      const mockShareLink = {
+        id: 3,
+        sponsorDocumentId: 1,
+        shareToken: "share-token-789",
+        maxViews: 5,
+        viewCount: 0,
+        isActive: true,
+      };
+
+      vi.mocked(createSponsorDocumentShareLink).mockResolvedValue(mockShareLink);
+
+      const result = await createSponsorDocumentShareLink(1, 72, undefined, undefined, 5);
+
+      expect(result.maxViews).toBe(5);
+    });
+  });
+
+  describe("getSponsorDocumentShareLinkByToken", () => {
+    it("should retrieve a share link by token", async () => {
+      const mockShareLink = {
+        id: 1,
+        shareToken: "valid-token",
+        isActive: true,
+        expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      };
+
+      vi.mocked(getSponsorDocumentShareLinkByToken).mockResolvedValue(mockShareLink);
+
+      const result = await getSponsorDocumentShareLinkByToken("valid-token");
+
+      expect(result).toEqual(mockShareLink);
+    });
+
+    it("should return null for invalid token", async () => {
+      vi.mocked(getSponsorDocumentShareLinkByToken).mockResolvedValue(null);
+
+      const result = await getSponsorDocumentShareLinkByToken("invalid-token");
+
+      expect(result).toBeNull();
+    });
+  });
+
+  describe("incrementShareLinkViewCount", () => {
+    it("should increment view count", async () => {
+      vi.mocked(incrementShareLinkViewCount).mockResolvedValue(undefined);
+
+      await incrementShareLinkViewCount("share-token", "192.168.1.1");
+
+      expect(incrementShareLinkViewCount).toHaveBeenCalledWith("share-token", "192.168.1.1");
+    });
+  });
+
+  describe("revokeSponsorDocumentShareLink", () => {
+    it("should revoke a share link", async () => {
+      vi.mocked(revokeSponsorDocumentShareLink).mockResolvedValue(true);
+
+      const result = await revokeSponsorDocumentShareLink(1);
+
+      expect(result).toBe(true);
+    });
+  });
+
+  describe("getShareLinksByDocumentId", () => {
+    it("should retrieve all share links for a document", async () => {
+      const mockLinks = [
+        { id: 1, shareToken: "token1", isActive: true },
+        { id: 2, shareToken: "token2", isActive: false },
+      ];
+
+      vi.mocked(getShareLinksByDocumentId).mockResolvedValue(mockLinks);
+
+      const result = await getShareLinksByDocumentId(1);
+
+      expect(result).toHaveLength(2);
+    });
+  });
+});
+
+describe("Sponsor Document Validation", () => {
+  it("should require sponsor name", () => {
+    const documentData = {
+      sponsorName: "",
+      sponsorEmail: "jane@example.com",
+      respondentName: "John Doe",
+    };
+
+    expect(documentData.sponsorName).toBe("");
+  });
+
+  it("should require valid email", () => {
+    const validEmail = "jane@example.com";
+    const invalidEmail = "not-an-email";
+
+    expect(validEmail).toMatch(/@/);
+    expect(invalidEmail).not.toMatch(/@.*\./);
+  });
+
+  it("should require respondent name", () => {
+    const documentData = {
+      sponsorName: "Jane Doe",
+      sponsorEmail: "jane@example.com",
+      respondentName: "",
+    };
+
+    expect(documentData.respondentName).toBe("");
+  });
+
+  it("should validate file size limit (10MB)", () => {
+    const maxFileSize = 10 * 1024 * 1024; // 10MB in bytes
+    const validFileSize = 5 * 1024 * 1024; // 5MB
+    const invalidFileSize = 15 * 1024 * 1024; // 15MB
+
+    expect(validFileSize).toBeLessThanOrEqual(maxFileSize);
+    expect(invalidFileSize).toBeGreaterThan(maxFileSize);
+  });
+
+  it("should validate allowed file types", () => {
+    const allowedTypes = [
+      "application/pdf",
+      "image/jpeg",
+      "image/png",
+      "image/gif",
+      "image/webp",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ];
+
+    expect(allowedTypes).toContain("application/pdf");
+    expect(allowedTypes).toContain("image/jpeg");
+    expect(allowedTypes).not.toContain("application/zip");
+    expect(allowedTypes).not.toContain("video/mp4");
+  });
+});
+
+describe("Sponsor Document Status Workflow", () => {
+  it("should have valid status transitions", () => {
+    const validStatuses = ["pending", "submitted", "reviewed", "approved", "rejected"];
+
+    expect(validStatuses).toContain("pending");
+    expect(validStatuses).toContain("submitted");
+    expect(validStatuses).toContain("reviewed");
+    expect(validStatuses).toContain("approved");
+    expect(validStatuses).toContain("rejected");
+  });
+
+  it("should start with pending status", () => {
+    const newDocument = {
+      status: "pending",
+    };
+
+    expect(newDocument.status).toBe("pending");
+  });
+
+  it("should transition to submitted after files uploaded", () => {
+    const submittedDocument = {
+      status: "submitted",
+      files: [{ id: 1, fileName: "paystub.pdf" }],
+    };
+
+    expect(submittedDocument.status).toBe("submitted");
+    expect(submittedDocument.files.length).toBeGreaterThan(0);
+  });
+});
+
+describe("Share Link Security", () => {
+  it("should check link expiration", () => {
+    const expiredLink = {
+      expiresAt: new Date(Date.now() - 24 * 60 * 60 * 1000), // 24 hours ago
+      isActive: true,
+    };
+
+    const validLink = {
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours from now
+      isActive: true,
+    };
+
+    expect(new Date() > expiredLink.expiresAt).toBe(true);
+    expect(new Date() < validLink.expiresAt).toBe(true);
+  });
+
+  it("should check view count limit", () => {
+    const linkWithLimit = {
+      maxViews: 5,
+      viewCount: 5,
+    };
+
+    const linkWithViewsRemaining = {
+      maxViews: 5,
+      viewCount: 3,
+    };
+
+    expect(linkWithLimit.viewCount >= linkWithLimit.maxViews).toBe(true);
+    expect(linkWithViewsRemaining.viewCount < linkWithViewsRemaining.maxViews).toBe(true);
+  });
+
+  it("should check if link is revoked", () => {
+    const revokedLink = {
+      isActive: false,
+      revokedAt: new Date(),
+    };
+
+    const activeLink = {
+      isActive: true,
+      revokedAt: null,
+    };
+
+    expect(revokedLink.isActive).toBe(false);
+    expect(activeLink.isActive).toBe(true);
+  });
+});

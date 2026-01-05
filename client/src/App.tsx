@@ -33,6 +33,7 @@ import CharacterReferenceLetter from "@/pages/CharacterReferenceLetter";
 import AdminCharacterLetters from "@/pages/AdminCharacterLetters";
 import BondDocumentChecklist from "@/pages/BondDocumentChecklist";
 import SponsorLetterGenerator from "@/pages/SponsorLetterGenerator";
+import SponsorDocumentUpload from "@/pages/SponsorDocumentUpload";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const queryClient = new QueryClient();
@@ -71,6 +72,8 @@ function Router() {
           <Route path="/admin/character-letters" component={AdminCharacterLetters} />
           <Route path="/bond-document-checklist" component={BondDocumentChecklist} />
           <Route path="/sponsor-letter-generator" component={SponsorLetterGenerator} />
+          <Route path="/sponsor-documents" component={SponsorDocumentUpload} />
+          <Route path="/sponsor-documents/:token" component={SponsorDocumentUpload} />
           <Route component={NotFound} />
         </Switch>
       </Layout>

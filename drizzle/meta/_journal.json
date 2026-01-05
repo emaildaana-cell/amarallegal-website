@@ -50,6 +50,13 @@
       "when": 1767626693869,
       "tag": "0006_cool_marvel_zombies",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1767631365494,
+      "tag": "0007_sloppy_next_avengers",
+      "breakpoints": true
     }
   ]
 }

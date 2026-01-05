@@ -860,3 +860,345 @@ export async function updateSponsorLetterPdf(id: number, pdfFileKey: string, pdf
     throw error;
   }
 }
+
+
+// ============================================
+// Sponsor Document Functions
+// ============================================
+
+import { 
+  sponsorDocuments, 
+  sponsorDocumentFiles, 
+  sponsorDocumentShareLinks,
+  InsertSponsorDocument, 
+  SponsorDocument,
+  InsertSponsorDocumentFile,
+  SponsorDocumentFile,
+  InsertSponsorDocumentShareLink,
+  SponsorDocumentShareLink
+} from "../drizzle/schema";
+
+// Generate a unique access token
+function generateAccessToken(): string {
+  return crypto.randomBytes(32).toString("hex");
+}
+
+export async function createSponsorDocument(data: Omit<InsertSponsorDocument, "id" | "accessToken" | "createdAt" | "updatedAt" | "status">): Promise<SponsorDocument | null> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create sponsor document: database not available");
+    return null;
+  }
+
+  try {
+    const accessToken = generateAccessToken();
+    const result = await db.insert(sponsorDocuments).values({
+      ...data,
+      accessToken,
+      status: "pending",
+    });
+    const insertId = result[0].insertId;
+    const [doc] = await db.select().from(sponsorDocuments).where(eq(sponsorDocuments.id, insertId));
+    return doc || null;
+  } catch (error) {
+    console.error("[Database] Failed to create sponsor document:", error);
+    throw error;
+  }
+}
+
+export async function getSponsorDocumentById(id: number): Promise<SponsorDocument | null> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get sponsor document: database not available");
+    return null;
+  }
+
+  try {
+    const [doc] = await db.select().from(sponsorDocuments).where(eq(sponsorDocuments.id, id));
+    return doc || null;
+  } catch (error) {
+    console.error("[Database] Failed to get sponsor document:", error);
+    return null;
+  }
+}
+
+export async function getSponsorDocumentByToken(accessToken: string): Promise<SponsorDocument | null> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get sponsor document: database not available");
+    return null;
+  }
+
+  try {
+    const [doc] = await db.select().from(sponsorDocuments).where(eq(sponsorDocuments.accessToken, accessToken));
+    return doc || null;
+  } catch (error) {
+    console.error("[Database] Failed to get sponsor document:", error);
+    return null;
+  }
+}
+
+export async function getAllSponsorDocuments(): Promise<SponsorDocument[]> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get sponsor documents: database not available");
+    return [];
+  }
+
+  try {
+    const docs = await db.select().from(sponsorDocuments).orderBy(desc(sponsorDocuments.createdAt));
+    return docs;
+  } catch (error) {
+    console.error("[Database] Failed to get sponsor documents:", error);
+    return [];
+  }
+}
+
+export async function updateSponsorDocument(id: number, data: Partial<InsertSponsorDocument>): Promise<SponsorDocument | null> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update sponsor document: database not available");
+    return null;
+  }
+
+  try {
+    await db.update(sponsorDocuments).set(data).where(eq(sponsorDocuments.id, id));
+    const [doc] = await db.select().from(sponsorDocuments).where(eq(sponsorDocuments.id, id));
+    return doc || null;
+  } catch (error) {
+    console.error("[Database] Failed to update sponsor document:", error);
+    throw error;
+  }
+}
+
+export async function updateSponsorDocumentStatus(
+  id: number,
+  status: "pending" | "submitted" | "reviewed" | "approved" | "rejected",
+  adminNotes?: string,
+  reviewedBy?: number
+): Promise<SponsorDocument | null> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update sponsor document status: database not available");
+    return null;
+  }
+
+  try {
+    const updateData: Record<string, unknown> = { status };
+    if (adminNotes !== undefined) {
+      updateData.adminNotes = adminNotes;
+    }
+    if (reviewedBy !== undefined) {
+      updateData.reviewedBy = reviewedBy;
+      updateData.reviewedAt = new Date();
+    }
+    
+    await db.update(sponsorDocuments).set(updateData).where(eq(sponsorDocuments.id, id));
+    const [doc] = await db.select().from(sponsorDocuments).where(eq(sponsorDocuments.id, id));
+    return doc || null;
+  } catch (error) {
+    console.error("[Database] Failed to update sponsor document status:", error);
+    throw error;
+  }
+}
+
+export async function deleteSponsorDocument(id: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot delete sponsor document: database not available");
+    return false;
+  }
+
+  try {
+    // Delete associated files first
+    await db.delete(sponsorDocumentFiles).where(eq(sponsorDocumentFiles.sponsorDocumentId, id));
+    // Delete share links
+    await db.delete(sponsorDocumentShareLinks).where(eq(sponsorDocumentShareLinks.sponsorDocumentId, id));
+    // Delete the document
+    await db.delete(sponsorDocuments).where(eq(sponsorDocuments.id, id));
+    return true;
+  } catch (error) {
+    console.error("[Database] Failed to delete sponsor document:", error);
+    return false;
+  }
+}
+
+// Sponsor Document File Functions
+
+export async function createSponsorDocumentFile(data: Omit<InsertSponsorDocumentFile, "id" | "uploadedAt">): Promise<SponsorDocumentFile | null> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create sponsor document file: database not available");
+    return null;
+  }
+
+  try {
+    const result = await db.insert(sponsorDocumentFiles).values(data);
+    const insertId = result[0].insertId;
+    const [file] = await db.select().from(sponsorDocumentFiles).where(eq(sponsorDocumentFiles.id, insertId));
+    return file || null;
+  } catch (error) {
+    console.error("[Database] Failed to create sponsor document file:", error);
+    throw error;
+  }
+}
+
+export async function getSponsorDocumentFilesByDocumentId(sponsorDocumentId: number): Promise<SponsorDocumentFile[]> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get sponsor document files: database not available");
+    return [];
+  }
+
+  try {
+    const files = await db.select().from(sponsorDocumentFiles)
+      .where(eq(sponsorDocumentFiles.sponsorDocumentId, sponsorDocumentId))
+      .orderBy(desc(sponsorDocumentFiles.uploadedAt));
+    return files;
+  } catch (error) {
+    console.error("[Database] Failed to get sponsor document files:", error);
+    return [];
+  }
+}
+
+export async function deleteSponsorDocumentFile(id: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot delete sponsor document file: database not available");
+    return false;
+  }
+
+  try {
+    await db.delete(sponsorDocumentFiles).where(eq(sponsorDocumentFiles.id, id));
+    return true;
+  } catch (error) {
+    console.error("[Database] Failed to delete sponsor document file:", error);
+    return false;
+  }
+}
+
+// Sponsor Document Share Link Functions
+
+export async function createSponsorDocumentShareLink(
+  sponsorDocumentId: number,
+  expiresInHours: number = 72,
+  recipientName?: string,
+  recipientEmail?: string,
+  maxViews?: number,
+  password?: string
+): Promise<SponsorDocumentShareLink | null> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create share link: database not available");
+    return null;
+  }
+
+  try {
+    const shareToken = generateAccessToken();
+    const expiresAt = new Date(Date.now() + expiresInHours * 60 * 60 * 1000);
+    
+    let passwordHash: string | null = null;
+    if (password) {
+      // Simple hash for password (in production, use bcrypt)
+      passwordHash = crypto.createHash("sha256").update(password).digest("hex");
+    }
+    
+    const result = await db.insert(sponsorDocumentShareLinks).values({
+      sponsorDocumentId,
+      shareToken,
+      expiresAt,
+      recipientName: recipientName || null,
+      recipientEmail: recipientEmail || null,
+      maxViews: maxViews || 0,
+      passwordHash,
+      isActive: true,
+      viewCount: 0,
+    });
+    
+    const insertId = result[0].insertId;
+    const [link] = await db.select().from(sponsorDocumentShareLinks).where(eq(sponsorDocumentShareLinks.id, insertId));
+    return link || null;
+  } catch (error) {
+    console.error("[Database] Failed to create share link:", error);
+    throw error;
+  }
+}
+
+export async function getSponsorDocumentShareLinkByToken(shareToken: string): Promise<SponsorDocumentShareLink | null> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get share link: database not available");
+    return null;
+  }
+
+  try {
+    const [link] = await db.select().from(sponsorDocumentShareLinks)
+      .where(eq(sponsorDocumentShareLinks.shareToken, shareToken));
+    return link || null;
+  } catch (error) {
+    console.error("[Database] Failed to get share link:", error);
+    return null;
+  }
+}
+
+export async function incrementShareLinkViewCount(shareToken: string, ipAddress?: string): Promise<void> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update share link: database not available");
+    return;
+  }
+
+  try {
+    const link = await getSponsorDocumentShareLinkByToken(shareToken);
+    if (!link) return;
+    
+    await db.update(sponsorDocumentShareLinks)
+      .set({
+        viewCount: link.viewCount + 1,
+        lastAccessedAt: new Date(),
+        lastAccessedIp: ipAddress || null,
+      })
+      .where(eq(sponsorDocumentShareLinks.shareToken, shareToken));
+  } catch (error) {
+    console.error("[Database] Failed to update share link view count:", error);
+  }
+}
+
+export async function revokeSponsorDocumentShareLink(id: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot revoke share link: database not available");
+    return false;
+  }
+
+  try {
+    await db.update(sponsorDocumentShareLinks)
+      .set({
+        isActive: false,
+        revokedAt: new Date(),
+      })
+      .where(eq(sponsorDocumentShareLinks.id, id));
+    return true;
+  } catch (error) {
+    console.error("[Database] Failed to revoke share link:", error);
+    return false;
+  }
+}
+
+export async function getShareLinksByDocumentId(sponsorDocumentId: number): Promise<SponsorDocumentShareLink[]> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get share links: database not available");
+    return [];
+  }
+
+  try {
+    const links = await db.select().from(sponsorDocumentShareLinks)
+      .where(eq(sponsorDocumentShareLinks.sponsorDocumentId, sponsorDocumentId))
+      .orderBy(desc(sponsorDocumentShareLinks.createdAt));
+    return links;
+  } catch (error) {
+    console.error("[Database] Failed to get share links:", error);
+    return [];
+  }
+}

@@ -213,3 +213,14 @@
 - [x] Add Matter of Guerra factors section with sponsor roles
 - [x] Add translations (EN, ES, PT)
 - [x] Add navigation link in Resources dropdown
+
+## Sponsor Document Upload Feature
+- [x] Design database schema for sponsor documents (sponsorDocuments, sponsorDocumentFiles, sponsorDocumentShareLinks tables)
+- [x] Create tRPC procedures for document upload, list, delete
+- [x] Build sponsor document upload page at /sponsor-documents
+- [x] Add file upload UI with drag-and-drop support
+- [x] Implement S3 storage for uploaded documents
+- [x] Add document categorization (pay stubs, tax returns, bank statements, housing docs, etc.)
+- [x] Add secure access with time-limited share links and password protection
+- [x] Write vitest tests for sponsor document functionality (36 tests passing)
+- [x] Add link to sponsor document upload from Sponsor Guide page

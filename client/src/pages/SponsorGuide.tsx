@@ -269,6 +269,7 @@ const translations = {
     ctaDesc: "If you're considering being a court sponsor for someone in immigration detention, our attorneys can help you understand the process and prepare for the bond hearing.",
     ctaConsultation: "Schedule Consultation",
     ctaSponsorLetter: "Create Sponsor Letter",
+    ctaUploadDocs: "Upload Documents",
     ctaBondQuestionnaire: "Bond Questionnaire"
   },
   es: {
@@ -498,6 +499,7 @@ const translations = {
     ctaDesc: "Si está considerando ser patrocinador de la corte para alguien en detención de inmigración, nuestros abogados pueden ayudarle a entender el proceso y prepararse para la audiencia de fianza.",
     ctaConsultation: "Programar Consulta",
     ctaSponsorLetter: "Crear Carta de Patrocinador",
+    ctaUploadDocs: "Subir Documentos",
     ctaBondQuestionnaire: "Cuestionario de Fianza"
   },
   pt: {
@@ -727,6 +729,7 @@ const translations = {
     ctaDesc: "Se você está considerando ser patrocinador do tribunal para alguém em detenção de imigração, nossos advogados podem ajudá-lo a entender o processo e se preparar para a audiência de fiança.",
     ctaConsultation: "Agendar Consulta",
     ctaSponsorLetter: "Criar Carta de Patrocinador",
+    ctaUploadDocs: "Enviar Documentos",
     ctaBondQuestionnaire: "Questionário de Fiança"
   }
 };
@@ -1216,6 +1219,11 @@ export default function SponsorGuide() {
               <Link href="/sponsor-letter-generator">
                 <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
                   {t.ctaSponsorLetter}
+                </Button>
+              </Link>
+              <Link href="/sponsor-documents">
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+                  {t.ctaUploadDocs}
                 </Button>
               </Link>
               <Link href="/bond-questionnaire">
