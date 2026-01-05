@@ -34,6 +34,8 @@ import AdminCharacterLetters from "@/pages/AdminCharacterLetters";
 import BondDocumentChecklist from "@/pages/BondDocumentChecklist";
 import SponsorLetterGenerator from "@/pages/SponsorLetterGenerator";
 import SponsorDocumentUpload from "@/pages/SponsorDocumentUpload";
+import AdminSponsorDocuments from "@/pages/AdminSponsorDocuments";
+import SharedDocumentsViewer from "@/pages/SharedDocumentsViewer";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const queryClient = new QueryClient();
@@ -74,6 +76,8 @@ function Router() {
           <Route path="/sponsor-letter-generator" component={SponsorLetterGenerator} />
           <Route path="/sponsor-documents" component={SponsorDocumentUpload} />
           <Route path="/sponsor-documents/:token" component={SponsorDocumentUpload} />
+          <Route path="/admin/sponsor-documents" component={AdminSponsorDocuments} />
+          <Route path="/shared-documents/:token" component={SharedDocumentsViewer} />
           <Route component={NotFound} />
         </Switch>
       </Layout>

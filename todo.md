@@ -230,3 +230,15 @@
 - [x] Include sponsor name, respondent name, and document count in notification
 - [x] Include full document list with categories in notification
 - [x] Write vitest tests for notification functionality (7 new tests, 124 total passing)
+
+## Admin Panel for Sponsor Documents
+- [x] Create admin sponsor documents page at /admin/sponsor-documents
+- [x] Add data table with all submissions (sponsor name, respondent, status, date, file count)
+- [x] Add filtering by status (pending, submitted, reviewed, approved, rejected)
+- [x] Add search by sponsor name or respondent name
+- [x] Add document detail modal with file list and preview
+- [x] Add status update functionality with admin notes
+- [x] Add share link generation for sharing with attorneys (with password protection and expiry)
+- [x] Add document download functionality
+- [x] Ensure admin-only access protection (redirects to home if not logged in)
+- [x] Create SharedDocumentsViewer page for viewing shared documents
