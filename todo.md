@@ -204,3 +204,12 @@
 - [x] Allow users to view formatted letter before signing
 - [x] Add "Preview Letter as PDF" button to the form
 - [x] Add print functionality for preview
+
+## Sponsor Guide Page
+- [x] Create Sponsor Guide page at /sponsor-guide
+- [x] Add sponsor qualifications section
+- [x] Add financial requirements section
+- [x] Add what judges look for section
+- [x] Add Matter of Guerra factors section with sponsor roles
+- [x] Add translations (EN, ES, PT)
+- [x] Add navigation link in Resources dropdown
