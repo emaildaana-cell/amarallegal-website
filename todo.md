@@ -254,3 +254,11 @@
 - [x] Add storageGetBuffer helper function for fetching file contents
 - [x] Add bulk download button to admin panel document detail modal
 - [x] Write vitest tests for bulk download functionality (7 new tests, 131 total passing)
+
+## Site Crawl - Link and Error Check
+- [x] Extract all routes from App.tsx (28 routes)
+- [x] Extract all navigation links from Layout.tsx
+- [x] Test each page for errors (all 28 pages return 200 OK)
+- [x] Document any broken links or missing pages
+- [x] Fix identified issues:
+  - Fixed footer Admin Portal link (/admin → /admin/dashboard)

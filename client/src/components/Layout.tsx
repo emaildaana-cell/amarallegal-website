@@ -431,7 +431,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <a href="#" className="hover:text-primary-foreground transition-colors">{t("footer.terms")}</a>
               <a href="#" className="hover:text-primary-foreground transition-colors">{t("footer.disclaimer")}</a>
               <a href="#" className="hover:text-primary-foreground transition-colors">{t("footer.accessibility")}</a>
-              <Link href="/admin" className="hover:text-primary-foreground transition-colors">
+              <Link href="/admin/dashboard" className="hover:text-primary-foreground transition-colors">
                 {t("footer.admin")}
               </Link>
             </div>
