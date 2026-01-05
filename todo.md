@@ -197,3 +197,10 @@
 - [x] Show last saved timestamp when resuming
 - [x] Add confirmation before leaving with unsaved changes
 - [x] Show "Welcome back" notice when resuming saved progress
+
+## Character Letter PDF Preview Feature
+- [x] Create server endpoint to generate PDF preview from form data
+- [x] Add PDF preview modal/panel to Review & Sign step
+- [x] Allow users to view formatted letter before signing
+- [x] Add "Preview Letter as PDF" button to the form
+- [x] Add print functionality for preview

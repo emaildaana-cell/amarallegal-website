@@ -35,7 +35,11 @@ import {
   Cloud,
   CloudOff,
   Clock,
-  LogOut
+  LogOut,
+  Eye,
+  Printer,
+  X,
+  Maximize2
 } from "lucide-react";
 
 // Matter of Guerra factors for bond hearings
@@ -137,6 +141,9 @@ export default function CharacterReferenceLetter() {
   const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null);
   const [saveStatus, setSaveStatus] = useState<'saved' | 'saving' | 'unsaved' | 'error'>('saved');
   const autoSaveTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const [showPreviewModal, setShowPreviewModal] = useState(false);
+  const [previewHtml, setPreviewHtml] = useState<string | null>(null);
+  const [isLoadingPreview, setIsLoadingPreview] = useState(false);
   
   // Form state organized by step
   const [formData, setFormData] = useState({
@@ -360,6 +367,66 @@ export default function CharacterReferenceLetter() {
     }
   };
   
+  // Preview query - use refetch to trigger on demand
+  const previewQuery = trpc.characterLetter.preview.useQuery(
+    {
+      accessToken,
+      formData: {
+        writerName: formData.writerName,
+        writerRelationship: formData.writerRelationship,
+        writerAddress: formData.writerAddress,
+        writerCity: formData.writerCity,
+        writerState: formData.writerState,
+        writerZip: formData.writerZip,
+        writerPhone: formData.writerPhone,
+        writerEmail: formData.writerEmail,
+        writerOccupation: formData.writerOccupation,
+        writerEmployer: formData.writerEmployer,
+        writerImmigrationStatus: formData.writerImmigrationStatus,
+        howLongKnown: formData.howLongKnown,
+        howMet: formData.howMet,
+        frequencyOfContact: formData.frequencyOfContact,
+        characterDescription: formData.characterDescription,
+        specificExamples: formData.specificExamples,
+        communityInvolvement: formData.communityInvolvement,
+        familyRole: formData.familyRole,
+        workEthic: formData.workEthic,
+        moralCharacter: formData.moralCharacter,
+        whyDeservesBond: formData.whyDeservesBond,
+        additionalComments: formData.additionalComments,
+      },
+    },
+    { enabled: false } // Only fetch when explicitly triggered
+  );
+
+  // Handle preview letter as formatted PDF
+  const handlePreview = async () => {
+    setIsLoadingPreview(true);
+    try {
+      const result = await previewQuery.refetch();
+      if (result.data) {
+        setPreviewHtml(result.data.html);
+        setShowPreviewModal(true);
+      }
+    } catch (error) {
+      console.error("Failed to generate preview:", error);
+      alert("Failed to generate preview. Please try again.");
+    } finally {
+      setIsLoadingPreview(false);
+    }
+  };
+
+  // Handle print preview
+  const handlePrintPreview = () => {
+    if (!previewHtml) return;
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      printWindow.document.write(previewHtml);
+      printWindow.document.close();
+      printWindow.print();
+    }
+  };
+
   const handleSign = async () => {
     if (!signatureRef.current || signatureRef.current.isEmpty()) {
       alert("Please provide your signature before submitting.");
@@ -1279,6 +1346,27 @@ export default function CharacterReferenceLetter() {
                   </div>
                 </div>
                 
+                {/* Preview Button */}
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handlePreview}
+                  disabled={isLoadingPreview || !formData.writerName}
+                  className="w-full h-12 text-lg mb-4"
+                >
+                  {isLoadingPreview ? (
+                    <>
+                      <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                      Generating Preview...
+                    </>
+                  ) : (
+                    <>
+                      <Eye className="w-5 h-5 mr-2" />
+                      Preview Letter as PDF
+                    </>
+                  )}
+                </Button>
+                
                 {/* Submit Button */}
                 <Button
                   onClick={handleSign}
@@ -1334,6 +1422,65 @@ export default function CharacterReferenceLetter() {
             </Button>
           )}
         </div>
+        
+        {/* PDF Preview Modal */}
+        {showPreviewModal && (
+          <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+            <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] flex flex-col">
+              {/* Modal Header */}
+              <div className="flex items-center justify-between p-4 border-b">
+                <h3 className="text-lg font-semibold flex items-center gap-2">
+                  <FileText className="w-5 h-5" />
+                  Letter Preview
+                </h3>
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handlePrintPreview}
+                  >
+                    <Printer className="w-4 h-4 mr-1" />
+                    Print
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setShowPreviewModal(false)}
+                  >
+                    <X className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+              
+              {/* Modal Content - iframe for PDF-like rendering */}
+              <div className="flex-1 overflow-auto p-4 bg-gray-100">
+                <div className="bg-white shadow-lg mx-auto" style={{ maxWidth: '8.5in', minHeight: '11in' }}>
+                  {previewHtml && (
+                    <iframe
+                      srcDoc={previewHtml}
+                      className="w-full h-full border-0"
+                      style={{ minHeight: '11in' }}
+                      title="Letter Preview"
+                    />
+                  )}
+                </div>
+              </div>
+              
+              {/* Modal Footer */}
+              <div className="p-4 border-t bg-gray-50">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm text-amber-600 flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4" />
+                    This is a preview. Sign above to submit the final letter.
+                  </p>
+                  <Button onClick={() => setShowPreviewModal(false)}>
+                    Close Preview
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
         
         {/* Matter of Guerra Factors Reference */}
         <Card className="mt-8 bg-gray-50">

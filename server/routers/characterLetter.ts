@@ -160,6 +160,57 @@ export const characterLetterRouter = router({
       return signed;
     }),
 
+  // Public: Preview letter (without signature requirement)
+  preview: publicProcedure
+    .input(z.object({
+      accessToken: z.string(),
+      // Allow passing current form data for live preview
+      formData: z.object({
+        writerName: z.string().optional(),
+        writerRelationship: z.string().optional(),
+        writerAddress: z.string().optional(),
+        writerCity: z.string().optional(),
+        writerState: z.string().optional(),
+        writerZip: z.string().optional(),
+        writerPhone: z.string().optional(),
+        writerEmail: z.string().optional(),
+        writerOccupation: z.string().optional(),
+        writerEmployer: z.string().optional(),
+        writerImmigrationStatus: z.string().optional(),
+        howLongKnown: z.string().optional(),
+        howMet: z.string().optional(),
+        frequencyOfContact: z.string().optional(),
+        characterDescription: z.string().optional(),
+        specificExamples: z.string().optional(),
+        communityInvolvement: z.string().optional(),
+        familyRole: z.string().optional(),
+        workEthic: z.string().optional(),
+        moralCharacter: z.string().optional(),
+        whyDeservesBond: z.string().optional(),
+        additionalComments: z.string().optional(),
+      }).optional(),
+    }))
+    .query(async ({ input }) => {
+      const letter = await getCharacterReferenceLetterByToken(input.accessToken);
+      
+      if (!letter) {
+        throw new Error("Letter not found");
+      }
+      
+      // Merge saved letter data with any provided form data for live preview
+      const previewData = {
+        ...letter,
+        ...(input.formData || {}),
+        signedAt: null, // Don't show signature in preview
+        signatureData: null,
+      };
+      
+      // Generate preview HTML
+      const previewHtml = generateLetterHtml(previewData, true);
+      
+      return { html: previewHtml };
+    }),
+
   // Public: Generate PDF
   generatePdf: publicProcedure
     .input(z.object({
@@ -213,7 +264,7 @@ export const characterLetterRouter = router({
 });
 
 // Helper function to generate letter HTML
-function generateLetterHtml(letter: any): string {
+function generateLetterHtml(letter: any, isPreview: boolean = false): string {
   const formatDate = (date: Date | null) => {
     if (!date) return "N/A";
     return new Date(date).toLocaleDateString("en-US", {
@@ -338,8 +389,13 @@ function generateLetterHtml(letter: any): string {
   </div>
   
   <div class="footer">
+    ${isPreview ? `
+    <p style="color: #dc2626; font-weight: bold;">⚠️ PREVIEW ONLY - NOT YET SIGNED</p>
+    <p>This is a preview of how your letter will appear. Please review carefully before signing.</p>
+    ` : `
     <p>This letter was electronically signed on ${formatDate(letter.signedAt)}.</p>
     <p>Document ID: ${letter.accessToken?.substring(0, 8)}...</p>
+    `}
   </div>
 </body>
 </html>
