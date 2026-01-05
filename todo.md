@@ -180,3 +180,12 @@
 ## Detention Page Fix
 - [x] Fix missing translations showing as keys (detention.hero.title, detention.step1.know_title, etc.)
 - [x] Add all detention page translations to LanguageContext (EN, ES, PT)
+
+## Character Reference Letter Redesign
+- [x] Research Matter of Guerra factors for character letters
+- [x] Create guided step-by-step builder with prompts (8 steps)
+- [x] Add specific questions addressing each bond factor
+- [x] Include examples and tips for each section
+- [x] Generate professional formatted letter from responses
+- [x] Add progress bar and step indicators
+- [x] Add Guerra factors reference panel
