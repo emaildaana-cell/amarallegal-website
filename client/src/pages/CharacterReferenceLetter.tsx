@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useRoute } from "wouter";
 import SignatureCanvas from "react-signature-canvas";
 import { Button } from "@/components/ui/button";
@@ -30,7 +30,12 @@ import {
   Shield,
   HelpCircle,
   Lightbulb,
-  Star
+  Star,
+  Save,
+  Cloud,
+  CloudOff,
+  Clock,
+  LogOut
 } from "lucide-react";
 
 // Matter of Guerra factors for bond hearings
@@ -128,6 +133,10 @@ export default function CharacterReferenceLetter() {
   const [isSigning, setIsSigning] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
   const [showTip, setShowTip] = useState(true);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null);
+  const [saveStatus, setSaveStatus] = useState<'saved' | 'saving' | 'unsaved' | 'error'>('saved');
+  const autoSaveTimerRef = useRef<NodeJS.Timeout | null>(null);
   
   // Form state organized by step
   const [formData, setFormData] = useState({
@@ -188,10 +197,14 @@ export default function CharacterReferenceLetter() {
   const updateMutation = trpc.characterLetter.update.useMutation({
     onSuccess: () => {
       setSaveMessage("Progress saved!");
+      setHasUnsavedChanges(false);
+      setLastSavedAt(new Date());
+      setSaveStatus('saved');
       setTimeout(() => setSaveMessage(""), 3000);
     },
     onError: (error) => {
       setSaveMessage(`Error: ${error.message}`);
+      setSaveStatus('error');
     },
   });
   
@@ -238,7 +251,81 @@ export default function CharacterReferenceLetter() {
   
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+    setHasUnsavedChanges(true);
+    setSaveStatus('unsaved');
+    
+    // Clear existing auto-save timer
+    if (autoSaveTimerRef.current) {
+      clearTimeout(autoSaveTimerRef.current);
+    }
+    
+    // Set new auto-save timer (save after 3 seconds of inactivity)
+    autoSaveTimerRef.current = setTimeout(() => {
+      triggerAutoSave();
+    }, 3000);
   };
+  
+  // Auto-save function
+  const triggerAutoSave = useCallback(async () => {
+    if (!hasUnsavedChanges || isSaving) return;
+    
+    setSaveStatus('saving');
+    try {
+      await updateMutation.mutateAsync({
+        accessToken,
+        writerName: formData.writerName,
+        writerRelationship: formData.writerRelationship,
+        writerAddress: formData.writerAddress,
+        writerCity: formData.writerCity,
+        writerState: formData.writerState,
+        writerZip: formData.writerZip,
+        writerPhone: formData.writerPhone,
+        writerEmail: formData.writerEmail,
+        writerOccupation: formData.writerOccupation,
+        writerEmployer: formData.writerEmployer,
+        writerImmigrationStatus: formData.writerImmigrationStatus,
+        howLongKnown: formData.howLongKnown,
+        howMet: formData.howMet,
+        frequencyOfContact: formData.frequencyOfContact,
+        characterDescription: formData.characterDescription,
+        specificExamples: formData.specificExamples,
+        communityInvolvement: formData.communityInvolvement,
+        familyRole: formData.familyRole,
+        workEthic: formData.workEthic,
+        moralCharacter: formData.moralCharacter,
+        whyDeservesBond: formData.whyDeservesBond,
+        additionalComments: formData.additionalComments,
+      });
+      setHasUnsavedChanges(false);
+      setLastSavedAt(new Date());
+      setSaveStatus('saved');
+    } catch (error) {
+      setSaveStatus('error');
+    }
+  }, [accessToken, formData, hasUnsavedChanges, isSaving, updateMutation]);
+  
+  // Warn before leaving with unsaved changes
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (hasUnsavedChanges) {
+        e.preventDefault();
+        e.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
+        return e.returnValue;
+      }
+    };
+    
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [hasUnsavedChanges]);
+  
+  // Cleanup auto-save timer on unmount
+  useEffect(() => {
+    return () => {
+      if (autoSaveTimerRef.current) {
+        clearTimeout(autoSaveTimerRef.current);
+      }
+    };
+  }, []);
   
   const handleSave = async () => {
     setIsSaving(true);
@@ -424,14 +511,87 @@ export default function CharacterReferenceLetter() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-8 px-4">
       <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Character Reference Letter Builder
-          </h1>
-          <p className="text-gray-600">
-            For: <span className="font-semibold text-primary">{letter.respondentName}</span>
-          </p>
+        {/* Header with Save Status */}
+        <div className="mb-8">
+          <div className="flex justify-between items-start mb-4">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                Character Reference Letter Builder
+              </h1>
+              <p className="text-gray-600">
+                For: <span className="font-semibold text-primary">{letter.respondentName}</span>
+              </p>
+            </div>
+            
+            {/* Save Status Indicator */}
+            <div className="flex flex-col items-end gap-2">
+              <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium ${
+                saveStatus === 'saved' ? 'bg-green-100 text-green-700' :
+                saveStatus === 'saving' ? 'bg-blue-100 text-blue-700' :
+                saveStatus === 'unsaved' ? 'bg-yellow-100 text-yellow-700' :
+                'bg-red-100 text-red-700'
+              }`}>
+                {saveStatus === 'saved' && <Cloud className="w-4 h-4" />}
+                {saveStatus === 'saving' && <Loader2 className="w-4 h-4 animate-spin" />}
+                {saveStatus === 'unsaved' && <CloudOff className="w-4 h-4" />}
+                {saveStatus === 'error' && <AlertCircle className="w-4 h-4" />}
+                <span>
+                  {saveStatus === 'saved' && 'All changes saved'}
+                  {saveStatus === 'saving' && 'Saving...'}
+                  {saveStatus === 'unsaved' && 'Unsaved changes'}
+                  {saveStatus === 'error' && 'Save failed'}
+                </span>
+              </div>
+              
+              {lastSavedAt && (
+                <div className="flex items-center gap-1 text-xs text-gray-500">
+                  <Clock className="w-3 h-3" />
+                  <span>Last saved: {lastSavedAt.toLocaleTimeString()}</span>
+                </div>
+              )}
+              
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleSave}
+                  disabled={isSaving || !hasUnsavedChanges}
+                  className="text-xs"
+                >
+                  <Save className="w-3 h-3 mr-1" />
+                  Save Now
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    if (hasUnsavedChanges) {
+                      if (confirm('You have unsaved changes. Save before leaving?')) {
+                        handleSave();
+                      }
+                    }
+                    window.history.back();
+                  }}
+                  className="text-xs"
+                >
+                  <LogOut className="w-3 h-3 mr-1" />
+                  Save & Exit
+                </Button>
+              </div>
+            </div>
+          </div>
+          
+          {/* Resume Notice */}
+          {letter.updatedAt && !letter.signedAt && letter.writerName && (
+            <Alert className="mb-4 bg-blue-50 border-blue-200">
+              <RefreshCw className="w-4 h-4 text-blue-600" />
+              <AlertTitle className="text-blue-800">Welcome back!</AlertTitle>
+              <AlertDescription className="text-blue-700">
+                Your progress has been restored. You can continue where you left off.
+                Last updated: {new Date(letter.updatedAt).toLocaleDateString()} at {new Date(letter.updatedAt).toLocaleTimeString()}
+              </AlertDescription>
+            </Alert>
+          )}
         </div>
         
         {/* Progress Bar */}

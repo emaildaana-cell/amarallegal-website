@@ -189,3 +189,11 @@
 - [x] Generate professional formatted letter from responses
 - [x] Add progress bar and step indicators
 - [x] Add Guerra factors reference panel
+
+## Character Letter Save & Resume Feature
+- [x] Add auto-save functionality that saves progress automatically (3-second debounce)
+- [x] Add visual save status indicator (saved, saving, unsaved changes)
+- [x] Add "Save Now" and "Save & Exit" buttons for manual save
+- [x] Show last saved timestamp when resuming
+- [x] Add confirmation before leaving with unsaved changes
+- [x] Show "Welcome back" notice when resuming saved progress
