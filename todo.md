@@ -176,3 +176,7 @@
 - [x] Add letter preview functionality
 - [x] Generate downloadable HTML document
 - [x] Write tests for sponsor letter functionality
+
+## Detention Page Fix
+- [x] Fix missing translations showing as keys (detention.hero.title, detention.step1.know_title, etc.)
+- [x] Add all detention page translations to LanguageContext (EN, ES, PT)
