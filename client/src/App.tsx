@@ -36,6 +36,7 @@ import SponsorLetterGenerator from "@/pages/SponsorLetterGenerator";
 import SponsorDocumentUpload from "@/pages/SponsorDocumentUpload";
 import AdminSponsorDocuments from "@/pages/AdminSponsorDocuments";
 import SharedDocumentsViewer from "@/pages/SharedDocumentsViewer";
+import DetentionGuide from "@/pages/DetentionGuide";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const queryClient = new QueryClient();
@@ -62,6 +63,7 @@ function Router() {
           <Route path="/services/federal-litigation" component={FederalLitigation} />
           <Route path="/faq" component={FAQ} />
           <Route path="/detention-process" component={DetentionProcess} />
+          <Route path="/detention-guide" component={DetentionGuide} />
           <Route path="/resources" component={Resources} />
           <Route path="/sponsor-guide" component={SponsorGuide} />
           <Route path="/downloads" component={Downloads} />

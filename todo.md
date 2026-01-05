@@ -271,3 +271,13 @@
 - [x] Add meta descriptions to tool pages (Bond Questionnaire, Sponsor Guide, Character Letter, Sponsor Documents)
 - [x] Add Open Graph tags for social sharing
 - [x] Add noIndex for admin pages to prevent search engine indexing
+
+## ICE Detention Guide Page
+- [x] Create comprehensive detention guide page at /detention-guide
+- [x] Explain what happens when someone is detained by ICE (4-step process)
+- [x] Explain how families can communicate with detained individuals (phone, mail, visitation)
+- [x] Explain what an NTA (Notice to Appear) is and what happens next
+- [x] Provide complete list of ICE detention centers by region (40+ facilities with search/filter)
+- [x] Include contact information (ICE Contact Center, EOIR Hotline, Freedom for Immigrants)
+- [x] Add navigation links in Resources dropdown
+- [x] Add translations (EN, ES, PT)
