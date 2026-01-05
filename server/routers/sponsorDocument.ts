@@ -17,7 +17,8 @@ import {
   revokeSponsorDocumentShareLink,
   getShareLinksByDocumentId,
 } from "../db";
-import { storagePut, storageGet } from "../storage";
+import { storagePut, storageGet, storageGetBuffer } from "../storage";
+import archiver from "archiver";
 import { notifyOwner } from "../_core/notification";
 import crypto from "crypto";
 
@@ -384,6 +385,75 @@ export const sponsorDocumentRouter = router({
       
       const success = await revokeSponsorDocumentShareLink(input.id);
       return { success };
+    }),
+
+  // Generate a ZIP file containing all documents for a submission (admin only)
+  generateBulkDownloadZip: protectedProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(async ({ input, ctx }) => {
+      if (ctx.user?.role !== "admin") {
+        throw new Error("Admin access required");
+      }
+      
+      const doc = await getSponsorDocumentById(input.id);
+      if (!doc) {
+        throw new Error("Document not found");
+      }
+      
+      const files = await getSponsorDocumentFilesByDocumentId(doc.id);
+      if (files.length === 0) {
+        throw new Error("No files to download");
+      }
+      
+      // Create ZIP archive in memory
+      const archive = archiver('zip', { zlib: { level: 9 } });
+      const chunks: Buffer[] = [];
+      
+      archive.on('data', (chunk: Buffer) => chunks.push(chunk));
+      
+      // Add each file to the archive
+      for (const file of files) {
+        try {
+          // Fetch file contents using storage helper
+          const fileBuffer = await storageGetBuffer(file.fileKey);
+          
+          // Create a sanitized filename with category prefix
+          const categoryLabel = getCategoryLabel(file.documentCategory);
+          const sanitizedName = `${categoryLabel}/${file.documentName || file.fileName}`;
+          
+          archive.append(fileBuffer, { name: sanitizedName });
+        } catch (error) {
+          console.error(`Failed to fetch file ${file.fileKey}:`, error);
+          // Continue with other files
+        }
+      }
+      
+      // Finalize the archive
+      await archive.finalize();
+      
+      // Wait for all data to be collected
+      await new Promise<void>((resolve, reject) => {
+        archive.on('end', resolve);
+        archive.on('error', reject);
+      });
+      
+      const zipBuffer = Buffer.concat(chunks);
+      
+      // Upload ZIP to S3 with a temporary key
+      const zipKey = `sponsor-documents/bulk-downloads/${doc.id}-${Date.now()}.zip`;
+      const zipFileName = `${doc.sponsorName.replace(/[^a-zA-Z0-9]/g, '_')}_${doc.respondentName.replace(/[^a-zA-Z0-9]/g, '_')}_documents.zip`;
+      
+      await storagePut(zipKey, zipBuffer, 'application/zip');
+      
+      // Get presigned URL for download
+      const { url } = await storageGet(zipKey);
+      
+      return {
+        downloadUrl: url,
+        fileName: zipFileName,
+        fileCount: files.length,
+        totalSize: zipBuffer.length,
+      };
     }),
 
   // Get a presigned URL for downloading a file

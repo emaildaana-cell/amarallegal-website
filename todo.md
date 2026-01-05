@@ -247,3 +247,10 @@
 - [x] Add Admin dropdown menu to main navigation (visible only when logged in)
 - [x] Include links to Bond Questionnaires, Character Letters, and Sponsor Documents admin panels
 - [x] Add Admin section to mobile navigation
+
+## Bulk Download Feature for Sponsor Documents
+- [x] Install archiver package for ZIP file generation
+- [x] Create server-side tRPC procedure to generate ZIP of all documents
+- [x] Add storageGetBuffer helper function for fetching file contents
+- [x] Add bulk download button to admin panel document detail modal
+- [x] Write vitest tests for bulk download functionality (7 new tests, 131 total passing)

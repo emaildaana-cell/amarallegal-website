@@ -131,6 +131,24 @@ export default function AdminSponsorDocuments() {
     },
   });
 
+  const bulkDownloadMutation = trpc.sponsorDocument.generateBulkDownloadZip.useMutation({
+    onSuccess: (data) => {
+      if (data?.downloadUrl) {
+        // Create a temporary link and trigger download
+        const link = document.createElement('a');
+        link.href = data.downloadUrl;
+        link.download = data.fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        toast.success(`Downloaded ${data.fileCount} files as ZIP`);
+      }
+    },
+    onError: (error) => {
+      toast.error(error.message || 'Failed to generate ZIP file');
+    },
+  });
+
   // Filter and sort documents
   const filteredDocuments = useMemo(() => {
     if (!documents) return [];
@@ -536,6 +554,19 @@ export default function AdminSponsorDocuments() {
                   >
                     <Share2 className="h-4 w-4 mr-1" />
                     Share
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => bulkDownloadMutation.mutate({ id: documentDetails.id })}
+                    disabled={bulkDownloadMutation.isPending || !documentDetails.files?.length}
+                  >
+                    {bulkDownloadMutation.isPending ? (
+                      <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                    ) : (
+                      <Download className="h-4 w-4 mr-1" />
+                    )}
+                    Download All
                   </Button>
                 </div>
               </div>
