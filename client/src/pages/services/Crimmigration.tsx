@@ -36,6 +36,10 @@ export default function Crimmigration() {
       ]}
       ctaKey="service.crimmigration.cta"
       ctaLink="/consultation"
+      seoTitle="Crimmigration Defense"
+      seoDescription="Defense for non-citizens facing criminal charges. Protect your immigration status with attorneys who understand both criminal and immigration law."
+      seoKeywords="crimmigration, criminal immigration, deportation defense, criminal charges immigration"
+      canonicalUrl="/services/crimmigration"
     />
   );
 }

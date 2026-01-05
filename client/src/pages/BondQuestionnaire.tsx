@@ -200,8 +200,10 @@ export default function BondQuestionnaire() {
     return (
       <div className="min-h-screen bg-background pt-32 pb-16">
         <SEO 
-          title={t("bond.title") || "Bond Questionnaire"} 
-          description={t("bond.subtitle") || "Complete the bond questionnaire"}
+          title="Bond Questionnaire"
+          description="Complete our immigration bond questionnaire to help prepare your case. Gather essential information for your bond hearing representation."
+          keywords="immigration bond questionnaire, bond hearing preparation, ICE bond"
+          canonicalUrl="/bond-questionnaire"
         />
         <div className="container max-w-2xl">
           <Card className="border-2 border-green-500">
@@ -226,8 +228,10 @@ export default function BondQuestionnaire() {
   return (
     <div className="min-h-screen bg-background pt-32 pb-16">
       <SEO 
-        title={t("bond.title") || "Bond Questionnaire"} 
-        description={t("bond.subtitle") || "Complete the bond questionnaire"}
+        title="Bond Questionnaire"
+        description="Complete our immigration bond questionnaire to help prepare your case. Gather essential information for your bond hearing representation."
+        keywords="immigration bond questionnaire, bond hearing preparation, ICE bond"
+        canonicalUrl="/bond-questionnaire"
       />
       <div className="container max-w-4xl">
         <div className="mb-8">

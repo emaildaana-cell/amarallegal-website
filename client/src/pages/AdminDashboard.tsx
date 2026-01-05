@@ -127,7 +127,11 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO titleKey="seo.admin.title" descriptionKey="seo.admin.desc" />
+      <SEO 
+        title="Admin Dashboard"
+        description="Administrative dashboard for Amaral Law case management."
+        noIndex={true}
+      />
       
       {/* Header */}
       <div className="border-b bg-card">

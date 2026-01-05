@@ -22,6 +22,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/contexts/LanguageContext";
+import SEO from "@/components/SEO";
 
 interface ResourceCard {
   title: string;
@@ -264,6 +265,12 @@ export default function Resources() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      <SEO 
+        title="Immigration Resources"
+        description="Access essential immigration resources including ICE detainee locator, EOIR case status, bond payment systems, and detention facility information."
+        keywords="immigration resources, ICE locator, EOIR case status, immigration tools"
+        canonicalUrl="/resources"
+      />
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary via-primary/95 to-primary/90 text-white py-20 overflow-hidden">
         <div className="absolute inset-0 bg-[url('/images/pattern.svg')] opacity-5" />

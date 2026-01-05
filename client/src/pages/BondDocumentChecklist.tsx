@@ -301,7 +301,12 @@ export default function BondDocumentChecklist() {
     <>
       <Helmet>
         <title>Bond Document Checklist | Amaral Law</title>
-        <meta name="description" content="Complete checklist of documents needed for your immigration bond hearing. Learn what each document is and how to obtain it." />
+        <meta name="description" content="Complete checklist of documents needed for immigration bond hearings. Prepare your case with our comprehensive document guide." />
+        <meta name="keywords" content="bond documents, immigration bond checklist, bond hearing documents" />
+        <link rel="canonical" href="https://amarallegal.com/bond-document-checklist" />
+        <meta property="og:title" content="Bond Document Checklist | Amaral Law" />
+        <meta property="og:description" content="Complete checklist of documents needed for immigration bond hearings. Prepare your case with our comprehensive document guide." />
+        <meta property="og:type" content="website" />
       </Helmet>
 
       {/* Hero Section */}

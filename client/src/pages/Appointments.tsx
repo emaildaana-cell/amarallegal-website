@@ -164,8 +164,10 @@ export default function Appointments() {
   return (
     <div className="min-h-screen bg-muted/30">
       <SEO 
-        titleKey="seo.appointments.title"
-        descriptionKey="seo.appointments.desc"
+        title="Schedule Appointment"
+        description="Book an appointment with Amaral Law immigration attorneys. In-person, phone, or video consultations available for your convenience."
+        keywords="immigration appointment, lawyer appointment, legal consultation booking"
+        canonicalUrl="/appointments"
       />
       
       {/* Hero Section */}

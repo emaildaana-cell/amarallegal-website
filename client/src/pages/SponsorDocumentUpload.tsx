@@ -97,7 +97,12 @@ function StartPage() {
     <div className="min-h-screen bg-gradient-to-b from-muted/30 to-background">
       <Helmet>
         <title>Upload Sponsor Documents | Amaral Law</title>
-        <meta name="description" content="Securely upload your financial and housing documents for immigration bond hearings." />
+        <meta name="description" content="Securely upload sponsor financial documents for immigration bond hearings. Submit pay stubs, tax returns, and housing documents online." />
+        <meta name="keywords" content="sponsor documents, upload documents, bond hearing documents, financial documents" />
+        <link rel="canonical" href="https://amarallegal.com/sponsor-documents" />
+        <meta property="og:title" content="Upload Sponsor Documents | Amaral Law" />
+        <meta property="og:description" content="Securely upload sponsor financial documents for immigration bond hearings. Submit pay stubs, tax returns, and housing documents online." />
+        <meta property="og:type" content="website" />
       </Helmet>
 
       {/* Hero Section */}

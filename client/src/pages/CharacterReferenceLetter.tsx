@@ -11,6 +11,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
 import { trpc } from "@/lib/trpc";
 import { useLanguage } from "@/contexts/LanguageContext";
+import SEO from "@/components/SEO";
 import { 
   FileText, 
   User, 
@@ -577,6 +578,12 @@ export default function CharacterReferenceLetter() {
   
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-8 px-4">
+      <SEO 
+        title="Character Reference Letter"
+        description="Write a character reference letter for immigration bond hearings. Help support your friend or family member's case with a compelling letter."
+        keywords="character letter, reference letter, immigration support letter, bond hearing letter"
+        canonicalUrl="/character-letter"
+      />
       <div className="max-w-4xl mx-auto">
         {/* Header with Save Status */}
         <div className="mb-8">

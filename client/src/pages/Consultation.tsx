@@ -123,8 +123,10 @@ export default function Consultation() {
   return (
     <div className="min-h-screen bg-muted/10 py-12 md:py-20">
       <SEO 
-        titleKey="seo.consultation.title"
-        descriptionKey="seo.consultation.desc"
+        title="Request Consultation"
+        description="Schedule a consultation with our immigration attorneys. Get expert legal advice for removal defense, asylum, bond hearings, and family petitions."
+        keywords="immigration consultation, legal consultation, immigration lawyer appointment"
+        canonicalUrl="/consultation"
       />
       <div className="container max-w-4xl">
         <div className="text-center mb-10">

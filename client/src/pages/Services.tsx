@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Badge } from "@/components/ui/badge";
+import SEO from "@/components/SEO";
 
 interface ServiceCard {
   title: string;
@@ -71,6 +72,12 @@ export default function Services() {
 
   return (
     <div className="min-h-screen">
+      <SEO 
+        title="Practice Areas"
+        description="Explore our immigration law practice areas including removal defense, asylum, family petitions, bond hearings, crimmigration, and federal litigation."
+        keywords="immigration services, practice areas, removal defense, asylum, family petitions"
+        canonicalUrl="/services"
+      />
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary via-primary/95 to-primary/90 text-white py-24 overflow-hidden">
         <div className="absolute inset-0 bg-[url('/images/pattern.svg')] opacity-5" />

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Phone, ArrowRight, CheckCircle, Scale, Shield, Users } from "lucide-react";
+import SEO from "@/components/SEO";
 
 interface ServiceItem {
   titleKey: string;
@@ -22,6 +23,10 @@ interface ServicePageProps {
   }[];
   ctaKey: string;
   ctaLink: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  seoKeywords?: string;
+  canonicalUrl?: string;
 }
 
 export default function ServicePageTemplate({
@@ -32,11 +37,23 @@ export default function ServicePageTemplate({
   sections,
   ctaKey,
   ctaLink,
+  seoTitle,
+  seoDescription,
+  seoKeywords,
+  canonicalUrl,
 }: ServicePageProps) {
   const { t } = useLanguage();
 
   return (
     <div className="min-h-screen">
+      {seoTitle && (
+        <SEO 
+          title={seoTitle}
+          description={seoDescription || ""}
+          keywords={seoKeywords}
+          canonicalUrl={canonicalUrl}
+        />
+      )}
       {/* Hero Section */}
       <section className="relative py-24 md:py-32 overflow-hidden">
         <div 

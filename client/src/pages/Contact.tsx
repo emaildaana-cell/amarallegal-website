@@ -12,8 +12,10 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-background py-12 md:py-20">
       <SEO 
-        titleKey="seo.contact.title"
-        descriptionKey="seo.contact.desc"
+        title="Contact Us"
+        description="Contact Amaral Law for immigration legal assistance. Located in Fort Lauderdale, FL. Available 24/7 for emergencies. Call 1-844-423-3733 or WhatsApp (619) 867-1707."
+        keywords="contact immigration lawyer, immigration attorney Fort Lauderdale, immigration legal help"
+        canonicalUrl="/contact"
       />
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">

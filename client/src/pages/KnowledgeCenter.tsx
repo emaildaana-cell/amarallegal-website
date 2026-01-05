@@ -96,8 +96,10 @@ export default function KnowledgeCenter() {
   return (
     <div className="min-h-screen bg-background">
       <SEO 
-        titleKey="seo.knowledge.title"
-        descriptionKey="seo.knowledge.desc"
+        title="Knowledge Center"
+        description="Immigration law articles, guides, and legal insights from Amaral Law. Stay informed about immigration policies and your legal rights."
+        keywords="immigration articles, legal insights, immigration news, legal guides"
+        canonicalUrl="/knowledge-center"
       />
       {/* Hero Section */}
       <div className="bg-secondary text-secondary-foreground py-16 md:py-24 relative overflow-hidden">

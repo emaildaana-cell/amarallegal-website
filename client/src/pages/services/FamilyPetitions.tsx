@@ -31,6 +31,10 @@ export default function FamilyPetitions() {
       ]}
       ctaKey="service.family.cta"
       ctaLink="/consultation"
+      seoTitle="Family Petitions"
+      seoDescription="Family-based immigration petitions and green card applications. Reunite with your loved ones through proper immigration channels."
+      seoKeywords="family petition, green card, family immigration, spouse visa"
+      canonicalUrl="/services/family-petitions"
     />
   );
 }

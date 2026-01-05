@@ -748,8 +748,10 @@ export default function SponsorGuide() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       <SEO 
-        titleKey="seo.sponsorGuide.title"
-        descriptionKey="seo.sponsorGuide.desc"
+        title="Court Sponsor Guide"
+        description="Complete guide for immigration bond sponsors. Learn sponsor qualifications, financial requirements, and what judges look for in bond hearings."
+        keywords="immigration sponsor, bond sponsor guide, sponsor requirements, bond hearing sponsor"
+        canonicalUrl="/sponsor-guide"
       />
       
       {/* Hero Section */}

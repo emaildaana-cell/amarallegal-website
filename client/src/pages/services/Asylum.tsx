@@ -25,8 +25,13 @@ export default function Asylum() {
   return (
     <>
       <Helmet>
-        <title>{t("service.asylum.title")} | Amaral Law</title>
-        <meta name="description" content={t("service.asylum.intro")} />
+        <title>Asylum & Humanitarian Relief | Amaral Law</title>
+        <meta name="description" content="Asylum application assistance and humanitarian relief representation. Protect your right to safety with experienced asylum attorneys." />
+        <meta name="keywords" content="asylum lawyer, asylum application, humanitarian relief, refugee protection" />
+        <link rel="canonical" href="https://amarallegal.com/services/asylum" />
+        <meta property="og:title" content="Asylum & Humanitarian Relief | Amaral Law" />
+        <meta property="og:description" content="Asylum application assistance and humanitarian relief representation. Protect your right to safety with experienced asylum attorneys." />
+        <meta property="og:type" content="website" />
       </Helmet>
 
       {/* Hero Section */}

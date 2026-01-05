@@ -36,6 +36,10 @@ export default function FederalLitigation() {
       ]}
       ctaKey="service.federal.cta"
       ctaLink="/consultation"
+      seoTitle="Federal Litigation"
+      seoDescription="Federal court litigation for immigration cases. Challenge USCIS denials, delays, and unlawful detention in federal court."
+      seoKeywords="federal litigation, immigration lawsuit, USCIS lawsuit, mandamus"
+      canonicalUrl="/services/federal-litigation"
     />
   );
 }

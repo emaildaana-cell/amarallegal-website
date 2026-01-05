@@ -45,6 +45,10 @@ export default function RemovalDefense() {
       ]}
       ctaKey="service.removal.cta"
       ctaLink="/consultation"
+      seoTitle="Removal Defense"
+      seoDescription="Expert removal defense representation in immigration court. Fight deportation with experienced attorneys who understand immigration law."
+      seoKeywords="removal defense, deportation defense, immigration court, stop deportation"
+      canonicalUrl="/services/removal-defense"
     />
   );
 }

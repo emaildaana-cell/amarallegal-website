@@ -493,7 +493,12 @@ export default function FamilyEmergencyPlan() {
   if (!authLoading && !isAuthenticated) {
     return (
       <div className="min-h-screen bg-muted/30 py-12">
-        <SEO titleKey="Family Emergency Plan" descriptionKey="Create and manage your family emergency plan" />
+        <SEO 
+        title="Family Emergency Plan"
+        description="Create a family emergency plan for potential ICE encounters. Protect your family with prepared contacts, documents, and action steps."
+        keywords="ICE emergency plan, family protection, immigration emergency, ICE raid preparation"
+        canonicalUrl="/family-emergency-plan"
+      />
         <div className="container max-w-4xl">
           <Card className="text-center py-12">
             <CardContent>
@@ -525,7 +530,12 @@ export default function FamilyEmergencyPlan() {
   
   return (
     <div className="min-h-screen bg-muted/30 py-8">
-      <SEO titleKey="Family Emergency Plan" descriptionKey="Create and manage your family emergency plan" />
+      <SEO 
+        title="Family Emergency Plan"
+        description="Create a family emergency plan for potential ICE encounters. Protect your family with prepared contacts, documents, and action steps."
+        keywords="ICE emergency plan, family protection, immigration emergency, ICE raid preparation"
+        canonicalUrl="/family-emergency-plan"
+      />
       
       <div className="container max-w-6xl">
         {/* Header */}

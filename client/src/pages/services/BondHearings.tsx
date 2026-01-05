@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLanguage } from "@/contexts/LanguageContext";
+import SEO from "@/components/SEO";
 import { 
   Phone, 
   ArrowRight, 
@@ -49,6 +50,12 @@ export default function BondHearings() {
 
   return (
     <div className="min-h-screen">
+      <SEO 
+        title="Immigration Bond Hearings"
+        description="Aggressive representation in immigration bond hearings. Fight for release from ICE detention with experienced bond attorneys."
+        keywords="immigration bond, bond hearing, ICE bond, detention release"
+        canonicalUrl="/services/bond-hearings"
+      />
       {/* Hero Section */}
       <section className="relative py-24 md:py-32 overflow-hidden">
         <div 

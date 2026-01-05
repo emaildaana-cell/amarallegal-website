@@ -31,8 +31,10 @@ export default function Attorneys() {
   return (
     <div className="min-h-screen bg-background">
       <SEO 
-        titleKey="seo.attorneys.title"
-        descriptionKey="seo.attorneys.desc"
+        title="Our Attorneys"
+        description="Meet our experienced immigration attorneys specializing in removal defense, asylum cases, and immigration bonds. Dedicated legal team serving clients nationwide."
+        keywords="immigration attorneys, removal defense lawyers, asylum attorneys, immigration bond lawyers"
+        canonicalUrl="/attorneys"
       />
       {/* Hero Section */}
       <section className="relative py-20 bg-primary text-primary-foreground">

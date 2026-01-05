@@ -5,6 +5,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useLanguage } from "@/contexts/LanguageContext";
+import SEO from "@/components/SEO";
 
 interface FAQItem {
   id: string;
@@ -232,6 +233,12 @@ export default function FAQ() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      <SEO 
+        title="Frequently Asked Questions"
+        description="Find answers to common immigration questions about bonds, asylum, deportation defense, and more. Expert guidance from Amaral Law attorneys."
+        keywords="immigration FAQ, immigration questions, bond FAQ, asylum questions"
+        canonicalUrl="/faq"
+      />
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary via-primary/95 to-primary/90 text-white py-20 overflow-hidden">
         <div className="absolute inset-0 bg-[url('/images/pattern.svg')] opacity-5" />

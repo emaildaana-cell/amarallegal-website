@@ -11,8 +11,10 @@ export default function Detention() {
   return (
     <div className="min-h-screen bg-background">
       <SEO 
-        titleKey="seo.detention.title"
-        descriptionKey="seo.detention.desc"
+        title="ICE Detention Information"
+        description="Learn about ICE detention, your rights when detained, and how to get legal help. Immediate assistance available 24/7 for detained individuals and families."
+        keywords="ICE detention, immigration detention, detained by ICE, detention rights"
+        canonicalUrl="/detention"
       />
       {/* Hero Section */}
       <section className="bg-destructive text-destructive-foreground py-16 md:py-24">

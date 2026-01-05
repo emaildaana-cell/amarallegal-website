@@ -17,9 +17,10 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <SEO 
-        titleKey="seo.home.title"
-        descriptionKey="seo.home.desc"
-        keywordsKey="seo.home.keywords"
+        title="Immigration Attorneys & Removal Defense"
+        description="Amaral Law provides expert immigration defense and bond hearing representation. Available 24/7 for ICE detention emergencies. Call 1-844-423-3733 for immediate legal help."
+        keywords="immigration lawyer, removal defense, ICE detention, immigration bond, deportation defense, Fort Lauderdale immigration attorney"
+        canonicalUrl="/"
       />        {/* Hero Section */}
       <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">

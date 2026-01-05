@@ -16,6 +16,7 @@ import {
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import SEO from "@/components/SEO";
 
 interface ProcessStep {
   number: number;
@@ -204,6 +205,12 @@ export default function DetentionProcess() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      <SEO 
+        title="ICE Detention Process"
+        description="Understand the ICE detention process step-by-step. Learn what happens after arrest, bond hearings, and how to secure release from immigration detention."
+        keywords="ICE detention process, immigration arrest, bond hearing process, detention timeline"
+        canonicalUrl="/detention-process"
+      />
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary via-primary/95 to-primary/90 text-white py-20 overflow-hidden">
         <div className="absolute inset-0 bg-[url('/images/pattern.svg')] opacity-5" />

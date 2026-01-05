@@ -290,7 +290,11 @@ export default function AdminSponsorDocuments() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO titleKey="seo.admin.title" descriptionKey="seo.admin.desc" />
+      <SEO 
+        title="Sponsor Documents Admin"
+        description="Manage sponsor document submissions."
+        noIndex={true}
+      />
       
       {/* Header */}
       <div className="border-b bg-card">

@@ -13,6 +13,7 @@ import {
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import SEO from "@/components/SEO";
 
 interface DownloadItem {
   title: string;
@@ -97,6 +98,12 @@ export default function Downloads() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      <SEO 
+        title="Downloadable Guides"
+        description="Download free immigration guides, checklists, and resources. Prepare for bond hearings, understand your rights, and gather required documents."
+        keywords="immigration downloads, legal guides, bond checklist, immigration forms"
+        canonicalUrl="/downloads"
+      />
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary via-primary/95 to-primary/90 text-white py-20 overflow-hidden">
         <div className="absolute inset-0 bg-[url('/images/pattern.svg')] opacity-5" />
