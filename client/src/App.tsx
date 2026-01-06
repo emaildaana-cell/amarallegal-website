@@ -37,6 +37,7 @@ import SponsorDocumentUpload from "@/pages/SponsorDocumentUpload";
 import AdminSponsorDocuments from "@/pages/AdminSponsorDocuments";
 import SharedDocumentsViewer from "@/pages/SharedDocumentsViewer";
 import DetentionGuide from "@/pages/DetentionGuide";
+import IceDetentionProcess from "@/pages/IceDetentionProcess";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const queryClient = new QueryClient();
@@ -64,6 +65,7 @@ function Router() {
           <Route path="/faq" component={FAQ} />
           <Route path="/detention-process" component={DetentionProcess} />
           <Route path="/detention-guide" component={DetentionGuide} />
+          <Route path="/ice-detention-process" component={IceDetentionProcess} />
           <Route path="/resources" component={Resources} />
           <Route path="/sponsor-guide" component={SponsorGuide} />
           <Route path="/downloads" component={Downloads} />

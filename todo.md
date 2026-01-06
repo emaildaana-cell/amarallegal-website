@@ -292,3 +292,17 @@
 
 ## SEO Fixes
 - [x] Fix homepage meta description length (171 chars → 113 chars)
+
+## Detailed ICE Detention Process Page
+- [x] Create comprehensive page at /ice-detention-process
+- [x] Phase 1: The Arrest (how arrests occur, rights during arrest)
+- [x] Phase 2: Initial Processing (booking, A-Number assignment)
+- [x] Phase 3: Custody Determination (release options, factors considered, mandatory detention)
+- [x] Phase 4: Notice to Appear (NTA contents, common charges, service)
+- [x] Phase 5: Transfer to Detention Facility (facility types, what happens)
+- [x] Phase 6: First Court Appearance (master calendar hearing, outcomes)
+- [x] Phase 7: Bond Hearing (Matter of Guerra factors, outcomes)
+- [x] Timeline summary table
+- [x] Family action steps section (6 immediate actions)
+- [x] Add translations (EN, ES, PT)
+- [x] Add navigation link in Resources dropdown
