@@ -306,3 +306,12 @@
 - [x] Family action steps section (6 immediate actions)
 - [x] Add translations (EN, ES, PT)
 - [x] Add navigation link in Resources dropdown
+## Know Your Rights Card
+- [x] Create printable Know Your Rights card page at /know-your-rights
+- [x] Include key rights during ICE encounters (remain silent, refuse entry, attorney, not sign)
+- [x] Design wallet-sized card format (front and back)
+- [x] Add print functionality with proper print CSS
+- [x] Generate downloadable PDF version (EN, ES, PT cards)
+- [x] Add translations (EN, ES, PT)
+- [x] Add navigation link in Resources dropdown
+- [x] Add additional info sections (judicial vs admin warrant, if arrested steps, for families)

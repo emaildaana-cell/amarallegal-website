@@ -44,6 +44,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   const resourceItems = [
     { label: "FAQ", href: "/faq" },
+    { label: "Know Your Rights Card", href: "/know-your-rights" },
     { label: "ICE Detention Process", href: "/detention-process" },
     { label: "Complete Detention Guide", href: "/ice-detention-process" },
     { label: "ICE Detention Centers", href: "/detention-guide" },
