@@ -336,3 +336,11 @@
 - [x] Add link to downloadable resources in Quick Access Tools
 - [x] Add link to family emergency template in Quick Access Tools
 - [x] Add link to Know Your Rights card in Quick Access Tools
+
+## Downloads Page Search Function
+- [x] Add search input field to filter documents by name and description
+- [x] Add category filter dropdown with all categories
+- [x] Show "no results" message when search has no matches
+- [x] Add clear filters button
+- [x] Sticky search bar for easy access while scrolling
+- [x] Full translations (EN, ES, PT) for all UI elements
