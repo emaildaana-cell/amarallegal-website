@@ -331,3 +331,8 @@
 - [x] Add policy updates section
 - [x] Add quick links to key pages
 - [x] Full translations (EN, ES, PT)
+
+## Knowledge Center Quick Access Links
+- [x] Add link to downloadable resources in Quick Access Tools
+- [x] Add link to family emergency template in Quick Access Tools
+- [x] Add link to Know Your Rights card in Quick Access Tools

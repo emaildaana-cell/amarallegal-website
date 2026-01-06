@@ -713,7 +713,7 @@ export default function KnowledgeCenter() {
         </Tabs>
 
         {/* Quick Links Section */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <Link href="/consultation">
             <Card className="law-card p-6 hover:border-primary/50 transition-colors cursor-pointer group">
               <div className="flex items-center gap-4">
@@ -762,6 +762,60 @@ export default function KnowledgeCenter() {
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     {language === 'es' ? 'Comience su caso' : language === 'pt' ? 'Comece seu caso' : 'Start your case'}
+                  </p>
+                </div>
+              </div>
+            </Card>
+          </Link>
+
+          <Link href="/downloads">
+            <Card className="law-card p-6 hover:border-primary/50 transition-colors cursor-pointer group">
+              <div className="flex items-center gap-4">
+                <div className="bg-primary p-3 rounded-sm">
+                  <Download className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <div>
+                  <h3 className="font-serif font-bold group-hover:text-primary transition-colors">
+                    {language === 'es' ? 'Recursos Descargables' : language === 'pt' ? 'Recursos para Download' : 'Downloadable Resources'}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {language === 'es' ? 'PDFs y formularios' : language === 'pt' ? 'PDFs e formulários' : 'PDFs & forms'}
+                  </p>
+                </div>
+              </div>
+            </Card>
+          </Link>
+
+          <Link href="/family-emergency-plan">
+            <Card className="law-card p-6 hover:border-primary/50 transition-colors cursor-pointer group">
+              <div className="flex items-center gap-4">
+                <div className="bg-secondary p-3 rounded-sm">
+                  <Users className="h-6 w-6 text-secondary-foreground" />
+                </div>
+                <div>
+                  <h3 className="font-serif font-bold group-hover:text-primary transition-colors">
+                    {language === 'es' ? 'Plan de Emergencia Familiar' : language === 'pt' ? 'Plano de Emergência Familiar' : 'Family Emergency Plan'}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {language === 'es' ? 'Proteja a su familia' : language === 'pt' ? 'Proteja sua família' : 'Protect your family'}
+                  </p>
+                </div>
+              </div>
+            </Card>
+          </Link>
+
+          <Link href="/know-your-rights">
+            <Card className="law-card p-6 hover:border-primary/50 transition-colors cursor-pointer group">
+              <div className="flex items-center gap-4">
+                <div className="bg-primary p-3 rounded-sm">
+                  <Shield className="h-6 w-6 text-primary-foreground" />
+                </div>
+                <div>
+                  <h3 className="font-serif font-bold group-hover:text-primary transition-colors">
+                    {language === 'es' ? 'Conozca Sus Derechos' : language === 'pt' ? 'Conheça Seus Direitos' : 'Know Your Rights'}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {language === 'es' ? 'Tarjeta imprimible' : language === 'pt' ? 'Cartão imprimível' : 'Printable card'}
                   </p>
                 </div>
               </div>
