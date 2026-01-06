@@ -315,3 +315,10 @@
 - [x] Add translations (EN, ES, PT)
 - [x] Add navigation link in Resources dropdown
 - [x] Add additional info sections (judicial vs admin warrant, if arrested steps, for families)
+
+## Safari Compatibility Fix
+- [x] Identify Safari-specific CSS/JS issues (OKLCH colors not supported in older Safari)
+- [x] Replace OKLCH colors with hex color values for full Safari compatibility
+- [x] Add Safari-specific meta tags (apple-mobile-web-app-capable, format-detection)
+- [x] Enable Google Fonts properly (were commented out)
+- [x] Test and verify fix (131 tests passing)
