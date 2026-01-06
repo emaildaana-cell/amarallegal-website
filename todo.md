@@ -322,3 +322,12 @@
 - [x] Add Safari-specific meta tags (apple-mobile-web-app-capable, format-detection)
 - [x] Enable Google Fonts properly (were commented out)
 - [x] Test and verify fix (131 tests passing)
+
+## Knowledge Center Page Fix
+- [x] Review current Knowledge Center page content (had generic Corporate Law, Estate Planning content)
+- [x] Replace with proper immigration-focused content (9 immigration guides)
+- [x] Add relevant immigration topics and resources (bond hearings, asylum, removal defense, etc.)
+- [x] Add downloadable resources section with PDF cards and online tools
+- [x] Add policy updates section
+- [x] Add quick links to key pages
+- [x] Full translations (EN, ES, PT)
